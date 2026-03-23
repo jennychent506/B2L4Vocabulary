@@ -237,7 +237,7 @@
     </div>
 
     <script>
-        // --- 請將 GAS 部署網址貼在下方這行 (第 262 行) ---
+        // --- 請將 GAS 部署網址貼在下方這行 (第 261 行) ---
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzyFva945ZNpjqANvNmvfNbjYeUSZrPnf0b5NfkL93zKnlXrE2jSNqN-fpwkZfzQEue/exec"; 
 
         const VOCAB_DATA = [
@@ -392,33 +392,69 @@
             rec.onspeechend = () => { rec.stop(); micBtn.classList.remove('pulse-mic', 'bg-red-400'); };
         }
 
-        function checkCoachAnswer(isSpeech = false) {
+        /**
+         * 核心評分邏輯
+         * @param {any} inputArg - 若為語音辨識會傳入 true，若為點擊按鈕會傳入 Event 物件
+         */
+        function checkCoachAnswer(inputArg) {
             const q = activeActivity.questions[activeActivity.currentIdx];
             const btn = document.getElementById('btn-check-answer');
             const target = (activeActivity.type === 'FILL IN' ? q.targetWord : q.word).toLowerCase().trim();
             
-            let userInput = isSpeech ? activeActivity.lastSpeechResult : (document.getElementById('coach-input')?.value.trim().toLowerCase() || "");
+            // 關鍵修復：判斷 inputArg 是否為布林值 true (代表語音)
+            const isSpeech = (inputArg === true);
+            
+            let userInput = "";
+            if (isSpeech) {
+                userInput = activeActivity.lastSpeechResult.toLowerCase().trim();
+            } else {
+                // 從輸入框取得並強制轉小寫且去空白
+                userInput = (document.getElementById('coach-input')?.value || "").toLowerCase().trim();
+            }
 
             if(userInput === target) { 
-                btn.classList.add('bg-green-500'); btn.textContent = "CORRECT!"; 
-                currentUser.xp += 10; activeActivity.score += 10; updateXP(); 
+                btn.classList.add('bg-green-500'); 
+                btn.textContent = "CORRECT!"; 
+                currentUser.xp += 10; 
+                activeActivity.score += 10; 
+                updateXP(); 
             } else { 
-                btn.classList.add('bg-red-500'); btn.textContent = "WRONG! Answer: " + (activeActivity.type === 'FILL IN' ? q.targetWord : q.word); 
+                btn.classList.add('bg-red-500'); 
+                btn.textContent = "WRONG! Answer: " + (activeActivity.type === 'FILL IN' ? q.targetWord : q.word); 
             }
             
+            // 綁定「下一題」的邏輯
             btn.onclick = () => {
                 activeActivity.currentIdx++;
                 if(activeActivity.currentIdx < 15) renderCoachQuestion();
-                else { submitResult(); alert(`挑戰完成！您的得分是：${activeActivity.score}`); exitActivity(); }
+                else { 
+                    submitResult(); 
+                    alert(`挑戰完成！您的得分是：${activeActivity.score}`); 
+                    exitActivity(); 
+                }
             };
         }
 
         function submitResult() {
             if(!SCRIPT_URL) return;
-            fetch(SCRIPT_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ class: currentUser.class, no: currentUser.no, name: currentUser.name, type: activeActivity.type, score: activeActivity.score }) });
+            fetch(SCRIPT_URL, { 
+                method: "POST", 
+                mode: "no-cors", 
+                headers: { "Content-Type": "application/json" }, 
+                body: JSON.stringify({ 
+                    class: currentUser.class, 
+                    no: currentUser.no, 
+                    name: currentUser.name, 
+                    type: activeActivity.type, 
+                    score: activeActivity.score 
+                }) 
+            });
         }
 
-        function exitActivity() { document.getElementById('overlay-activity').classList.add('hidden-screen'); document.getElementById('screen-dashboard').classList.remove('hidden-screen'); }
+        function exitActivity() { 
+            document.getElementById('overlay-activity').classList.add('hidden-screen'); 
+            document.getElementById('screen-dashboard').classList.remove('hidden-screen'); 
+        }
     </script>
 </body>
 </html>
