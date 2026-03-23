@@ -265,7 +265,7 @@
 
         let currentUser = { class: "", no: "", name: "", xp: 0 };
         let currentLearnIdx = 0;
-        let activeActivity = { type: "", questions: [], currentIdx: 0, score: 0, lastSpeechResult: "" };
+        let activeActivity = { type: "", questions: [], currentIdx: 0, score: 0, lastSpeechResult: "", isChecked: false };
 
         function handleLogin() {
             const clz = document.getElementById('login-class').value;
@@ -350,7 +350,7 @@
         function updateXP() { document.getElementById('user-xp').textContent = `${currentUser.xp} XP`; }
 
         function startCoach(type) {
-            activeActivity = { type, questions: [...VOCAB_DATA].sort(()=>Math.random()-0.5).slice(0, 15), currentIdx: 0, score: 0, lastSpeechResult: "" };
+            activeActivity = { type, questions: [...VOCAB_DATA].sort(()=>Math.random()-0.5).slice(0, 15), currentIdx: 0, score: 0, lastSpeechResult: "", isChecked: false };
             document.getElementById('screen-dashboard').classList.add('hidden-screen');
             document.getElementById('overlay-activity').classList.remove('hidden-screen');
             renderCoachQuestion();
@@ -360,9 +360,12 @@
             const q = activeActivity.questions[activeActivity.currentIdx];
             const body = document.getElementById('activity-body');
             const checkBtn = document.getElementById('btn-check-answer');
+            activeActivity.isChecked = false;
+            activeActivity.lastSpeechResult = "";
+            
             document.getElementById('activity-progress').textContent = `${activeActivity.currentIdx + 1} / 15`;
             body.innerHTML = "";
-            checkBtn.onclick = (e) => checkCoachAnswer(false); // 修正：強制傳入 false 代表非語音
+            checkBtn.onclick = handleCheckClick;
             checkBtn.classList.remove('bg-green-500', 'bg-red-500'); checkBtn.classList.add('bg-black');
             checkBtn.textContent = "Check Answer";
 
@@ -376,6 +379,28 @@
                 const displayHint = `<span class="cloze-blank">${target[0]}${"_".repeat(target.length-2)}${target[target.length-1]}</span>`;
                 body.innerHTML = `<div class="bg-white neo-brutal p-6 w-full max-w-sm" style="border-radius:25px;"><span class="bg-purple-100 text-purple-600 text-[10px] font-black px-2 py-1 rounded mb-4 inline-block">CLOZE TEST</span><div class="text-lg font-bold leading-relaxed mb-6">${q.example.replace(new RegExp(target, 'gi'), displayHint)}</div><p id="coach-hint" class="hidden text-gray-400 italic text-sm mb-4">${q.translation}</p><button onclick="document.getElementById('coach-hint').classList.toggle('hidden')" class="text-blue-500 text-xs font-bold mb-6">Show Translation</button><input id="coach-input" type="text" class="w-full neo-brutal p-4 font-bold text-center text-xl" placeholder="Type the word..." autocomplete="off" style="border-radius:15px; border-color: #E2E8F0;"></div>`;
             }
+
+            // 監聽 Enter 鍵
+            const input = document.getElementById('coach-input');
+            if(input) {
+                input.focus();
+                input.onkeyup = (e) => { if(e.key === "Enter") handleCheckClick(); };
+            }
+        }
+
+        function normalize(str) {
+            return (str || "").toLowerCase().replace(/[^a-z0-9]/gi, '').trim();
+        }
+
+        function handleCheckClick() {
+            if (activeActivity.isChecked) {
+                // 如果已經檢查過了，點擊就是「下一題」
+                activeActivity.currentIdx++;
+                if (activeActivity.currentIdx < 15) renderCoachQuestion();
+                else { submitResult(); alert(`挑戰完成！您的得分是：${activeActivity.score}`); exitActivity(); }
+                return;
+            }
+            checkCoachAnswer(false); // 一般模式檢查
         }
 
         function startMic() {
@@ -385,25 +410,21 @@
             const micBtn = document.getElementById('mic-btn');
             rec.start(); micBtn.classList.add('pulse-mic', 'bg-red-400');
             rec.onresult = (e) => {
-                const res = e.results[0][0].transcript.toLowerCase().replace(/[^a-z0-9]/gi, '').trim();
+                const res = e.results[0][0].transcript;
                 document.getElementById('speech-text').innerText = `You said: "${res}"`;
-                activeActivity.lastSpeechResult = res; checkCoachAnswer(true);
+                activeActivity.lastSpeechResult = res; 
+                checkCoachAnswer(true); // 語音模式檢查
             };
             rec.onspeechend = () => { rec.stop(); micBtn.classList.remove('pulse-mic', 'bg-red-400'); };
         }
 
-        // 核心修正：標準化字符串
-        function normalize(str) {
-            return (str || "").toLowerCase().replace(/[^a-z0-9]/gi, '').trim();
-        }
-
-        function checkCoachAnswer(isSpeechMode) {
+        function checkCoachAnswer(isFromSpeech) {
             const q = activeActivity.questions[activeActivity.currentIdx];
             const btn = document.getElementById('btn-check-answer');
             const target = normalize(activeActivity.type === 'FILL IN' ? q.targetWord : q.word);
             
             let userInput = "";
-            if (isSpeechMode === true) {
+            if (isFromSpeech === true) {
                 userInput = normalize(activeActivity.lastSpeechResult);
             } else {
                 userInput = normalize(document.getElementById('coach-input')?.value);
@@ -421,15 +442,8 @@
                 btn.textContent = "WRONG! Answer: " + expected; 
             }
             
-            btn.onclick = () => {
-                activeActivity.currentIdx++;
-                if(activeActivity.currentIdx < 15) renderCoachQuestion();
-                else { 
-                    submitResult(); 
-                    alert(`挑戰完成！您的得分是：${activeActivity.score}`); 
-                    exitActivity(); 
-                }
-            };
+            activeActivity.isChecked = true;
+            btn.classList.remove('bg-black');
         }
 
         function submitResult() {
