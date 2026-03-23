@@ -54,11 +54,9 @@
 
         .hidden-screen { display: none !important; }
 
-        /* --- Learn Card Layout --- */
+        /* --- Learn Card Styles --- */
         .card-main { 
-            background: white; 
-            padding: 24px; 
-            width: 100%; 
+            background: white; padding: 24px; width: 100%; 
             border: 4px solid var(--pop-black); 
             box-shadow: 10px 10px 0px var(--pop-black); 
             border-radius: 40px; 
@@ -92,9 +90,9 @@
 
         .word-title {
             color: white;
-            font-size: 3.2rem;
+            font-size: 3.5rem;
             font-weight: 900;
-            letter-spacing: -1.5px;
+            letter-spacing: -2px;
             text-align: center;
         }
 
@@ -128,7 +126,7 @@
         .mini-match-box {
             background-color: #FFF1F7;
             border-radius: 25px;
-            padding: 18px;
+            padding: 20px;
             margin-top: 25px;
             border: 2px solid #FFE4F0;
         }
@@ -136,9 +134,9 @@
         .mini-match-btn {
             background: white;
             border: 2px solid #F3F4F6;
-            padding: 10px 8px;
-            border-radius: 12px;
-            font-size: 0.8rem;
+            padding: 12px 8px;
+            border-radius: 15px;
+            font-size: 0.85rem;
             text-align: center;
             font-weight: 800;
             box-shadow: 0px 3px 0px rgba(0,0,0,0.05);
@@ -161,11 +159,19 @@
             justify-content: center;
             gap: 12px;
         }
+
+        .cloze-blank {
+            color: var(--pop-purple);
+            text-decoration: underline;
+            text-underline-offset: 8px;
+            font-weight: 900;
+            letter-spacing: 2px;
+        }
     </style>
 </head>
 <body>
 
-    <!-- 1. LOGIN SCREEN -->
+    <!-- 1. LOGIN -->
     <div id="screen-login" class="min-h-screen flex flex-col items-center justify-center p-6">
         <div class="w-full max-w-sm neo-brutal login-card">
             <div class="login-top-bar"></div>
@@ -182,16 +188,16 @@
                 <div class="space-y-5">
                     <div class="flex gap-4">
                         <div class="w-1/2">
-                            <label class="block text-[#3C4858] font-black text-xs mb-1 uppercase">Class</label>
-                            <input id="login-class" type="text" class="w-full input-brutal" placeholder="104">
+                            <label class="block text-[#3C4858] font-black text-xs mb-1 uppercase tracking-wider">Class</label>
+                            <input id="login-class" type="text" class="w-full input-brutal" placeholder="101">
                         </div>
                         <div class="w-1/2">
-                            <label class="block text-[#3C4858] font-black text-xs mb-1 uppercase">No.</label>
+                            <label class="block text-[#3C4858] font-black text-xs mb-1 uppercase tracking-wider">No.</label>
                             <input id="login-no" type="text" class="w-full input-brutal" placeholder="15">
                         </div>
                     </div>
                     <div>
-                        <label class="block text-[#3C4858] font-black text-xs mb-1 uppercase">Name</label>
+                        <label class="block text-[#3C4858] font-black text-xs mb-1 uppercase tracking-wider">Name</label>
                         <input id="login-name" type="text" class="w-full input-brutal" placeholder="姓名">
                     </div>
                     <button onclick="handleLogin()" class="w-full btn-start py-5 text-xl font-black mt-4 flex items-center justify-center gap-3 uppercase">
@@ -207,7 +213,7 @@
         <header class="p-4 bg-white border-b-4 border-black z-50">
             <div class="flex justify-between items-center max-w-lg mx-auto">
                 <div class="flex flex-col">
-                    <h2 class="text-xl font-black tracking-tight"><span style="color: var(--pop-purple);">VOCAB</span><span style="color: var(--pop-pink);">POP</span></h2>
+                    <h2 class="text-xl font-black tracking-tight uppercase"><span style="color: var(--pop-purple);">VOCAB</span><span style="color: var(--pop-pink);">POP</span></h2>
                     <p id="user-info" class="text-xs text-gray-500 font-bold"></p>
                 </div>
                 <div class="bg-black text-white px-3 py-1 rounded-full text-xs font-bold flex items-center gap-2">
@@ -219,134 +225,81 @@
                 <button id="tab-coach" onclick="switchMode('coach')" class="flex-1 py-3 neo-brutal font-bold flex items-center justify-center gap-2 bg-gray-100" style="border-radius:15px; box-shadow: 3px 3px 0px black;">COACH</button>
             </div>
         </header>
-
-        <main id="content-learn" class="flex-1 p-6 max-w-lg mx-auto w-full overflow-y-auto">
-            <div id="learn-card-container"></div>
-        </main>
-
+        <main id="content-learn" class="flex-1 p-6 max-w-lg mx-auto w-full overflow-y-auto"><div id="learn-card-container"></div></main>
         <main id="content-coach" class="hidden-screen flex-1 p-4 max-w-lg mx-auto w-full space-y-4">
             <button onclick="startCoach('PRO SPEAK')" class="w-full neo-brutal bg-[#A0E9A8] p-6 flex items-center gap-6 text-left">
-                <div class="bg-white p-4 rounded-2xl border-3 border-black"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg></div>
+                <div class="bg-white p-4 rounded-2xl border-3 border-black"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg></div>
                 <div><h3 class="text-2xl font-black uppercase">Pro Speak</h3><p class="text-sm font-bold opacity-70">發音挑戰 (隨機 15 題)</p></div>
             </button>
             <button onclick="startCoach('SPELL IT')" class="w-full neo-brutal bg-[#B6C2FF] p-6 flex items-center gap-6 text-left">
-                <div class="bg-white p-4 rounded-2xl border-3 border-black"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M6 8h.01"/><path d="M10 8h.01"/><path d="M14 8h.01"/><path d="M18 8h.01"/><path d="M8 12h.01"/><path d="M12 12h.01"/><path d="M16 12h.01"/><path d="M7 16h10"/></svg></div>
+                <div class="bg-white p-4 rounded-2xl border-3 border-black"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M6 8h.01"/><path d="M10 8h.01"/><path d="M14 8h.01"/><path d="M18 8h.01"/><path d="M8 12h.01"/><path d="M12 12h.01"/><path d="M16 12h.01"/><path d="M7 16h10"/></svg></div>
                 <div><h3 class="text-2xl font-black uppercase">Spell It</h3><p class="text-sm font-bold opacity-70">聽音拼寫 (隨機 15 題)</p></div>
             </button>
             <button onclick="startCoach('FILL IN')" class="w-full neo-brutal bg-[#FFD5A1] p-6 flex items-center gap-6 text-left">
-                <div class="bg-white p-4 rounded-2xl border-3 border-black"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg></div>
+                <div class="bg-white p-4 rounded-2xl border-3 border-black"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg></div>
                 <div><h3 class="text-2xl font-black uppercase">Fill In</h3><p class="text-sm font-bold opacity-70">搭配詞克漏字 (隨機 15 題)</p></div>
             </button>
         </main>
-
-        <footer id="learn-footer" class="p-4 bg-white border-t-4 border-black">
-            <button onclick="nextLearnWord()" class="bottom-action-btn uppercase">Next Word <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4"><path d="M5 12h14m-7-7 7 7-7 7"/></svg></button>
-        </footer>
+        <footer id="learn-footer" class="p-4 bg-white border-t-4 border-black"><button onclick="nextLearnWord()" class="bottom-action-btn uppercase">Next Word →</button></footer>
     </div>
 
-    <!-- 3. ACTIVITY OVERLAY -->
+    <!-- 3. OVERLAY -->
     <div id="overlay-activity" class="hidden-screen fixed inset-0 z-[100] bg-[#FFF5EB] flex flex-col">
-        <header class="p-4 flex justify-between items-center border-b-4 border-black bg-white">
-            <button onclick="exitActivity()" class="neo-brutal px-3 py-1 bg-white font-bold text-sm uppercase">Exit</button>
-            <div id="activity-progress" class="bg-gray-100 px-3 py-1 rounded-full font-bold text-sm border-2 border-black">1 / 15</div>
-        </header>
+        <header class="p-4 flex justify-between items-center border-b-4 border-black bg-white"><button onclick="exitActivity()" class="neo-brutal px-3 py-1 bg-white font-bold text-sm uppercase">Exit</button><div id="activity-progress" class="bg-gray-100 px-3 py-1 rounded-full font-bold text-sm border-2 border-black">1 / 15</div></header>
         <div id="activity-body" class="flex-1 p-6 flex flex-col items-center justify-center overflow-y-auto text-center"></div>
-        <footer class="p-6 bg-white border-t-4 border-black">
-            <button id="btn-action" class="bottom-action-btn uppercase">Check Answer</button>
-        </footer>
+        <footer class="p-6 bg-white border-t-4 border-black"><button id="btn-action" class="bottom-action-btn uppercase">Check Answer</button></footer>
     </div>
 
     <script>
-        // --- 部署網址 (第 292 行) ---
+        // --- 請將最新部署的 GAS 網址貼在下方這行 (第 292 行) ---
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzyFva945ZNpjqANvNmvfNbjYeUSZrPnf0b5NfkL93zKnlXrE2jSNqN-fpwkZfzQEue/exec"; 
 
         const VOCAB_DATA = [
-            { word: "female", targetWord: "female", pos: "adj.", chinese: "女性的", english: "being or referring to a woman", syllables: ["fe", "male"], ipa: "/'fimel/", 
-              learnEx: "She is the first female president of the university.", learnTrans: "她是該大學的首位女校長。", 
-              pdfEx: "Amelia Earhart was the first female pilot to fly solo across the Atlantic Ocean.", pdfTrans: "艾蜜莉亞·艾爾哈特是第一位獨自飛越大西洋的女性飛行員。",
-              collocations: [["female", "pilot", "女性飛行員"], ["female", "lead", "女主角"]], etymology: "From Latin 'femella', diminutive of 'femina'." },
-            { word: "region", targetWord: "region", pos: "n.", chinese: "地區", english: "a large land area with similar features", syllables: ["re", "gion"], ipa: "/'ridʒən/", 
-              learnEx: "The floods are affecting the whole region.", learnTrans: "洪水正影響整個地區。", 
-              pdfEx: "The northern regions of the country are usually windy and snowy in winter.", pdfTrans: "這個國家的北部地區冬天通常多風且積雪。",
-              collocations: [["coastal", "region", "沿海地區"], ["remote", "region", "偏遠地區"]], etymology: "From Latin 'regere' (to rule)." },
-            { word: "regional", targetWord: "regional", pos: "adj.", chinese: "地區的", english: "relating to a particular region or area", syllables: ["re", "gion", "al"], ipa: "/'ridʒən!/", 
-              learnEx: "There are significant regional differences in dialect.", learnTrans: "方言存在顯著的地區差異。", 
-              pdfEx: "Winners of the regional contests were invited to join the national competition.", pdfTrans: "地區比賽的獲勝者被邀請參加全國競賽。",
-              collocations: [["regional", "contest", "地區比賽"], ["regional", "news", "地區新聞"]], etymology: "region + -al." },
-            { word: "forbid", targetWord: "forbidding", pos: "vt.", chinese: "禁止", english: "to order someone not to do something", syllables: ["for", "bid"], ipa: "/fo'bid/", 
-              learnEx: "The government has enacted a new law forbidding the sale of these goods.", learnTrans: "政府頒布了一項新法律，禁止銷售這些商品。", 
-              pdfEx: "By forbidding factories to dump their waste in the sea, the government was able to clean up the coast.", pdfTrans: "透過禁止工廠將廢棄物傾倒在海中，政府得以清理海岸。",
-              collocations: [["strictly", "forbidden", "嚴格禁止"], ["forbid", "entry", "禁止進入"]], etymology: "for- (away) + bid (command)." },
-            { word: "continue", targetWord: "continue", pos: "vt.", chinese: "繼續", english: "to carry on or not stop", syllables: ["con", "tin", "ue"], ipa: "/kən'tınjo/", 
-              learnEx: "The weather is expected to continue warm for the next few days.", learnTrans: "預計未來幾天天氣將繼續保持溫暖。", 
-              pdfEx: "After a short break for lunch, Wally continued his work.", pdfTrans: "午餐休息一會兒後，華利繼續他的工作。",
-              collocations: [["continue", "working", "繼續工作"], ["continue", "education", "繼續受教育"]], etymology: "con- (together) + tenere (hold)." },
-            { word: "continuous", targetWord: "continuous", pos: "adj.", chinese: "持續不斷的", english: "happening without stopping", syllables: ["con", "tin", "u", "ous"], ipa: "/kən'tınjuəs/", 
-              learnEx: "The brain needs a continuous supply of blood.", learnTrans: "大腦需要持續不斷的血液供應。", 
-              pdfEx: "The continuous rain has caused floods in many parts of the country.", pdfTrans: "持續不斷的雨水導致該國許多地區發生洪水。",
-              collocations: [["continuous", "rain", "持續降雨"], ["continuous", "improvement", "持續進步"]], etymology: "continue + -ous." },
-            { word: "education", targetWord: "education", pos: "n.", chinese: "教育", english: "process of teaching and learning in a school", syllables: ["ed", "u", "ca", "tion"], ipa: "/,edzu'kesǝn/", 
-              learnEx: "He came from a family that valued education highly.", learnTrans: "他出身於一個非常重視教育的家庭。", 
-              pdfEx: "Two new schools were built to improve the quality of education in this remote area.", pdfTrans: "為了提高這個偏遠地區的教育品質，興建了兩所新學校。",
-              collocations: [["higher", "education", "高等教育"], ["receive", "education", "接受教育"]], etymology: "e- (out) + ducere (lead)." },
-            { word: "educational", targetWord: "educational", pos: "adj.", chinese: "教育的", english: "relating to providing information or teaching", syllables: ["ed", "u", "ca", "tion", "al"], ipa: "/,edzu'kefǝn!/", 
-              learnEx: "The toys are designed to have some educational value.", learnTrans: "這些玩具被設計為具有一定的教育價值。", 
-              pdfEx: "Educational materials and textbooks can be ordered online.", pdfTrans: "教育教材與教科書可以網上訂購。",
-              collocations: [["educational", "materials", "教育教材"], ["educational", "system", "教育制度"]], etymology: "education + -al." },
-            { word: "principal", targetWord: "principal", pos: "n.", chinese: "校長", syllables: ["prin", "ci", "pal"], ipa: "/'prinsəp!/", english: "head of a school; most important", 
-              learnEx: "She is the principal of a large city high school.", learnTrans: "她是市中心一所大型高中的校長。", 
-              pdfEx: "Mrs. Lee has been the school's principal for ten years.", pdfTrans: "李太太擔任這所學校的校長已經十年了。",
-              collocations: [["school", "principal", "學校校長"]], etymology: "From Latin 'primus' (first)." },
-            { word: "equal", targetWord: "equal", pos: "adj.", chinese: "相等的", english: "having the same rights or opportunities", syllables: ["e", "qual"], ipa: "/'ikwǝl/", 
-              learnEx: "We are committed to the principle of equal opportunities.", learnTrans: "我們致力於機會平等的原則。", 
-              pdfEx: "Everyone should enjoy equal rights and be treated the same.", pdfTrans: "每個人都應該享有平等的權利並受到同樣的對待。",
-              collocations: [["equal", "rights", "平等權利"], ["equal", "to", "等於"]], etymology: "From Latin 'aequalis'." },
-            { word: "equality", targetWord: "equality", pos: "n.", chinese: "平等", english: "the state of being equal", syllables: ["e", "qual", "i", "ty"], ipa: "/i'kwalǝtı/", 
-              learnEx: "The group is campaigning for racial equality.", learnTrans: "該團體正在爭取種族平等。", 
-              pdfEx: "Mary has been dedicating herself to the fight for job equality for a decade.", pdfTrans: "瑪麗十年來一直致力於爭取工作平等。",
-              collocations: [["gender", "equality", "性別平等"]], etymology: "equal + -ity." },
-            { word: "control", targetWord: "controlled", pos: "vt.", chinese: "控制", english: "to limit or rule something", syllables: ["con", "trol"], ipa: "/kən'trol/", 
-              learnEx: "It is difficult to control the spread of the virus.", learnTrans: "很難控制病毒的傳播。", 
-              pdfEx: "It is important to control your weight. Being too thin or too fat is bad for your health.", pdfTrans: "控制體重很重要。太瘦或太胖對健康都不好。",
-              collocations: [["under", "control", "在控制中"], ["out of", "control", "失控"]], etymology: "From French 'contra' + 'rotulus'." },
-            { word: "annoy", targetWord: "annoy", pos: "vt.", chinese: "惱怒；使人生氣", english: "to cause someone to become angry", syllables: ["an", "noy"], ipa: "/ənər/", 
-              learnEx: "It really annoys me when people leave the tap running.", learnTrans: "當人們沒關水龍頭時，真的讓我有夠惱火。", 
-              pdfEx: "It really annoys Mrs. Donald when her children don't wash their hands before dinner.", pdfTrans: "當唐納夫人的孩子們不洗手時，這真的讓她很惱火。",
-              collocations: [["deeply", "annoyed", "深感惱怒"], ["sounds", "annoying", "聽起來很煩人"]], etymology: "From Latin 'in odio'." },
-            { word: "threaten", targetWord: "threatened", pos: "vt.", chinese: "威脅；恐嚇", syllables: ["threat", "en"], ipa: "/θετη/", english: "warn someone of harm if they don't comply", 
-              learnEx: "The hijackers threatened to kill the hostages.", learnTrans: "劫機者威脅要殺死人質。", 
-              pdfEx: "The robber threatened the bank staff with a gun and made them hand over the money.", pdfTrans: "搶匪用槍威脅銀行職員，逼他們交出錢來。",
-              collocations: [["threaten", "with", "以...威脅"]], etymology: "threat + -en (to make)." },
-            { word: "threat", targetWord: "threat", pos: "n.", chinese: "威脅", english: "a statement or sign of harm", syllables: ["threat"], ipa: "/θετ/", 
-              learnEx: "Pollution is a major threat to marine life.", learnTrans: "污染是對海洋生物的主要威脅。", 
-              pdfEx: "The boy is always making threats against the younger students in his school.", pdfTrans: "這個男孩總是威脅學校裡年紀較小的學生。",
-              collocations: [["pose a", "threat", "造成威脅"], ["serious", "threat", "嚴重威脅"]], etymology: "Old English 'threat'." },
-            { word: "surgery", targetWord: "surgery", pos: "n.", chinese: "外科手術", syllables: ["sur", "ger", "y"], ipa: "/'s3-dzərı/", english: "medical treatment involving cutting the body", 
-              learnEx: "The doctor has advised me to have surgery on my knee.", learnTrans: "醫生建議我進行膝蓋手術。", 
-              pdfEx: "When Joel had a heart operation, it was a very young doctor who performed the surgery.", pdfTrans: "當喬爾進行心臟手術時，是由一位非常年輕的醫生執刀的。",
-              collocations: [["perform", "surgery", "進行手術"], ["major", "surgery", "大手術"]], etymology: "Greek 'cheir' (hand) + 'ergon'." },
-            { word: "recover", targetWord: "recovered", pos: "vi.", chinese: "康復", syllables: ["re", "cov", "er"], ipa: "/ri'kavǝ-/", english: "to heal or get better after sickness", 
-              learnEx: "He is still recovering from his operation.", learnTrans: "他仍在手術後的恢復期。", 
-              pdfEx: "Stacy recovered from the flu and went back to work last week.", pdfTrans: "史黛西上週感冒康復並回去工作了。",
-              collocations: [["recover", "from", "從...康復"]], etymology: "re- (again) + capere." },
-            { word: "recovery", targetWord: "recovery", pos: "n.", chinese: "恢復", syllables: ["re", "cov", "er", "y"], ipa: "/ri'kavǝrı/", english: "the process of healing", 
-              learnEx: "The economy is showing signs of recovery.", learnTrans: "經濟正顯示出復甦的跡象。", 
-              pdfEx: "Thanks to the vet's continuous attention, the panda made a full recovery from its injuries.", pdfTrans: "由於獸醫持續的照料，這隻熊貓從傷病中完全康復了。",
-              collocations: [["full", "recovery", "完全康復"]], etymology: "recover + -y." },
-            { word: "sign", targetWord: "signed", pos: "vt.", chinese: "簽名；簽署", syllables: ["sign"], ipa: "/sain/", english: "write one's name to show agreement", 
-              learnEx: "You forgot to sign the check.", learnTrans: "你忘了在支票上簽名。", 
-              pdfEx: "David signed his name at the bottom of the letter.", pdfTrans: "大衛在信的末尾簽了名。",
-              collocations: [["sign", "a contract", "簽署合約"], ["sign", "a letter", "簽信"]], etymology: "From Latin 'signum'." },
-            { word: "persuade", targetWord: "persuade", pos: "vt.", chinese: "說服", syllables: ["per", "suade"], ipa: "/po'swed/", english: "use arguments to make someone do something", 
-              learnEx: "I am trying to persuade my parents to let me go.", learnTrans: "我正試圖說服我的父母讓我去。", 
-              pdfEx: "Mr. Kennedy was worried about his daughter's health and tried to persuade her to do more exercise.", pdfTrans: "甘迺迪先生擔心他女兒的健康，試圖說服她多做運動。",
-              collocations: [["persuade", "someone to", "說服某人做..."], ["try to", "persuade", "試圖說服"]], etymology: "per- (thoroughly) + suadere." }
+            // Words with PDF examples
+            { word: "female", targetWord: "female", pos: "adj./n.", chinese: "女性的；女性", english: "being or referring to a woman", syllables: ["fe", "male"], ipa: "/'fimel/", learnEx: "She is the first female president of the university.", learnTrans: "她是該大學的首位女校長。", pdfEx: "Amelia Earhart was the first female pilot to fly solo across the Atlantic Ocean.", pdfTrans: "艾蜜莉亞·艾爾哈特是第一位獨自飛越大西洋的女性飛行員。", collocations: [["female", "pilot", "女性飛行員"], ["female", "lead", "女主角"]], etymology: "From Latin 'femella' (woman)." },
+            { word: "region", targetWord: "regions", pos: "n.", chinese: "地區", english: "a large land area", syllables: ["re", "gion"], ipa: "/'ridʒən/", learnEx: "The floods are affecting the whole region.", learnTrans: "洪水正影響整個地區。", pdfEx: "The northern regions of the country are usually windy and snowy in winter.", pdfTrans: "這個國家的北部地區冬天通常多風且積雪。", collocations: [["coastal", "region", "沿海地區"], ["remote", "region", "偏遠地區"]], etymology: "From Latin 'regere' (to rule)." },
+            { word: "regional", targetWord: "regional", pos: "adj.", chinese: "地區的", english: "relating to a particular region", syllables: ["re", "gion", "al"], ipa: "/'ridʒən!/", learnEx: "Significant regional differences exist.", learnTrans: "存在顯著的地區差異。", pdfEx: "Winners of the regional contests were invited to join the national competition.", pdfTrans: "地區比賽的獲勝者被邀請參加全國競賽。", collocations: [["regional", "contest", "地區比賽"]], etymology: "region + -al." },
+            { word: "forbid", targetWord: "forbidding", pos: "vt.", chinese: "禁止", english: "to order not to do something", syllables: ["for", "bid"], ipa: "/fo'bid/", learnEx: "New laws forbidding the sale of these goods.", learnTrans: "法律禁止銷售這些商品。", pdfEx: "By forbidding factories to dump their waste in the sea, the government was able to clean up the coast.", pdfTrans: "透過禁止工廠將廢棄物傾倒在海中，政府得以清理海岸。", collocations: [["strictly", "forbidden", "嚴格禁止"]], etymology: "for- (away) + bid (command)." },
+            { word: "continue", targetWord: "continued", pos: "vt.", chinese: "繼續", english: "to carry on or not stop", syllables: ["con", "tin", "ue"], ipa: "/kən'tɪnju/", learnEx: "Weather will continue warm.", learnTrans: "天氣將繼續保持溫暖。", pdfEx: "After a short break for lunch, Wally continued his work.", pdfTrans: "午餐休息一會兒後，華利繼續他的工作。", collocations: [["continue", "working", "繼續工作"]], etymology: "con- (together) + tenere (hold)." },
+            { word: "continuous", targetWord: "continuous", pos: "adj.", chinese: "持續不斷的", english: "happening without stopping", syllables: ["con", "tin", "u", "ous"], ipa: "/kən'tınjuəs/", learnEx: "Brain needs continuous supply of blood.", learnTrans: "大腦需要持續的血液供應。", pdfEx: "The continuous rain has caused floods in many parts of the country.", pdfTrans: "持續不斷的雨水導致該國許多地區發生洪水。", collocations: [["continuous", "rain", "持續降雨"]], etymology: "continue + -ous." },
+            { word: "education", targetWord: "education", pos: "n.", chinese: "教育", english: "process of teaching and learning", syllables: ["ed", "u", "ca", "tion"], ipa: "/,edzu'kesǝn/", learnEx: "He valued education highly.", learnTrans: "他非常重視教育。", pdfEx: "Two new schools were built to improve the quality of education in this remote area.", pdfTrans: "為了提高這個偏遠地區的教育品質，興建了兩所新學校。", collocations: [["higher", "education", "高等教育"]], etymology: "e- (out) + ducere (lead)." },
+            { word: "educational", targetWord: "educational", pos: "adj.", chinese: "教育的", english: "relating to providing information", syllables: ["ed", "u", "ca", "tion", "al"], ipa: "/,edzu'kefǝn!/", learnEx: "Designed to have educational value.", learnTrans: "被設計為具有教育價值。", pdfEx: "According to the advertisement, language learning textbooks and other educational materials can be ordered online.", pdfTrans: "語言學習教科書和其他教育教材可以網上訂購。", collocations: [["educational", "materials", "教育教材"]], etymology: "education + -al." },
+            { word: "principal", targetWord: "principal", pos: "n.", chinese: "校長", syllables: ["prin", "ci", "pal"], ipa: "/'prinsəp!/", english: "head of a school", learnEx: "Principal of a large city high school.", learnTrans: "市中心一所大型高中的校長。", pdfEx: "Mrs. Lee has been the school's principal for ten years.", pdfTrans: "李太太擔任這所學校的校長已經十年了。", collocations: [["school", "principal", "學校校長"]], etymology: "From Latin 'primus' (first)." },
+            { word: "principal", targetWord: "principal", pos: "adj.", chinese: "主要的", syllables: ["prin", "ci", "pal"], ipa: "/'prinsəp!/", english: "most important; main", learnEx: "The principal reason for the meeting was to discuss the budget.", learnTrans: "會議的主要目的是討論預算。", pdfEx: "The principal reason why smoking is forbidden on the airplane is that it might cause a fire.", pdfTrans: "飛機上禁止吸菸的主要原因是它可能會引起火災。", collocations: [["principal", "reason", "主要原因"]], etymology: "From Latin 'primus' (first)." },
+            { word: "equal", targetWord: "equal", pos: "adj.", chinese: "相等的", english: "having the same rights", syllables: ["e", "qual"], ipa: "/'ikwǝl/", learnEx: "Principle of equal opportunities.", learnTrans: "機會平等的原則。", pdfEx: "Everyone should enjoy equal rights and be treated the same.", pdfTrans: "每個人都應該享有平等的權利並受到同樣的對待。", collocations: [["equal", "rights", "平等權利"]], etymology: "From Latin 'aequalis'." },
+            { word: "equality", targetWord: "equality", pos: "n.", chinese: "平等", english: "state of being equal", syllables: ["e", "qual", "i", "ty"], ipa: "/i'kwalǝtı/", learnEx: "Campaigning for racial equality.", learnTrans: "爭取種族平等。", pdfEx: "Mary has been dedicating herself to the fight for job equality for a decade.", pdfTrans: "瑪麗十年來一直致力於爭取工作平等。", collocations: [["gender", "equality", "性別平等"]], etymology: "equal + -ity." },
+            { word: "control", targetWord: "control", pos: "vt.", chinese: "控制", english: "to limit or rule something", syllables: ["con", "trol"], ipa: "/kən'trol/", learnEx: "Speed is controlled by computer.", learnTrans: "速度由電腦控制。", pdfEx: "It is important to control your weight. Being too thin or too fat is bad for your health.", pdfTrans: "控制體重很重要。太瘦或太胖對健康都不好。", collocations: [["under", "control", "在控制中"]], etymology: "From French 'contra' + 'rotulus'." },
+            { word: "annoy", targetWord: "annoys", pos: "vt.", chinese: "惱怒", english: "to cause someone to be angry", syllables: ["an", "noy"], ipa: "/ənər/", learnEx: "It really annoys me.", learnTrans: "真的讓我有夠惱火。", pdfEx: "It really annoys Mrs. Donald when her children don't wash their hands before dinner.", pdfTrans: "當孩子們不洗手時，這真的讓她很惱火。", collocations: [["deeply", "annoyed", "深感惱怒"]], etymology: "From Latin 'in odio'." },
+            { word: "threaten", targetWord: "threatened", pos: "vt.", chinese: "威脅", syllables: ["threat", "en"], ipa: "/θετη/", english: "warn someone of harm", learnEx: "Hijackers threatened to kill hostages.", learnTrans: "劫機者威脅要殺死人質。", pdfEx: "The robber threatened the bank staff with a gun and made them hand over the money.", pdfTrans: "搶匪用槍威脅銀行職員，逼他們交出錢來。", collocations: [["threaten", "with", "以...威脅"]], etymology: "threat + -en." },
+            { word: "threat", targetWord: "threats", pos: "n.", chinese: "威脅", english: "statement of harm", syllables: ["threat"], ipa: "/θετ/", learnEx: "Pollution is a major threat.", learnTrans: "污染是主要威脅。", pdfEx: "The boy is always making threats against the younger students in his school.", pdfTrans: "男孩總是威脅較小的學生。", collocations: [["pose a", "threat", "造成威脅"]], etymology: "Old English 'threat'." },
+            { word: "surgery", targetWord: "surgery", pos: "n.", chinese: "外科手術", syllables: ["sur", "ger", "y"], ipa: "/'s3-dzərı/", english: "medical treatment by cutting", learnEx: "Surgery on my knee.", learnTrans: "膝蓋手術。", pdfEx: "When Joel had a heart operation, it was a very young doctor who performed the surgery.", pdfTrans: "是由一位年輕醫生執刀的手術。", collocations: [["perform", "surgery", "進行手術"]], etymology: "Greek 'cheir' + 'ergon'." },
+            { word: "recover", targetWord: "recovered", pos: "vi.", chinese: "康復", syllables: ["re", "cov", "er"], ipa: "/ri'kavǝ-/", english: "get better after sickness", learnEx: "Recovering from his operation.", learnTrans: "手術後的恢復期。", pdfEx: "Stacy recovered from the flu and went back to work last week.", pdfTrans: "史黛西上週感冒康復了。", collocations: [["recover", "from", "從...康復"]], etymology: "re- (again) + capere." },
+            { word: "recovery", targetWord: "recovery", pos: "n.", chinese: "恢復", syllables: ["re", "cov", "er", "y"], ipa: "/ri'kavǝrı/", english: "process of healing", learnEx: "Signs of recovery.", learnTrans: "復甦的跡象。", pdfEx: "Thanks to the vet's continuous attention, the panda made a full recovery from its injuries.", pdfTrans: "這隻熊貓完全康復了。", collocations: [["full", "recovery", "完全康復"]], etymology: "recover + -y." },
+            { word: "sign", targetWord: "signed", pos: "vt.", chinese: "簽名", syllables: ["sign"], ipa: "/sain/", english: "write name to show agreement", learnEx: "Forgot to sign the check.", learnTrans: "忘了在支票上簽名。", pdfEx: "David signed his name at the bottom of the letter.", pdfTrans: "大衛在信末簽了名。", collocations: [["sign", "a contract", "簽署合約"]], etymology: "From Latin 'signum'." },
+            { word: "persuade", targetWord: "persuade", pos: "vt.", chinese: "說服", syllables: ["per", "suade"], ipa: "/po'swed/", english: "use arguments to make someone do something", learnEx: "Persuade parents to let me go.", learnTrans: "試圖說服我的父母。", pdfEx: "Mr. Kennedy was worried and tried to persuade her to do more exercise.", pdfTrans: "甘迺迪先生試圖說服她多運動。", collocations: [["persuade", "someone to", "說服某人做..."]], etymology: "per- (thoroughly) + suadere." },
+            { word: "persuasion", targetWord: "persuasion", pos: "n.", chinese: "說服", syllables: ["per", "sua", "sion"], ipa: "/pə-swezǝn/", english: "act of persuading someone", learnEx: "Took a lot of persuasion.", learnTrans: "花了很多口舌才說服她。", pdfEx: "Using his powers of persuasion, Richie finally made his wife start painting again.", pdfTrans: "利用說服力，理奇終於讓妻子重拾畫筆。", collocations: [["powers of", "persuasion", "說服力"]], etymology: "persuade + -ion." },
+            { word: "persuasive", targetWord: "persuasive", pos: "adj.", chinese: "有說服力的", syllables: ["per", "sua", "sive"], ipa: "/pa'swesiv/", english: "able to make someone believe", learnEx: "A very persuasive argument.", learnTrans: "非常有說服力的論點。", pdfEx: "Alice came up with several persuasive arguments and succeeded in getting everybody to agree.", pdfTrans: "艾莉絲提出非常有說服力的論點。", collocations: [["persuasive", "argument", "有說服力的論點"]], etymology: "persuade + -ive." },
+            { word: "adopt", targetWord: "adopted", pos: "vt.", chinese: "採取/領養", syllables: ["a", "dopt"], ipa: "/ə'dapt/", english: "approve a method or take a child", learnEx: "Adopted a new approach.", learnTrans: "採取了新的處理方法。", pdfEx: "Oliver was adopted by his aunt when both of his parents died in a plane crash.", pdfTrans: "奧利佛被他的姑姑領養了。", collocations: [["adopt", "a policy", "採納政策"]], etymology: "ad- (to) + optare." },
+            { word: "policy", targetWord: "policies", pos: "n.", chinese: "政策", syllables: ["pol", "i", "cy"], ipa: "/'paləsı/", english: "a plan by organization", learnEx: "Strict policy against harassment.", learnTrans: "嚴格的政策規定。", pdfEx: "The amount of waste has been greatly reduced since our government adopted stricter policies on recycling.", pdfTrans: "自從政府採取更嚴格的回收政策後...", collocations: [["government", "policy", "政府政策"]], etymology: "From Greek 'polis'." },
+            { word: "ensure", targetWord: "ensure", pos: "vt.", chinese: "確保", syllables: ["en", "sure"], ipa: "/in'for/", english: "make certain something happens", learnEx: "Taken steps to ensure safety.", learnTrans: "確保安全。", pdfEx: "A new law will be made to ensure that every child will get proper care and education.", pdfTrans: "將制定一項新法律以確保每個孩子都能得到適當的照料。", collocations: [["ensure", "safety", "確保安全"]], etymology: "en- (make) + sure." },
+            { word: "establish", targetWord: "established", pos: "vt.", chinese: "建立", syllables: ["es", "tab", "lish"], ipa: "/ə'stæblı/", english: "to start or found", learnEx: "Established in the 18th century.", learnTrans: "建立於 18 世紀。", pdfEx: "Harvard University was established in 1636 and is the oldest university in the US.", pdfTrans: "哈佛大學成立於 1636 年。", collocations: [["establish", "a business", "創立事業"]], etymology: "Latin 'stare' (stand)." },
+            { word: "establishment", targetWord: "establishment", pos: "n.", chinese: "建立", syllables: ["es", "tab", "lish", "ment"], ipa: "/ə'stæblıʃmənt/", english: "the act of starting an organization", learnEx: "The establishment of the new clinic was welcomed.", learnTrans: "新診所的建立受到了歡迎。", pdfEx: "The establishment of the children's home has ensured that orphans are provided with food.", pdfTrans: "兒童之家的建立確保了孤兒獲得食物。", collocations: [["establishment", "of", "建立..."]], etymology: "establish + -ment." },
+            { word: "honor", targetWord: "honors", pos: "n./vt.", chinese: "榮譽", syllables: ["hon", "or"], ipa: "/'ano/", english: "special award or respect", learnEx: "Great honor to be invited.", learnTrans: "受邀前往白宮是一份莫大的榮幸。", pdfEx: "Ang Lee has received many honors and awards for his inspiring movies.", pdfTrans: "李安獲得了許多榮譽和獎項。", collocations: [["great", "honor", "莫大榮幸"]], etymology: "Latin 'honos'." },
+            { word: "honorable", targetWord: "honorable", pos: "adj.", chinese: "值得敬佩的", syllables: ["hon", "or", "a", "ble"], ipa: "/'anərəbl/", english: "deserving respect", learnEx: "An honorable goal to help others.", learnTrans: "高尚的目標。", pdfEx: "Everyone in the courtroom stood and remained silent as the honorable judge entered.", pdfTrans: "法庭上的每個人在受人尊敬的法官進入時都起立。", collocations: [["honorable", "judge", "尊敬的法官"]], etymology: "honor + -able." },
+            { word: "weapon", targetWord: "weapon", pos: "n.", chinese: "手段；武器", syllables: ["weap", "on"], ipa: "/'wepən/", english: "tool for success or fighting", learnEx: "Nuclear weapons are a threat.", learnTrans: "核子武器構成威脅。", pdfEx: "Exercising is considered to be an effective weapon against stress.", pdfTrans: "運動被認為是對抗壓力的有效手段。", collocations: [["effective", "weapon", "有效手段"]], etymology: "Old English 'waepen'." },
+
+            // Phrases
+            { word: "out of control", targetWord: "out of control", pos: "phr.", chinese: "失去控制", english: "no longer manageable", syllables: ["out", "of", "con", "trol"], ipa: "/aʊt əv kən'trol/", learnEx: "The fire quickly got out of control.", learnTrans: "火勢迅速失去了控制。", pdfEx: "Everything in the area seemed to be out of control.", pdfTrans: "該地區的一切似乎都失去了控制。", collocations: [["completely", "out of control", "完全失控"]], etymology: "From 'control' (power to direct)." },
+            { word: "take over", targetWord: "take over", pos: "phr.", chinese: "接管", english: "to take control of something", syllables: ["take", "ov", "er"], ipa: "/tek 'ovə/", learnEx: "The army tried to take over the government.", learnTrans: "軍隊試圖接管政府。", pdfEx: "The Taliban took over the area and made many new laws.", pdfTrans: "塔利班接管了該地區並制定了許多新法律。", collocations: [["take over", "the company", "接管公司"]], etymology: "take (grab) + over (above)." },
+            { word: "at the age of", targetWord: "at the age of", pos: "phr.", chinese: "在...歲時", english: "when someone was a certain age", syllables: ["at", "the", "age", "of"], ipa: "/æt ðə edʒ əv/", learnEx: "He started playing piano at the age of five.", learnTrans: "他五歲時開始學鋼琴。", pdfEx: "At the age of 17, Malala became the youngest person to win the Nobel Peace Prize.", pdfTrans: "在17歲時，馬拉拉成為最年輕的諾貝爾和平獎得主。", collocations: [], etymology: "Age (period of life)." },
+            { word: "condemn to", targetWord: "condemned to", pos: "phr.", chinese: "處以...刑罰", english: "to give someone a severe punishment", syllables: ["con", "demn", "to"], ipa: "/kən'dɛm tu/", learnEx: "He was condemned to death for his crimes.", learnTrans: "他因罪被處以死刑。", pdfEx: "Malala was condemned to death by the Taliban for her beliefs.", pdfTrans: "馬拉拉因其信念被塔利班處以死刑。", collocations: [["condemn", "to death", "判處死刑"]], etymology: "From Latin 'condemnare'." },
+            { word: "make a difference", targetWord: "make a difference", pos: "phr.", chinese: "有影響/起作用", english: "to have an effect on a situation", syllables: ["make", "a", "dif", "fer", "ence"], ipa: "/mek ə 'difrəns/", learnEx: "Giving even a small amount of money can make a difference.", learnTrans: "即使捐一點錢也能起作用。", pdfEx: "She believed that one person could really make a difference.", pdfTrans: "她相信一個人真的可以改變世界。", collocations: [["make a", "huge difference", "產生巨大影響"]], etymology: "Difference (distinction/change)." }
         ];
 
         let currentUser = { class: "", no: "", name: "", xp: 0 };
         let learnStats = { startTime: null, totalSeconds: 0, viewedIndices: new Set() };
         let currentLearnIdx = 0;
-        let activeActivity = { type: "", questions: [], currentIdx: 0, score: 0, lastSpeechResult: "", isChecked: false, rec: null };
+        let activeActivity = { type: "", questions: [], currentIdx: 0, score: 0, lastSpeechResult: "", isChecked: false };
 
         function handleLogin() {
             const clz = document.getElementById('login-class').value.trim();
@@ -390,7 +343,7 @@
                 <div class="card-main">
                     <div class="learn-header">
                         <span class="pos-badge">${item.pos}</span>
-                        <h2 class="word-title">${item.word}</h2>
+                        <h2 class="word-title uppercase">${item.word}</h2>
                     </div>
                     <div class="pill-container">
                         ${item.syllables.map(s => `<span class="syllable-pill">${s}</span>`).join('')}
@@ -401,7 +354,7 @@
                     </div>
                     <div class="mb-5"><p class="section-label">Meaning</p><p class="meaning-text">${item.english} <span class="text-purple-600">(${item.chinese})</span></p></div>
                     <div class="mb-5"><p class="section-label">Example (Cambridge/Longman)</p><p class="example-text">"${item.learnEx}"</p><p class="text-xs text-gray-400 mt-2 font-black">${item.learnTrans}</p></div>
-                    <div class="mb-5 bg-blue-50 p-4 rounded-3xl border-2 border-blue-100"><p class="text-blue-500 font-black text-[10px] uppercase mb-1 tracking-widest">Etymology / Word Root</p><p class="text-sm font-bold text-blue-900 leading-relaxed">${item.etymology}</p></div>
+                    <div class="mb-5 bg-blue-50 p-4 rounded-3xl border-2 border-blue-100"><p class="text-blue-500 font-black text-[10px] uppercase mb-1 tracking-widest">Etymology / Word Root</p><p class="text-sm font-bold text-blue-900 leading-relaxed">${item.etymology || "Phrase Usage"}</p></div>
                     <div class="mini-match-box"><p class="text-pink-500 font-black text-xs mb-3 uppercase tracking-widest">Mini Match (Oxford)</p>
                          <div class="grid grid-cols-2 gap-3">
                             ${item.collocations.map((c, i) => `<div class="mini-match-btn cursor-pointer" onclick="handleMatch(this, '${item.word}', ${i}, 'en')">${c[0]} ${c[1]}</div><div class="mini-match-btn cursor-pointer" onclick="handleMatch(this, '${item.word}', ${i}, 'cn')">${c[2]}</div>`).join('')}
@@ -447,43 +400,31 @@
             actionBtn.onclick = () => performCheck(); 
 
             if(activeActivity.type === 'PRO SPEAK') {
-                body.innerHTML = `<h2 class="text-5xl font-black mb-8 uppercase">${q.word}</h2><div id="mic-btn" class="w-32 h-32 rounded-full bg-yellow-400 neo-brutal flex items-center justify-center cursor-pointer mx-auto" onclick="startMic()"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg></div><p id="speech-status" class="mt-4 font-black text-xs text-gray-400">TAP TO SPEAK</p><p id="speech-text" class="mt-4 text-xl font-bold italic text-blue-600"></p>`;
+                body.innerHTML = `<h2 class="text-5xl font-black mb-8 text-center uppercase">${q.word}</h2><div id="mic-btn" class="w-32 h-32 rounded-full bg-yellow-400 neo-brutal flex items-center justify-center cursor-pointer mx-auto" onclick="startMic()"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg></div><p id="speech-text" class="mt-4 text-xl font-bold italic text-blue-600"></p>`;
             } else if(activeActivity.type === 'SPELL IT') {
-                body.innerHTML = `<button onclick="speak('${q.word}')" class="w-24 h-24 rounded-full bg-blue-100 border-4 border-black mb-8 flex items-center justify-center mx-auto"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></button><p class="text-center font-bold text-gray-500 mb-6 text-sm px-4">Def: ${q.english}</p><div class="w-full max-w-xs mx-auto border-b-8 border-black"><input id="coach-input" type="text" class="w-full text-3xl font-black bg-transparent text-center focus:outline-none py-4" placeholder="???" autocomplete="off"></div>`;
+                body.innerHTML = `<button onclick="speak('${q.word}')" class="w-24 h-24 rounded-full bg-blue-100 border-4 border-black mb-8 flex items-center justify-center mx-auto"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></button><p class="text-center font-bold text-gray-500 mb-6 text-sm px-4">Definition: ${q.english}</p><div class="w-full max-w-xs mx-auto border-b-8 border-black"><input id="coach-input" type="text" class="w-full text-3xl font-black bg-transparent text-center focus:outline-none py-4" placeholder="???" autocomplete="off"></div>`;
                 setTimeout(()=>speak(q.word), 300);
             } else {
+                // --- FILL IN 核心挖空演算法修正 ---
                 const target = q.targetWord; 
                 const displayHint = `<span class="cloze-blank">${target[0]}${"_".repeat(target.length-2)}${target[target.length-1]}</span>`;
-                const regex = new RegExp(`\\b${target}\\b`, 'gi');
-                const processedEx = q.pdfEx.replace(regex, displayHint);
-                body.innerHTML = `<div class="bg-white neo-brutal p-6 w-full max-w-sm mx-auto" style="border-radius:25px;"><span class="bg-purple-100 text-purple-600 text-[10px] font-black px-2 py-1 rounded mb-4 inline-block uppercase">Cloze Test</span><div class="text-xl font-bold leading-relaxed mb-6 text-left">${processedEx}</div><p id="coach-hint" class="hidden text-gray-400 italic text-sm mb-4 bg-gray-50 p-2 rounded text-left">${q.pdfTrans}</p><button onclick="document.getElementById('coach-hint').classList.toggle('hidden')" class="text-blue-500 text-xs font-bold mb-6 block">Show Translation</button><input id="coach-input" type="text" class="w-full neo-brutal p-4 font-bold text-center text-xl" placeholder="Type word..." autocomplete="off" style="border-radius:15px; border-color: #E2E8F0;" autofocus></div>`;
+                
+                // 採用最穩定的全字匹配替換，避免大小寫與標點符號干擾
+                const originalSentence = q.pdfEx;
+                // 轉義正則特殊字符
+                const escapedTarget = target.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+                const regex = new RegExp(`\\b${escapedTarget}\\b`, 'gi');
+                
+                // 如果 regex 匹配不到（通常是片語或特殊標點），則改用簡單替換
+                let processedEx = originalSentence.replace(regex, displayHint);
+                if (processedEx === originalSentence) {
+                    processedEx = originalSentence.replace(new RegExp(escapedTarget, 'gi'), displayHint);
+                }
+
+                body.innerHTML = `<div class="bg-white neo-brutal p-6 w-full max-w-sm mx-auto" style="border-radius:25px;"><span class="bg-purple-100 text-purple-600 text-[10px] font-black px-2 py-1 rounded mb-4 inline-block uppercase tracking-wider">Cloze Test (PDF Example)</span><div class="text-xl font-bold leading-relaxed mb-6 text-left">${processedEx}</div><p id="coach-hint" class="hidden text-gray-400 italic text-sm mb-4 bg-gray-50 p-2 rounded text-left">${q.pdfTrans}</p><button onclick="document.getElementById('coach-hint').classList.toggle('hidden')" class="text-blue-500 text-xs font-bold mb-6 block">Show Translation</button><input id="coach-input" type="text" class="w-full neo-brutal p-4 font-bold text-center text-xl" placeholder="Type word..." autocomplete="off" style="border-radius:15px; border-color: #E2E8F0;" autofocus></div>`;
             }
             const input = document.getElementById('coach-input');
             if(input) { input.focus(); input.onkeyup = (e) => { if(e.key === "Enter") performCheck(); }; }
-        }
-
-        function startMic() {
-            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            if (!SpeechRecognition) return alert("您的瀏覽器不支援語音辨識功能，請使用 Chrome 瀏覽器。");
-            
-            if (activeActivity.rec) activeActivity.rec.stop();
-            const rec = new SpeechRecognition();
-            rec.lang = 'en-US';
-            activeActivity.rec = rec;
-
-            const micBtn = document.getElementById('mic-btn');
-            const status = document.getElementById('speech-status');
-            
-            rec.onstart = () => { micBtn.classList.add('pulse-mic', 'bg-red-400'); status.innerText = "LISTENING..."; status.classList.replace('text-gray-400', 'text-red-500'); };
-            rec.onerror = (e) => { status.innerText = "ERROR: " + e.error; micBtn.classList.remove('pulse-mic', 'bg-red-400'); };
-            rec.onresult = (e) => {
-                const res = e.results[0][0].transcript;
-                document.getElementById('speech-text').innerText = `You said: "${res}"`;
-                activeActivity.lastSpeechResult = res;
-                performCheck(); 
-            };
-            rec.onend = () => { micBtn.classList.remove('pulse-mic', 'bg-red-400'); if(!activeActivity.isChecked) status.innerText = "TAP TO SPEAK"; };
-            rec.start();
         }
 
         function superNormalize(str) { return (str || "").toString().toLowerCase().trim().replace(/[^a-z0-9]/gi, ''); }
@@ -491,7 +432,7 @@
         function performCheck() {
             if (activeActivity.isChecked) {
                 activeActivity.currentIdx++;
-                if (activeActivity.currentIdx < activeActivity.questions.length) renderCoachQuestion();
+                if (activeActivity.currentIdx < 15) renderCoachQuestion();
                 else { submitResult(); exitActivity(); alert(`挑戰完成！您的得分是：${activeActivity.score}`); }
                 return;
             }
@@ -499,15 +440,26 @@
             const actionBtn = document.getElementById('btn-action');
             const targetStr = (activeActivity.type === 'FILL IN') ? superNormalize(q.targetWord) : superNormalize(q.word);
             const displayAns = (activeActivity.type === 'FILL IN') ? q.targetWord : q.word;
-
             let userInput = (activeActivity.type === 'PRO SPEAK') ? superNormalize(activeActivity.lastSpeechResult) : superNormalize(document.getElementById('coach-input')?.value);
 
             if(userInput === targetStr && userInput !== "") { 
                 actionBtn.classList.add('bg-green-500'); actionBtn.textContent = "CORRECT!"; currentUser.xp += 10; activeActivity.score += 10; updateXP(); 
             } else { 
-                actionBtn.classList.add('bg-red-500'); actionBtn.textContent = "WRONG! Answer: " + displayAns; 
+                actionBtn.classList.add('bg-red-500'); actionBtn.textContent = "WRONG! Ans: " + displayAns; 
             }
             activeActivity.isChecked = true;
+        }
+
+        function startMic() {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRecognition) return alert("您的瀏覽器不支援語音辨識。");
+            const rec = new SpeechRecognition(); rec.lang = 'en-US';
+            rec.onresult = (e) => {
+                activeActivity.lastSpeechResult = e.results[0][0].transcript;
+                document.getElementById('speech-text').innerText = `You said: "${activeActivity.lastSpeechResult}"`;
+                performCheck(); 
+            };
+            rec.start();
         }
 
         function speak(text) { const utterance = new SpeechSynthesisUtterance(text); utterance.lang = 'en-US'; window.speechSynthesis.speak(utterance); }
@@ -517,7 +469,6 @@
             const isLearnComplete = learnStats.viewedIndices.size >= VOCAB_DATA.length ? "YES" : `${learnStats.viewedIndices.size}/${VOCAB_DATA.length}`;
             let currentDuration = learnStats.totalSeconds;
             if(learnStats.startTime) { currentDuration += Math.floor((Date.now() - learnStats.startTime) / 1000); }
-
             fetch(SCRIPT_URL, { 
                 method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, 
                 body: JSON.stringify({ 
