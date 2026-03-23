@@ -54,7 +54,7 @@
 
         .hidden-screen { display: none !important; }
 
-        /* --- Learn Card Styles --- */
+        /* --- Learn Card Layout Fix --- */
         .card-main { 
             background: white; 
             padding: 24px; 
@@ -62,7 +62,7 @@
             border: 4px solid var(--pop-black); 
             box-shadow: 10px 10px 0px var(--pop-black); 
             border-radius: 40px; 
-            position: relative;
+            overflow: hidden;
         }
         
         .learn-header {
@@ -73,69 +73,80 @@
             align-items: center;
             justify-content: center;
             position: relative;
-            background-image: radial-gradient(circle, rgba(255,255,255,0.3) 1.5px, transparent 1.5px);
-            background-size: 14px 14px;
-            border-radius: 35px 35px 0 0;
+            /* 復刻截圖中的白色點點背景 */
+            background-image: radial-gradient(rgba(255,255,255,0.4) 2px, transparent 2px);
+            background-size: 18px 18px;
             border-bottom: 4px solid var(--pop-black);
         }
 
         .pos-badge {
             position: absolute;
-            top: 20px;
-            left: 20px;
+            top: 15px;
+            left: 15px;
             background: black;
             color: white;
-            padding: 4px 12px;
-            border-radius: 10px;
+            padding: 4px 10px;
+            border-radius: 8px;
             font-weight: 900;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
+            border: 1px solid rgba(255,255,255,0.2);
         }
+
+        .word-title {
+            color: white;
+            font-size: 3.5rem;
+            font-weight: 900;
+            letter-spacing: -2px;
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+        }
+
+        .pill-container { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 20px; }
 
         .syllable-pill {
             background: var(--pop-yellow);
-            padding: 4px 14px;
-            border-radius: 12px;
+            padding: 5px 15px;
+            border-radius: 50px;
             border: 2px solid var(--pop-black);
             font-weight: 900;
             font-size: 0.9rem;
-            margin-right: 6px;
+            color: var(--pop-black);
         }
 
         .ipa-pill {
-            background: #F3F4F6;
-            padding: 4px 14px;
-            border-radius: 12px;
-            color: #6B7280;
+            background: white;
+            padding: 5px 15px;
+            border-radius: 50px;
+            border: 2px solid #E5E7EB;
+            color: #9CA3AF;
             font-weight: 700;
             font-size: 0.9rem;
             font-style: italic;
         }
 
-        .section-label { font-weight: 900; color: #9CA3AF; font-size: 0.85rem; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
-        .meaning-text { font-weight: 800; font-size: 1.25rem; line-height: 1.4; color: #111827; }
-        .example-text { font-style: italic; color: #374151; line-height: 1.5; font-weight: 600; font-size: 1.1rem; }
+        .section-label { font-weight: 900; color: #D1D5DB; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 4px; }
+        .meaning-text { font-weight: 800; font-size: 1.3rem; line-height: 1.3; margin-bottom: 15px; color: #111827; }
+        .example-text { font-style: italic; color: #4B5563; line-height: 1.4; font-weight: 600; font-size: 1.05rem; }
 
         .mini-match-box {
             background-color: #FFF1F7;
             border-radius: 25px;
             padding: 20px;
-            margin-top: 24px;
+            margin-top: 25px;
             border: 2px solid #FFE4F0;
         }
 
         .mini-match-btn {
             background: white;
             border: 2px solid #F3F4F6;
-            padding: 12px 10px;
+            padding: 12px 8px;
             border-radius: 15px;
             font-size: 0.85rem;
             text-align: center;
             font-weight: 800;
             box-shadow: 0px 3px 0px rgba(0,0,0,0.05);
-            transition: all 0.1s;
         }
-        .mini-match-btn.selected { border-color: var(--pop-purple); background: #F3F0FF; transform: translateY(1px); }
-        .mini-match-btn.correct { border-color: #22C55E; background: #F0FDF4; opacity: 0.5; cursor: default; box-shadow: none; }
+        .mini-match-btn.selected { border-color: var(--pop-purple); background: #F3F0FF; }
+        .mini-match-btn.correct { border-color: #22C55E; background: #F0FDF4; opacity: 0.4; cursor: default; box-shadow: none; }
 
         .bottom-action-btn {
             background-color: var(--pop-black);
@@ -151,21 +162,6 @@
             align-items: center;
             justify-content: center;
             gap: 12px;
-        }
-
-        .pulse-mic { animation: pulse 1.5s infinite; }
-        @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(233, 109, 158, 0.7); }
-            70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(233, 109, 158, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(233, 109, 158, 0); }
-        }
-
-        .cloze-blank {
-            color: var(--pop-purple);
-            text-decoration: underline;
-            text-underline-offset: 8px;
-            font-weight: 900;
-            letter-spacing: 2px;
         }
     </style>
 </head>
@@ -188,16 +184,16 @@
                 <div class="space-y-5">
                     <div class="flex gap-4">
                         <div class="w-1/2">
-                            <label class="block text-[#3C4858] font-black text-xs mb-1 uppercase tracking-wider">Class</label>
+                            <label class="block text-[#3C4858] font-black text-xs mb-1 uppercase">Class</label>
                             <input id="login-class" type="text" class="w-full input-brutal" placeholder="104">
                         </div>
                         <div class="w-1/2">
-                            <label class="block text-[#3C4858] font-black text-xs mb-1 uppercase tracking-wider">No.</label>
+                            <label class="block text-[#3C4858] font-black text-xs mb-1 uppercase">No.</label>
                             <input id="login-no" type="text" class="w-full input-brutal" placeholder="15">
                         </div>
                     </div>
                     <div>
-                        <label class="block text-[#3C4858] font-black text-xs mb-1 uppercase tracking-wider">Name</label>
+                        <label class="block text-[#3C4858] font-black text-xs mb-1 uppercase">Name</label>
                         <input id="login-name" type="text" class="w-full input-brutal" placeholder="姓名">
                     </div>
                     <button onclick="handleLogin()" class="w-full btn-start py-5 text-xl font-black mt-4 flex items-center justify-center gap-3 uppercase">
@@ -233,15 +229,15 @@
         <main id="content-coach" class="hidden-screen flex-1 p-4 max-w-lg mx-auto w-full space-y-4">
             <button onclick="startCoach('PRO SPEAK')" class="w-full neo-brutal bg-[#A0E9A8] p-6 flex items-center gap-6 text-left">
                 <div class="bg-white p-4 rounded-2xl border-3 border-black"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg></div>
-                <div><h3 class="text-2xl font-black uppercase">PRO SPEAK</h3><p class="text-sm font-bold opacity-70">發音挑戰 (隨機 15 題)</p></div>
+                <div><h3 class="text-2xl font-black uppercase">Pro Speak</h3><p class="text-sm font-bold opacity-70">發音挑戰 (隨機 15 題)</p></div>
             </button>
             <button onclick="startCoach('SPELL IT')" class="w-full neo-brutal bg-[#B6C2FF] p-6 flex items-center gap-6 text-left">
                 <div class="bg-white p-4 rounded-2xl border-3 border-black"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M6 8h.01"/><path d="M10 8h.01"/><path d="M14 8h.01"/><path d="M18 8h.01"/><path d="M8 12h.01"/><path d="M12 12h.01"/><path d="M16 12h.01"/><path d="M7 16h10"/></svg></div>
-                <div><h3 class="text-2xl font-black uppercase">SPELL IT</h3><p class="text-sm font-bold opacity-70">聽音拼寫 (隨機 15 題)</p></div>
+                <div><h3 class="text-2xl font-black uppercase">Spell It</h3><p class="text-sm font-bold opacity-70">聽音拼寫 (隨機 15 題)</p></div>
             </button>
             <button onclick="startCoach('FILL IN')" class="w-full neo-brutal bg-[#FFD5A1] p-6 flex items-center gap-6 text-left">
                 <div class="bg-white p-4 rounded-2xl border-3 border-black"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg></div>
-                <div><h3 class="text-2xl font-black uppercase">FILL IN</h3><p class="text-sm font-bold opacity-70">搭配詞克漏字 (隨機 15 題)</p></div>
+                <div><h3 class="text-2xl font-black uppercase">Fill In</h3><p class="text-sm font-bold opacity-70">搭配詞克漏字 (隨機 15 題)</p></div>
             </button>
         </main>
 
@@ -263,7 +259,7 @@
     </div>
 
     <script>
-        // --- 請將新的 GAS 部署網址貼在下方這行 (第 282 行) ---
+        // --- 貼上您最新部署的 GAS 網址 (第 281 行) ---
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzyFva945ZNpjqANvNmvfNbjYeUSZrPnf0b5NfkL93zKnlXrE2jSNqN-fpwkZfzQEue/exec"; 
 
         const VOCAB_DATA = [
@@ -274,11 +270,11 @@
             { word: "continue", targetWord: "continued", pos: "vt.", chinese: "繼續", english: "to carry on or not stop", syllables: ["con", "tin", "ue"], ipa: "/kən'tınjo/", example: "After a short break for lunch, Wally continued his work.", translation: "午餐休息一會兒後，華利繼續他的工作。", collocations: [["continue", "working", "繼續工作"], ["continue", "education", "繼續受教育"]], etymology: "From Latin 'con-' (together) + 'tenere' (to hold)." },
             { word: "continuous", targetWord: "continuous", pos: "adj.", chinese: "持續不斷的", english: "happening without stopping", syllables: ["con", "tin", "u", "ous"], ipa: "/kən'tınjuəs/", example: "The continuous rain has caused floods in many parts of the country.", translation: "持續不斷的雨水導致該國許多地區發生洪水。", collocations: [["continuous", "rain", "持續降雨"], ["continuous", "improvement", "持續進步"]], etymology: "continue + -ous (adjective suffix)." },
             { word: "education", targetWord: "education", pos: "n.", chinese: "教育", english: "process of teaching or training in a school", syllables: ["ed", "u", "ca", "tion"], ipa: "/,edzu'kesǝn/", example: "Two new schools were built to improve the quality of education in this remote area.", translation: "為了提高這個偏遠地區的教育品質，興建了兩所新學校。", collocations: [["higher", "education", "高等教育"], ["receive", "education", "接受教育"]], etymology: "e- (out) + ducere (to lead)." },
-            { word: "educational", targetWord: "educational", pos: "adj.", chinese: "教育的", english: "relating to providing information or teaching", syllables: ["ed", "u", "ca", "tion", "al"], ipa: "/,edzu'kefǝn!/", example: "Language learning textbooks and other educational materials can be ordered online.", translation: "語言學習教科書和其他教育教材可以網上訂購。", collocations: [["educational", "materials", "教育教材"], ["educational", "system", "教育制度"]], etymology: "education + -al." },
+            { word: "educational", targetWord: "educational", pos: "adj.", chinese: "教育的", english: "relating to providing information or teaching", syllables: ["ed", "u", "ca", "tion", "al"], ipa: "/,edzu'kefǝn!/", example: "Language learning materials can be ordered online.", translation: "語言學習教材可以網上訂購。", collocations: [["educational", "materials", "教育教材"], ["educational", "system", "教育制度"]], etymology: "education + -al." },
             { word: "principal", targetWord: "principal", pos: "n./adj.", chinese: "校長；主要的", english: "head of a school; most important", syllables: ["prin", "ci", "pal"], ipa: "/'prinsəp!/", example: "Mrs. Lee has been the school's principal for ten years.", translation: "李太太擔任這所學校的校長已經十年了。", collocations: [["school", "principal", "學校校長"], ["principal", "reason", "主要原因"]], etymology: "From Latin 'primus' (first) + 'capere' (to take)." },
             { word: "equal", targetWord: "equal", pos: "adj./vt.", chinese: "相等的；等於", english: "having the same rights or opportunities", syllables: ["e", "qual"], ipa: "/'ikwǝl/", example: "Everyone should enjoy equal rights and be treated the same.", translation: "每個人都應該享有平等的權利並受到同樣的對待。", collocations: [["equal", "rights", "平等權利"], ["equal", "to", "等於"]], etymology: "From Latin 'aequalis' (even)." },
             { word: "equality", targetWord: "equality", pos: "n.", chinese: "平等", english: "the state of being equal", syllables: ["e", "qual", "i", "ty"], ipa: "/i'kwalǝtı/", example: "Mary has been dedicating herself to the fight for job equality for a decade.", translation: "瑪麗十年來一直致力於爭取工作平等。", collocations: [["gender", "equality", "性別平等"], ["racial", "equality", "種族平等"]], etymology: "equal + -ity." },
-            { word: "control", targetWord: "control", pos: "vt./n.", chinese: "控制", english: "to limit or rule something", syllables: ["con", "trol"], ipa: "/kən'trol/", example: "It is important to control your weight. Being too thin or too fat is bad for your health.", translation: "控制體重很重要。太瘦或太胖對健康都不好。", collocations: [["under", "control", "在控制中"], ["out of", "control", "失控"], ["weight", "control", "體重控制"]], etymology: "From French 'contra' (against) + 'rotulus' (roll)." },
+            { word: "control", targetWord: "control", pos: "vt./n.", chinese: "控制", english: "to limit or rule something", syllables: ["con", "trol"], ipa: "/kən'trol/", example: "It is important to control your weight.", translation: "控制體重很重要。", collocations: [["under", "control", "在控制中"], ["out of", "control", "失控"], ["weight", "control", "體重控制"]], etymology: "From French 'contra' (against) + 'rotulus' (roll)." },
             { word: "annoy", targetWord: "annoys", pos: "vt.", chinese: "惱怒；使人生氣", english: "to cause someone to become angry", syllables: ["an", "noy"], ipa: "/ənər/", example: "It really annoys Mrs. Donald when her children don't wash their hands.", translation: "當唐納夫人的孩子們不洗手時，這真的讓她很惱火。", collocations: [["deeply", "annoyed", "深感惱怒"], ["sounds", "annoying", "聽起來很煩人"]], etymology: "From Latin 'in odio' (in hatred)." },
             { word: "threaten", targetWord: "threatened", pos: "vt.", chinese: "威脅；恐嚇", syllables: ["threat", "en"], ipa: "/θετη/", english: "warn someone of harm if they don't comply", example: "The robber threatened the bank staff with a gun.", translation: "搶匪用槍威脅銀行職員。", collocations: [["threaten", "with", "以...威脅"]], etymology: "threat + -en (to make)." },
             { word: "threat", targetWord: "threats", pos: "n.", chinese: "威脅", english: "a statement or sign of harm", syllables: ["threat"], ipa: "/θετ/", example: "The boy is always making threats against younger students.", translation: "這個男孩總是威脅較小的學生。", collocations: [["pose a", "threat", "造成威脅"], ["serious", "threat", "嚴重威脅"]], etymology: "Old English 'threat' (oppression)." },
@@ -322,7 +318,7 @@
                 if(learnStats.startTime) {
                     learnStats.totalSeconds += Math.floor((Date.now() - learnStats.startTime) / 1000);
                     learnStats.startTime = null;
-                    submitResult("LEARN TRACKING");
+                    submitResult("LEARN TRACKING"); // 此時會送出學習時長
                 }
             }
             const tabs = { learn: document.getElementById('tab-learn'), coach: document.getElementById('tab-coach') };
@@ -347,29 +343,29 @@
                 <div class="card-main">
                     <div class="learn-header">
                         <span class="pos-badge">${item.pos}</span>
-                        <h2 class="text-white text-5xl font-black italic tracking-tighter">${item.word}</h2>
+                        <h2 class="word-title">${item.word}</h2>
                     </div>
                     
-                    <div class="flex items-center gap-3 mb-6">
-                        <div class="flex">${item.syllables.map(s => `<span class="syllable-pill">${s}</span>`).join('')}</div>
+                    <div class="pill-container">
+                        ${item.syllables.map(s => `<span class="syllable-pill">${s}</span>`).join('')}
                         <span class="ipa-pill">${item.ipa}</span>
                         <button onclick="speak('${item.word}')" class="w-12 h-12 neo-brutal rounded-full flex items-center justify-center bg-white ml-auto" style="box-shadow: 3px 3px 0px black;">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
                         </button>
                     </div>
 
-                    <div class="mb-6">
+                    <div class="mb-5">
                         <p class="section-label">Meaning</p>
                         <p class="meaning-text">${item.english} <span class="text-purple-600">(${item.chinese})</span></p>
                     </div>
 
-                    <div class="mb-6">
+                    <div class="mb-5">
                         <p class="section-label">Example</p>
                         <p class="example-text">"${item.example}"</p>
                         <p class="text-xs text-gray-400 mt-2 font-black">${item.translation}</p>
                     </div>
 
-                    <div class="mb-6 bg-blue-50 p-4 rounded-3xl border-2 border-blue-100">
+                    <div class="mb-5 bg-blue-50 p-4 rounded-3xl border-2 border-blue-100">
                         <p class="text-blue-500 font-black text-[10px] uppercase mb-1 tracking-widest">Etymology / Word Root</p>
                         <p class="text-sm font-bold text-blue-900 leading-relaxed">${item.etymology}</p>
                     </div>
@@ -485,9 +481,24 @@
         function submitResult(overriddenType) {
             if(!SCRIPT_URL) return;
             const isLearnComplete = learnStats.viewedIndices.size >= VOCAB_DATA.length ? "YES" : `${learnStats.viewedIndices.size}/${VOCAB_DATA.length}`;
+            
+            // 確保送出時 learnDuration 是最新的
+            let currentDuration = learnStats.totalSeconds;
+            if(learnStats.startTime) {
+                currentDuration += Math.floor((Date.now() - learnStats.startTime) / 1000);
+            }
+
             fetch(SCRIPT_URL, { 
                 method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, 
-                body: JSON.stringify({ class: currentUser.class, no: currentUser.no, name: currentUser.name, type: overriddenType || activeActivity.type, score: activeActivity.score || 0, learnDuration: learnStats.totalSeconds, isLearnComplete: isLearnComplete }) 
+                body: JSON.stringify({ 
+                    class: currentUser.class, 
+                    no: currentUser.no, 
+                    name: currentUser.name, 
+                    type: overriddenType || activeActivity.type, 
+                    score: activeActivity.score || 0, 
+                    learnDuration: currentDuration, 
+                    isLearnComplete: isLearnComplete 
+                }) 
             });
         }
 
