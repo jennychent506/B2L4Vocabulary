@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>VocabPop - L4 Malala</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;700;800;900&family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;700;800;900&family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --pop-pink: #E96D9E;
@@ -14,7 +14,7 @@
             --pop-yellow: #FBE269;
             --pop-bg: #FFEBEB;
             --pop-black: #1A1A1A;
-            --pop-label: #3C4858;
+            --pop-blue-card: #3B66F5;
         }
 
         body {
@@ -54,36 +54,96 @@
 
         .hidden-screen { display: none !important; }
 
-        .card-main { background: white; padding: 24px; width: 100%; }
+        /* --- Learn Card Styles --- */
+        .card-main { 
+            background: white; 
+            padding: 24px; 
+            width: 100%; 
+            border: 4px solid var(--pop-black); 
+            box-shadow: 10px 10px 0px var(--pop-black); 
+            border-radius: 40px; 
+            position: relative;
+        }
+        
+        .learn-header {
+            background-color: var(--pop-blue-card);
+            height: 150px;
+            margin: -24px -24px 20px -24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background-image: radial-gradient(circle, rgba(255,255,255,0.3) 1.5px, transparent 1.5px);
+            background-size: 14px 14px;
+            border-radius: 35px 35px 0 0;
+            border-bottom: 4px solid var(--pop-black);
+        }
 
-        .syllable-btn {
-            background: var(--pop-yellow);
+        .pos-badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: black;
+            color: white;
             padding: 4px 12px;
-            border-radius: 8px;
+            border-radius: 10px;
+            font-weight: 900;
+            font-size: 0.85rem;
+        }
+
+        .syllable-pill {
+            background: var(--pop-yellow);
+            padding: 4px 14px;
+            border-radius: 12px;
             border: 2px solid var(--pop-black);
-            font-weight: bold;
-            margin-right: 8px;
+            font-weight: 900;
+            font-size: 0.9rem;
+            margin-right: 6px;
+        }
+
+        .ipa-pill {
+            background: #F3F4F6;
+            padding: 4px 14px;
+            border-radius: 12px;
+            color: #6B7280;
+            font-weight: 700;
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+
+        .section-label { font-weight: 900; color: #9CA3AF; font-size: 0.85rem; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .meaning-text { font-weight: 800; font-size: 1.25rem; line-height: 1.4; color: #111827; }
+        .example-text { font-style: italic; color: #374151; line-height: 1.5; font-weight: 600; font-size: 1.1rem; }
+
+        .mini-match-box {
+            background-color: #FFF1F7;
+            border-radius: 25px;
+            padding: 20px;
+            margin-top: 24px;
+            border: 2px solid #FFE4F0;
         }
 
         .mini-match-btn {
             background: white;
-            border: 2px solid #E5E7EB;
-            padding: 10px;
-            border-radius: 12px;
+            border: 2px solid #F3F4F6;
+            padding: 12px 10px;
+            border-radius: 15px;
             font-size: 0.85rem;
             text-align: center;
-            font-weight: bold;
+            font-weight: 800;
+            box-shadow: 0px 3px 0px rgba(0,0,0,0.05);
+            transition: all 0.1s;
         }
-        .mini-match-btn.selected { border-color: var(--pop-purple); background: #F3F0FF; }
-        .mini-match-btn.correct { border-color: #22C55E; background: #F0FDF4; opacity: 0.6; cursor: default; }
+        .mini-match-btn.selected { border-color: var(--pop-purple); background: #F3F0FF; transform: translateY(1px); }
+        .mini-match-btn.correct { border-color: #22C55E; background: #F0FDF4; opacity: 0.5; cursor: default; box-shadow: none; }
 
         .bottom-action-btn {
             background-color: var(--pop-black);
             color: white;
             width: 100%;
-            padding: 20px;
+            padding: 22px;
             border-radius: 20px;
-            font-size: 1.25rem;
+            font-size: 1.3rem;
             font-weight: 900;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -111,13 +171,13 @@
 </head>
 <body>
 
-    <!-- 1. 登入畫面 -->
+    <!-- 1. LOGIN SCREEN -->
     <div id="screen-login" class="min-h-screen flex flex-col items-center justify-center p-6">
         <div class="w-full max-w-sm neo-brutal login-card">
             <div class="login-top-bar"></div>
             <div class="p-8 pt-10">
                 <div class="mx-auto w-28 h-28 bg-[#FBE269] border-[3px] border-black rounded-full flex items-center justify-center relative mb-4" style="box-shadow: 4px 4px 0px rgba(0,0,0,1);">
-                    <svg width="45" height="45" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m13 2-2 10h8L7 22l2-10H1L13 2Z" fill="white"/></svg>
+                    <svg width="45" height="45" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="m13 2-2 10h8L7 22l2-10H1L13 2Z" fill="white"/></svg>
                 </div>
                 <div class="text-center mb-8">
                     <h1 class="text-[2.6rem] font-[900] italic tracking-tight leading-none">
@@ -128,17 +188,17 @@
                 <div class="space-y-5">
                     <div class="flex gap-4">
                         <div class="w-1/2">
-                            <label class="block text-[#3C4858] font-black text-xs mb-1 uppercase">Class (班級)</label>
+                            <label class="block text-[#3C4858] font-black text-xs mb-1 uppercase tracking-wider">Class</label>
                             <input id="login-class" type="text" class="w-full input-brutal" placeholder="104">
                         </div>
                         <div class="w-1/2">
-                            <label class="block text-[#3C4858] font-black text-xs mb-1 uppercase">No. (座號)</label>
+                            <label class="block text-[#3C4858] font-black text-xs mb-1 uppercase tracking-wider">No.</label>
                             <input id="login-no" type="text" class="w-full input-brutal" placeholder="15">
                         </div>
                     </div>
                     <div>
-                        <label class="block text-[#3C4858] font-black text-xs mb-1 uppercase">Name (姓名)</label>
-                        <input id="login-name" type="text" class="w-full input-brutal" placeholder="王小明">
+                        <label class="block text-[#3C4858] font-black text-xs mb-1 uppercase tracking-wider">Name</label>
+                        <input id="login-name" type="text" class="w-full input-brutal" placeholder="姓名">
                     </div>
                     <button onclick="handleLogin()" class="w-full btn-start py-5 text-xl font-black mt-4 flex items-center justify-center gap-3 uppercase">
                         Start Journey <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
@@ -148,7 +208,7 @@
         </div>
     </div>
 
-    <!-- 2. 主儀表板 -->
+    <!-- 2. DASHBOARD -->
     <div id="screen-dashboard" class="hidden-screen min-h-screen flex flex-col">
         <header class="p-4 bg-white border-b-4 border-black z-50">
             <div class="flex justify-between items-center max-w-lg mx-auto">
@@ -161,55 +221,36 @@
                 </div>
             </div>
             <div class="flex mt-4 gap-2 max-w-lg mx-auto">
-                <button id="tab-learn" onclick="switchMode('learn')" class="flex-1 py-3 neo-brutal font-bold flex items-center justify-center gap-2 bg-white" style="border-radius:15px; box-shadow: 3px 3px 0px black;">
-                    LEARN
-                </button>
-                <button id="tab-coach" onclick="switchMode('coach')" class="flex-1 py-3 neo-brutal font-bold flex items-center justify-center gap-2 bg-gray-100" style="border-radius:15px; box-shadow: 3px 3px 0px black;">
-                    COACH
-                </button>
+                <button id="tab-learn" onclick="switchMode('learn')" class="flex-1 py-3 neo-brutal font-bold flex items-center justify-center gap-2 bg-white" style="border-radius:15px; box-shadow: 3px 3px 0px black;">LEARN</button>
+                <button id="tab-coach" onclick="switchMode('coach')" class="flex-1 py-3 neo-brutal font-bold flex items-center justify-center gap-2 bg-gray-100" style="border-radius:15px; box-shadow: 3px 3px 0px black;">COACH</button>
             </div>
         </header>
 
-        <main id="content-learn" class="flex-1 p-4 max-w-lg mx-auto w-full overflow-y-auto">
+        <main id="content-learn" class="flex-1 p-6 max-w-lg mx-auto w-full overflow-y-auto">
             <div id="learn-card-container"></div>
         </main>
 
         <main id="content-coach" class="hidden-screen flex-1 p-4 max-w-lg mx-auto w-full space-y-4">
             <button onclick="startCoach('PRO SPEAK')" class="w-full neo-brutal bg-[#A0E9A8] p-6 flex items-center gap-6 text-left">
-                <div class="bg-white p-4 rounded-2xl border-3 border-black">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
-                </div>
-                <div>
-                    <h3 class="text-2xl font-black uppercase">PRO SPEAK</h3>
-                    <p class="text-sm font-bold opacity-70">發音挑戰 (隨機 15 題)</p>
-                </div>
+                <div class="bg-white p-4 rounded-2xl border-3 border-black"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg></div>
+                <div><h3 class="text-2xl font-black uppercase">PRO SPEAK</h3><p class="text-sm font-bold opacity-70">發音挑戰 (隨機 15 題)</p></div>
             </button>
             <button onclick="startCoach('SPELL IT')" class="w-full neo-brutal bg-[#B6C2FF] p-6 flex items-center gap-6 text-left">
-                <div class="bg-white p-4 rounded-2xl border-3 border-black">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M6 8h.01"/><path d="M10 8h.01"/><path d="M14 8h.01"/><path d="M18 8h.01"/><path d="M8 12h.01"/><path d="M12 12h.01"/><path d="M16 12h.01"/><path d="M7 16h10"/></svg>
-                </div>
-                <div>
-                    <h3 class="text-2xl font-black uppercase">SPELL IT</h3>
-                    <p class="text-sm font-bold opacity-70">聽音拼寫 (隨機 15 題)</p>
-                </div>
+                <div class="bg-white p-4 rounded-2xl border-3 border-black"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M6 8h.01"/><path d="M10 8h.01"/><path d="M14 8h.01"/><path d="M18 8h.01"/><path d="M8 12h.01"/><path d="M12 12h.01"/><path d="M16 12h.01"/><path d="M7 16h10"/></svg></div>
+                <div><h3 class="text-2xl font-black uppercase">SPELL IT</h3><p class="text-sm font-bold opacity-70">聽音拼寫 (隨機 15 題)</p></div>
             </button>
             <button onclick="startCoach('FILL IN')" class="w-full neo-brutal bg-[#FFD5A1] p-6 flex items-center gap-6 text-left">
-                <div class="bg-white p-4 rounded-2xl border-3 border-black">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>
-                </div>
-                <div>
-                    <h3 class="text-2xl font-black uppercase">FILL IN</h3>
-                    <p class="text-sm font-bold opacity-70">搭配詞克漏字 (隨機 15 題)</p>
-                </div>
+                <div class="bg-white p-4 rounded-2xl border-3 border-black"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg></div>
+                <div><h3 class="text-2xl font-black uppercase">FILL IN</h3><p class="text-sm font-bold opacity-70">搭配詞克漏字 (隨機 15 題)</p></div>
             </button>
         </main>
 
         <footer id="learn-footer" class="p-4 bg-white border-t-4 border-black">
-            <button onclick="nextLearnWord()" class="bottom-action-btn">NEXT WORD →</button>
+            <button onclick="nextLearnWord()" class="bottom-action-btn uppercase">Next Word <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="4"><path d="M5 12h14m-7-7 7 7-7 7"/></svg></button>
         </footer>
     </div>
 
-    <!-- 3. 活動覆蓋層 -->
+    <!-- 3. ACTIVITY OVERLAY -->
     <div id="overlay-activity" class="hidden-screen fixed inset-0 z-[100] bg-[#FFF5EB] flex flex-col">
         <header class="p-4 flex justify-between items-center border-b-4 border-black bg-white">
             <button onclick="exitActivity()" class="neo-brutal px-3 py-1 bg-white font-bold text-sm uppercase">Exit</button>
@@ -222,42 +263,39 @@
     </div>
 
     <script>
-        // --- 請將新的 GAS 部署網址貼在下方這行 (第 286 行) ---
+        // --- 請將新的 GAS 部署網址貼在下方這行 (第 282 行) ---
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzyFva945ZNpjqANvNmvfNbjYeUSZrPnf0b5NfkL93zKnlXrE2jSNqN-fpwkZfzQEue/exec"; 
 
         const VOCAB_DATA = [
-            { word: "female", targetWord: "female", pos: "adj.", chinese: "女性的", english: "being or referring to a woman", syllables: ["fe", "male"], example: "Amelia Earhart was the first female pilot to fly solo across the Atlantic Ocean.", translation: "艾蜜莉亞·艾爾哈特是第一位獨自飛越大西洋的女性飛行員。", collocations: [["female", "pilot", "女性飛行員"], ["female", "student", "女學生"]], etymology: "From Latin 'femella', diminutive of 'femina' (woman)." },
-            { word: "region", targetWord: "regions", pos: "n.", chinese: "地區", english: "a large land area with similar features", syllables: ["re", "gion"], example: "The northern regions of the country are usually windy and snowy in winter.", translation: "這個國家的北部地區冬天通常多風且積雪。", collocations: [["coastal", "region", "沿海地區"], ["northern", "region", "北部地區"]], etymology: "From Latin 'regere' (to rule), an area under rule." },
-            { word: "regional", targetWord: "regional", pos: "adj.", chinese: "地區的", english: "relating to a particular region or area", syllables: ["re", "gion", "al"], example: "Winners of the regional contests were invited to join the national competition.", translation: "地區比賽的獲勝者被邀請參加全國競賽。", collocations: [["regional", "contest", "地區比賽"], ["regional", "development", "區域發展"]], etymology: "region + -al (adjective suffix)." },
-            { word: "forbid", targetWord: "forbidding", pos: "vt.", chinese: "禁止", english: "not to allow someone to do something", syllables: ["for", "bid"], example: "By forbidding factories to dump their waste in the sea, the government was able to clean up the coast.", translation: "透過禁止工廠將廢棄物傾倒在海中，政府得以清理海岸。", collocations: [["strictly", "forbidden", "嚴格禁止"], ["forbid", "entry", "禁止進入"]], etymology: "for- (away/off) + bid (to command)." },
-            { word: "continue", targetWord: "continued", pos: "vt.", chinese: "繼續", english: "to carry on or not stop", syllables: ["con", "tin", "ue"], example: "After a short break for lunch, Wally continued his work.", translation: "午餐休息一會兒後，華利繼續他的工作。", collocations: [["continue", "working", "繼續工作"], ["continue", "education", "繼續受教育"]], etymology: "From Latin 'con-' (together) + 'tenere' (to hold)." },
-            { word: "continuous", targetWord: "continuous", pos: "adj.", chinese: "持續不斷的", english: "happening or existing without stopping", syllables: ["con", "tin", "u", "ous"], example: "The continuous rain has caused floods in many parts of the country.", translation: "持續不斷的雨水導致該國許多地區發生洪水。", collocations: [["continuous", "rain", "持續降雨"], ["continuous", "improvement", "持續進步"]], etymology: "continue + -ous (adjective suffix)." },
-            { word: "education", targetWord: "education", pos: "n.", chinese: "教育", english: "process of teaching or training in a school", syllables: ["ed", "u", "ca", "tion"], example: "Two new schools were built to improve the quality of education in this remote area.", translation: "為了提高這個偏遠地區的教育品質，興建了兩所新學校。", collocations: [["higher", "education", "高等教育"], ["receive", "education", "接受教育"]], etymology: "e- (out) + ducere (to lead) + -tion (noun suffix)." },
-            { word: "educational", targetWord: "educational", pos: "adj.", chinese: "教育的", english: "relating to education or providing information", syllables: ["ed", "u", "ca", "tion", "al"], example: "According to the advertisement, language learning textbooks and other educational materials can be ordered online.", translation: "根據廣告，語言學習教科書和其他教育教材可以網上訂購。", collocations: [["educational", "materials", "教育教材"], ["educational", "system", "教育體制"]], etymology: "education + -al (adjective suffix)." },
-            { word: "educate", targetWord: "educated", pos: "vt.", chinese: "教育", english: "to teach or train someone", syllables: ["ed", "u", "cate"], example: "Michelle was educated at one of the best universities in Canada.", translation: "米雪兒在加拿大最好的大學之一接受教育。", collocations: [["well", "educated", "受過良好教育的"]], etymology: "From Latin 'educatus', to lead out/rear." },
-            { word: "principal", targetWord: "principal", pos: "n.", chinese: "校長", english: "someone who is in charge of a school", syllables: ["prin", "ci", "pal"], example: "Mrs. Lee has been the school's principal for ten years.", translation: "李太太擔任這所學校的校長已經十年了。", collocations: [["school", "principal", "學校校長"]], etymology: "From Latin 'primus' (first) + 'capere' (to take)." },
-            { word: "principal", targetWord: "principal", pos: "adj.", chinese: "主要的", english: "most important; main", syllables: ["prin", "ci", "pal"], example: "The principal reason why smoking is forbidden on the airplane is that it might cause a fire.", translation: "飛機上禁止吸菸的主要原因是它可能會引起火災。", collocations: [["principal", "reason", "主要原因"], ["principal", "aim", "主要目標"]], etymology: "From the same root as the noun, meaning 'first/chief'." },
-            { word: "equal", targetWord: "equal", pos: "adj.", chinese: "相等的", english: "having the same rights or opportunities", syllables: ["e", "qual"], example: "Everyone should enjoy equal rights and be treated the same.", translation: "每個人都應該享有平等的權利並受到同樣的對待。", collocations: [["equal", "rights", "平等權利"], ["equal", "to", "等於"]], etymology: "From Latin 'aequalis' (even, level)." },
-            { word: "equality", targetWord: "equality", pos: "n.", chinese: "平等", english: "the state of being equal", syllables: ["e", "qual", "i", "ty"], example: "Mary has been dedicating herself to the fight for job equality for a decade.", translation: "瑪麗十年來一直致力於爭取工作平等。", collocations: [["gender", "equality", "性別平等"]], etymology: "equal + -ity (noun suffix)." },
-            { word: "control", targetWord: "control", pos: "vt.", chinese: "控制", english: "to limit or rule something", syllables: ["con", "trol"], example: "It is important to control your weight. Being too thin or too fat is bad for your health.", translation: "控制體重很重要。太瘦或太胖對健康都不好。", collocations: [["under", "control", "在控制中"], ["out of", "control", "失控"]], etymology: "From French 'contra' (against) + 'rotulus' (roll/list)." },
-            { word: "annoy", targetWord: "annoys", pos: "vt.", chinese: "惱怒", english: "to cause someone to become angry", syllables: ["an", "noy"], example: "It really annoys Mrs. Donald when her children don't wash their hands before dinner.", translation: "當唐納夫人的孩子們晚餐前不洗手時，這真的讓她很惱火。", collocations: [["deeply", "annoyed", "深感惱怒"], ["sounds", "annoying", "聽起來很煩人"]], etymology: "From Latin 'in odio' (in hatred)." },
-            { word: "threaten", targetWord: "threatened", pos: "vt.", chinese: "威脅", english: "to warn someone that you will harm them", syllables: ["threat", "en"], example: "The robber threatened the bank staff with a gun.", translation: "搶匪用槍威脅銀行職員。", collocations: [["threaten", "with", "以...威脅"]], etymology: "threat + -en (verb suffix)." },
-            { word: "threat", targetWord: "threats", pos: "n.", chinese: "威脅", english: "a statement or sign of harm", syllables: ["threat"], example: "The boy is always making threats against the younger students.", translation: "這個男孩總是威脅學校裡年紀較小的學生。", collocations: [["pose a", "threat", "造成威脅"], ["serious", "threat", "嚴重威脅"]], etymology: "Old English 'threat' (oppression/menace)." },
-            { word: "surgery", targetWord: "surgery", pos: "n.", chinese: "外科手術", english: "medical treatment involving cutting open the body", syllables: ["sur", "ger", "y"], example: "The doctor performed the surgery yesterday.", translation: "醫生昨天進行了手術。", collocations: [["perform", "surgery", "進行手術"], ["major", "surgery", "大手術"]], etymology: "From Greek 'cheir' (hand) + 'ergon' (work)." },
-            { word: "recover", targetWord: "recovered", pos: "vi.", chinese: "康復", english: "to heal or get better after sickness", syllables: ["re", "cov", "er"], example: "Stacy recovered from the flu and went back to work last week.", translation: "史黛西上週感冒康復並回去工作了。", collocations: [["recover", "from", "從...康復"]], etymology: "re- (again) + capere (to get back)." },
-            { word: "recovery", targetWord: "recovery", pos: "n.", chinese: "恢復", english: "the process of healing", syllables: ["re", "cov", "er", "y"], example: "The panda made a full recovery from its injuries.", translation: "這隻熊貓從傷病中完全康復了。", collocations: [["full", "recovery", "完全康復"]], etymology: "recover + -y (noun suffix)." },
-            { word: "sign", targetWord: "signed", pos: "vt.", chinese: "簽名", english: "to write one's name to show agreement", syllables: ["sign"], example: "David signed his name at the bottom of the letter.", translation: "大衛在信的末尾簽了名。", collocations: [["sign", "a contract", "簽署合約"], ["sign", "a letter", "簽信"]], etymology: "From Latin 'signum' (mark, token)." },
-            { word: "persuade", targetWord: "persuade", pos: "vt.", chinese: "說服", english: "to use arguments to make someone do something", syllables: ["per", "suade"], example: "He tried to persuade her to do more exercise.", translation: "他試圖說服她多做運動。", collocations: [["persuade", "someone to", "說服某人做..."], ["try to", "persuade", "試圖說服"]], etymology: "per- (thoroughly) + suadere (to urge)." },
-            { word: "persuasion", targetWord: "persuasion", pos: "n.", chinese: "說服", english: "the act of persuading someone", syllables: ["per", "sua", "sion"], example: "Using his powers of persuasion, Richie finally made his wife start painting again.", translation: "利用他的說服力，里奇終於讓他的妻子重新開始繪畫。", collocations: [["powers of", "persuasion", "說服力"]], etymology: "persuade + -ion (noun suffix)." },
-            { word: "persuasive", targetWord: "persuasive", pos: "adj.", chinese: "有說服力的", english: "able to make someone believe or do something", syllables: ["per", "sua", "sive"], example: "Alice came up with several persuasive arguments.", translation: "艾莉絲提出了幾個非常有說服力的論點。", collocations: [["persuasive", "argument", "有說服力的論點"]], etymology: "persuade + -ive (adjective suffix)." },
-            { word: "adopt", targetWord: "adopted", pos: "vt.", chinese: "採納/領養", english: "to approve a method or start a practice", syllables: ["a", "dopt"], example: "Oliver was adopted by his aunt.", translation: "奧利佛被他的姑姑領養了。", collocations: [["adopt", "a policy", "採納政策"], ["adopt", "a child", "領養小孩"]], etymology: "ad- (to) + optare (to choose)." },
-            { word: "policy", targetWord: "policies", pos: "n.", chinese: "政策", english: "a plan adopted by a government or organization", syllables: ["pol", "i", "cy"], example: "The government adopted stricter policies on recycling.", translation: "政府採納了更嚴格的回收政策。", collocations: [["government", "policy", "政府政策"], ["strict", "policy", "嚴格政策"]], etymology: "From Greek 'polis' (city)." },
-            { word: "ensure", targetWord: "ensure", pos: "vt.", chinese: "確保", english: "to make certain that something happens", syllables: ["en", "sure"], example: "A new law will be made to ensure that every child will get proper care.", translation: "將制定一項新法律以確保每個孩子都能得到適當的照料。", collocations: [["ensure", "safety", "確保安全"], ["ensure", "success", "確保成功"]], etymology: "en- (make) + sure (certain)." },
-            { word: "establish", targetWord: "established", pos: "vt.", chinese: "建立", english: "to start or found an organization", syllables: ["es", "tab", "lish"], example: "Harvard University was established in 1636.", translation: "哈佛大學成立於 1636 年。", collocations: [["establish", "a business", "創立事業"], ["established", "in", "成立於..."]], etymology: "From Latin 'stare' (to stand)." },
-            { word: "establishment", targetWord: "establishment", pos: "n.", chinese: "建立", english: "the act of starting an organization", syllables: ["es", "tab", "lish", "ment"], example: "The establishment of the children's home has ensured protection for orphans.", translation: "兒童之家的建立確保了對孤兒的保護。", collocations: [["establishment", "of", "建立..."]], etymology: "establish + -ment (noun suffix)." },
-            { word: "honor", targetWord: "honors", pos: "n.", chinese: "榮譽", english: "a special award or great respect", syllables: ["hon", "or"], example: "Ang Lee has received many honors and awards.", translation: "李安因其激勵人心的電影獲得了許多榮譽和獎項。", collocations: [["great", "honor", "莫大榮幸"], ["in honor of", "向...致敬"]], etymology: "From Latin 'honos' (honor)." },
-            { word: "honorable", targetWord: "honorable", pos: "adj.", chinese: "值得敬佩的", english: "deserving respect and admiration", syllables: ["hon", "or", "a", "ble"], example: "Everyone in the courtroom stood as the honorable judge entered.", translation: "法庭上的每個人在受人尊敬的法官進入時都起立。", collocations: [["honorable", "judge", "尊敬的法官"]], etymology: "honor + -able." },
-            { word: "weapon", targetWord: "weapon", pos: "n.", chinese: "手段", english: "an effective thing or tool for success", syllables: ["weap", "on"], example: "Exercising is an effective weapon against stress.", translation: "運動被認為是對抗壓力的有效手段。", collocations: [["effective", "weapon", "有效手段"], ["deadly", "weapon", "致命武器"]], etymology: "Old English 'waepen'." }
+            { word: "female", targetWord: "female", pos: "adj./n.", chinese: "女性的；女性", english: "being or referring to a woman", syllables: ["fe", "male"], ipa: "/'fimel/", example: "Amelia Earhart was the first female pilot to fly solo across the Atlantic Ocean.", translation: "艾蜜莉亞·艾爾哈特是第一位獨自飛越大西洋的女性飛行員。", collocations: [["female", "pilot", "女性飛行員"], ["female", "student", "女學生"], ["female", "lead", "女主角"]], etymology: "From Latin 'femella', diminutive of 'femina' (woman)." },
+            { word: "region", targetWord: "regions", pos: "n.", chinese: "地區", english: "a large land area with similar features", syllables: ["re", "gion"], ipa: "/'ridʒən/", example: "The northern regions of the country are usually windy and snowy in winter.", translation: "這個國家的北部地區冬天通常多風且積雪。", collocations: [["coastal", "region", "沿海地區"], ["northern", "region", "北部地區"], ["regional", "development", "區域發展"]], etymology: "From Latin 'regere' (to rule), an area under rule." },
+            { word: "regional", targetWord: "regional", pos: "adj.", chinese: "地區的", english: "relating to a particular region or area", syllables: ["re", "gion", "al"], ipa: "/'ridʒən!/", example: "Winners of the regional contests were invited to join the national competition.", translation: "地區比賽的獲勝者被邀請參加全國競賽。", collocations: [["regional", "contest", "地區比賽"], ["regional", "office", "地區辦事處"]], etymology: "region + -al (adjective suffix)." },
+            { word: "forbid", targetWord: "forbidding", pos: "vt.", chinese: "禁止", english: "not to allow someone to do something", syllables: ["for", "bid"], ipa: "/fo'bid/", example: "By forbidding factories to dump their waste in the sea, the government cleaned up the coast.", translation: "透過禁止工廠將廢棄物傾倒在海中，政府得以清理海岸。", collocations: [["strictly", "forbidden", "嚴格禁止"], ["forbid", "entry", "禁止進入"], ["forbid", "doing", "禁止做某事"]], etymology: "for- (away) + bid (to offer)." },
+            { word: "continue", targetWord: "continued", pos: "vt.", chinese: "繼續", english: "to carry on or not stop", syllables: ["con", "tin", "ue"], ipa: "/kən'tınjo/", example: "After a short break for lunch, Wally continued his work.", translation: "午餐休息一會兒後，華利繼續他的工作。", collocations: [["continue", "working", "繼續工作"], ["continue", "education", "繼續受教育"]], etymology: "From Latin 'con-' (together) + 'tenere' (to hold)." },
+            { word: "continuous", targetWord: "continuous", pos: "adj.", chinese: "持續不斷的", english: "happening without stopping", syllables: ["con", "tin", "u", "ous"], ipa: "/kən'tınjuəs/", example: "The continuous rain has caused floods in many parts of the country.", translation: "持續不斷的雨水導致該國許多地區發生洪水。", collocations: [["continuous", "rain", "持續降雨"], ["continuous", "improvement", "持續進步"]], etymology: "continue + -ous (adjective suffix)." },
+            { word: "education", targetWord: "education", pos: "n.", chinese: "教育", english: "process of teaching or training in a school", syllables: ["ed", "u", "ca", "tion"], ipa: "/,edzu'kesǝn/", example: "Two new schools were built to improve the quality of education in this remote area.", translation: "為了提高這個偏遠地區的教育品質，興建了兩所新學校。", collocations: [["higher", "education", "高等教育"], ["receive", "education", "接受教育"]], etymology: "e- (out) + ducere (to lead)." },
+            { word: "educational", targetWord: "educational", pos: "adj.", chinese: "教育的", english: "relating to providing information or teaching", syllables: ["ed", "u", "ca", "tion", "al"], ipa: "/,edzu'kefǝn!/", example: "Language learning textbooks and other educational materials can be ordered online.", translation: "語言學習教科書和其他教育教材可以網上訂購。", collocations: [["educational", "materials", "教育教材"], ["educational", "system", "教育制度"]], etymology: "education + -al." },
+            { word: "principal", targetWord: "principal", pos: "n./adj.", chinese: "校長；主要的", english: "head of a school; most important", syllables: ["prin", "ci", "pal"], ipa: "/'prinsəp!/", example: "Mrs. Lee has been the school's principal for ten years.", translation: "李太太擔任這所學校的校長已經十年了。", collocations: [["school", "principal", "學校校長"], ["principal", "reason", "主要原因"]], etymology: "From Latin 'primus' (first) + 'capere' (to take)." },
+            { word: "equal", targetWord: "equal", pos: "adj./vt.", chinese: "相等的；等於", english: "having the same rights or opportunities", syllables: ["e", "qual"], ipa: "/'ikwǝl/", example: "Everyone should enjoy equal rights and be treated the same.", translation: "每個人都應該享有平等的權利並受到同樣的對待。", collocations: [["equal", "rights", "平等權利"], ["equal", "to", "等於"]], etymology: "From Latin 'aequalis' (even)." },
+            { word: "equality", targetWord: "equality", pos: "n.", chinese: "平等", english: "the state of being equal", syllables: ["e", "qual", "i", "ty"], ipa: "/i'kwalǝtı/", example: "Mary has been dedicating herself to the fight for job equality for a decade.", translation: "瑪麗十年來一直致力於爭取工作平等。", collocations: [["gender", "equality", "性別平等"], ["racial", "equality", "種族平等"]], etymology: "equal + -ity." },
+            { word: "control", targetWord: "control", pos: "vt./n.", chinese: "控制", english: "to limit or rule something", syllables: ["con", "trol"], ipa: "/kən'trol/", example: "It is important to control your weight. Being too thin or too fat is bad for your health.", translation: "控制體重很重要。太瘦或太胖對健康都不好。", collocations: [["under", "control", "在控制中"], ["out of", "control", "失控"], ["weight", "control", "體重控制"]], etymology: "From French 'contra' (against) + 'rotulus' (roll)." },
+            { word: "annoy", targetWord: "annoys", pos: "vt.", chinese: "惱怒；使人生氣", english: "to cause someone to become angry", syllables: ["an", "noy"], ipa: "/ənər/", example: "It really annoys Mrs. Donald when her children don't wash their hands.", translation: "當唐納夫人的孩子們不洗手時，這真的讓她很惱火。", collocations: [["deeply", "annoyed", "深感惱怒"], ["sounds", "annoying", "聽起來很煩人"]], etymology: "From Latin 'in odio' (in hatred)." },
+            { word: "threaten", targetWord: "threatened", pos: "vt.", chinese: "威脅；恐嚇", syllables: ["threat", "en"], ipa: "/θετη/", english: "warn someone of harm if they don't comply", example: "The robber threatened the bank staff with a gun.", translation: "搶匪用槍威脅銀行職員。", collocations: [["threaten", "with", "以...威脅"]], etymology: "threat + -en (to make)." },
+            { word: "threat", targetWord: "threats", pos: "n.", chinese: "威脅", english: "a statement or sign of harm", syllables: ["threat"], ipa: "/θετ/", example: "The boy is always making threats against younger students.", translation: "這個男孩總是威脅較小的學生。", collocations: [["pose a", "threat", "造成威脅"], ["serious", "threat", "嚴重威脅"]], etymology: "Old English 'threat' (oppression)." },
+            { word: "surgery", targetWord: "surgery", pos: "n.", chinese: "外科手術", syllables: ["sur", "ger", "y"], ipa: "/'s3-dzərı/", english: "medical treatment involving cutting the body", example: "The doctor performed the surgery yesterday.", translation: "醫生昨天進行了手術。", collocations: [["perform", "surgery", "進行手術"], ["major", "surgery", "大手術"]], etymology: "Greek 'cheir' (hand) + 'ergon' (work)." },
+            { word: "recover", targetWord: "recovered", pos: "vi.", chinese: "康復", syllables: ["re", "cov", "er"], ipa: "/ri'kavǝ-/", english: "to heal or get better after sickness", example: "Stacy recovered from the flu last week.", translation: "史黛西上週感冒康復了。", collocations: [["recover", "from", "從...康復"]], etymology: "re- (again) + capere (to get)." },
+            { word: "recovery", targetWord: "recovery", pos: "n.", chinese: "恢復", syllables: ["re", "cov", "er", "y"], ipa: "/ri'kavǝrı/", english: "the process of healing", example: "The panda made a full recovery from its injuries.", translation: "這隻熊貓從傷病中完全康復了。", collocations: [["full", "recovery", "完全康復"]], etymology: "recover + -y." },
+            { word: "sign", targetWord: "signed", pos: "vt.", chinese: "簽名；簽署", syllables: ["sign"], ipa: "/sain/", english: "write one's name to show agreement", example: "David signed his name at the bottom of the letter.", translation: "大衛在信的末尾簽了名。", collocations: [["sign", "a contract", "簽署合約"], ["sign", "a letter", "簽信"]], etymology: "From Latin 'signum' (mark)." },
+            { word: "persuade", targetWord: "persuade", pos: "vt.", chinese: "說服", syllables: ["per", "suade"], ipa: "/po'swed/", english: "use arguments to make someone do something", example: "He tried to persuade her to do more exercise.", translation: "他試圖說服她多做運動。", collocations: [["persuade", "someone to", "說服某人做..."], ["try to", "persuade", "試圖說服"]], etymology: "per- (thoroughly) + suadere (to urge)." },
+            { word: "persuasion", targetWord: "persuasion", pos: "n.", chinese: "說服", syllables: ["per", "sua", "sion"], ipa: "/pə-swezǝn/", english: "the act of persuading someone", example: "Using his powers of persuasion, Richie convinced her.", translation: "利用他的說服力，里奇說服了她。", collocations: [["powers of", "persuasion", "說服力"]], etymology: "persuade + -ion." },
+            { word: "persuasive", targetWord: "persuasive", pos: "adj.", chinese: "有說服力的", syllables: ["per", "sua", "sive"], ipa: "/pa'swesiv/", english: "able to make someone believe something", example: "Alice came up with several persuasive arguments.", translation: "艾莉絲提出了幾個非常有說服力的論點。", collocations: [["persuasive", "argument", "有說服力的論點"]], etymology: "persuade + -ive." },
+            { word: "adopt", targetWord: "adopted", pos: "vt.", chinese: "採納/領養", syllables: ["a", "dopt"], ipa: "/ə'dapt/", english: "approve a method or take a child as one's own", example: "Oliver was adopted by his aunt.", translation: "奧利佛被他的姑姑領養了。", collocations: [["adopt", "a policy", "採納政策"], ["adopt", "a child", "領養小孩"]], etymology: "ad- (to) + optare (to choose)." },
+            { word: "policy", targetWord: "policies", pos: "n.", chinese: "政策", syllables: ["pol", "i", "cy"], ipa: "/'paləsı/", english: "a plan adopted by an organization", example: "The government adopted stricter policies on recycling.", translation: "政府採納了更嚴格的回收政策。", collocations: [["government", "policy", "政府政策"], ["strict", "policy", "嚴格政策"]], etymology: "From Greek 'polis' (city)." },
+            { word: "ensure", targetWord: "ensure", pos: "vt.", chinese: "確保", syllables: ["en", "sure"], ipa: "/in'for/", english: "to make certain that something happens", example: "A new law will ensure that every child gets care.", translation: "將制定一項新法律以確保每個孩子都能得到適當的照料。", collocations: [["ensure", "safety", "確保安全"], ["ensure", "success", "確保成功"]], etymology: "en- (make) + sure (certain)." },
+            { word: "establish", targetWord: "established", pos: "vt.", chinese: "建立", syllables: ["es", "tab", "lish"], ipa: "/ə'stæblı/", english: "to start or found an organization", example: "Harvard University was established in 1636.", translation: "哈佛大學成立於 1636 年。", collocations: [["establish", "a business", "創立事業"], ["established", "in", "成立於..."]], etymology: "Latin 'stare' (to stand)." },
+            { word: "honor", targetWord: "honors", pos: "n./vt.", chinese: "榮譽；致敬", syllables: ["hon", "or"], ipa: "/'ano/", english: "special award or great respect", example: "Ang Lee has received many honors and awards.", translation: "李安獲得了許多榮譽和獎項。", collocations: [["great", "honor", "莫大榮幸"], ["in honor of", "向...致敬"]], etymology: "Latin 'honos' (honor)." },
+            { word: "honorable", targetWord: "honorable", pos: "adj.", chinese: "值得敬佩的", syllables: ["hon", "or", "a", "ble"], ipa: "/'anərəbl/", english: "deserving respect and admiration", example: "Everyone stood as the honorable judge entered.", translation: "法庭上的每個人在受人尊敬的法官進入時都起立。", collocations: [["honorable", "judge", "尊敬的法官"]], etymology: "honor + -able." },
+            { word: "weapon", targetWord: "weapon", pos: "n.", chinese: "手段；武器", syllables: ["weap", "on"], ipa: "/'wepən/", english: "an effective tool for success or fighting", example: "Exercising is an effective weapon against stress.", translation: "運動被認為是對抗壓力的有效手段。", collocations: [["effective", "weapon", "有效手段"], ["deadly", "weapon", "致命武器"]], etymology: "Old English 'waepen'." }
         ];
 
         let currentUser = { class: "", no: "", name: "", xp: 0 };
@@ -304,24 +342,45 @@
             const item = VOCAB_DATA[currentLearnIdx];
             learnStats.viewedIndices.add(currentLearnIdx);
             const container = document.getElementById('learn-card-container');
+            
             container.innerHTML = `
-                <div class="card-main neo-brutal" style="border-radius:30px;">
-                    <div class="bg-blue-600 h-32 -mx-6 -mt-6 mb-6 flex items-center justify-center relative" style="border-radius: 30px 30px 0 0;">
-                        <span class="absolute top-4 left-4 bg-black text-white text-xs px-2 py-1 rounded">${item.pos}</span>
-                        <h2 class="text-white text-3xl font-black">${item.word}</h2>
+                <div class="card-main">
+                    <div class="learn-header">
+                        <span class="pos-badge">${item.pos}</span>
+                        <h2 class="text-white text-5xl font-black italic tracking-tighter">${item.word}</h2>
                     </div>
-                    <div class="flex items-center gap-2 mb-4">
-                        <div class="flex">${item.syllables.map(s => `<span class="syllable-btn text-xs px-2">${s}</span>`).join('')}</div>
-                        <button onclick="speak('${item.word}')" class="w-10 h-10 neo-brutal rounded-full flex items-center justify-center bg-white ml-auto" style="box-shadow: 2px 2px 0px black;">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+                    
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="flex">${item.syllables.map(s => `<span class="syllable-pill">${s}</span>`).join('')}</div>
+                        <span class="ipa-pill">${item.ipa}</span>
+                        <button onclick="speak('${item.word}')" class="w-12 h-12 neo-brutal rounded-full flex items-center justify-center bg-white ml-auto" style="box-shadow: 3px 3px 0px black;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
                         </button>
                     </div>
-                    <div class="mb-4"><p class="font-black text-sm text-gray-400 uppercase tracking-tighter">Meaning</p><p class="text-lg font-bold">${item.english}</p><p class="text-md text-purple-600 font-black mt-1">${item.chinese}</p></div>
-                    <div class="bg-blue-50 p-4 rounded-2xl border-2 border-blue-100 mb-4"><p class="text-blue-500 font-black text-xs uppercase mb-1">Root & Etymology</p><p class="text-sm font-bold text-blue-900">${item.etymology}</p></div>
-                    <div class="mb-4"><p class="font-black text-sm text-gray-400 uppercase tracking-tighter">Example</p><p class="italic text-gray-600 leading-tight">"${item.example}"</p><p class="text-xs text-gray-400 mt-1">${item.translation}</p></div>
-                    <div class="bg-pink-50 p-4 rounded-xl border-2 border-pink-100">
-                         <div class="grid grid-cols-2 gap-2">
-                            ${item.collocations.map((c, i) => `<div class="mini-match-btn cursor-pointer text-xs" onclick="handleMatch(this, '${item.word}', ${i}, 'en')">${c[0]} ${c[1]}</div><div class="mini-match-btn cursor-pointer text-xs" onclick="handleMatch(this, '${item.word}', ${i}, 'cn')">${c[2]}</div>`).join('')}
+
+                    <div class="mb-6">
+                        <p class="section-label">Meaning</p>
+                        <p class="meaning-text">${item.english} <span class="text-purple-600">(${item.chinese})</span></p>
+                    </div>
+
+                    <div class="mb-6">
+                        <p class="section-label">Example</p>
+                        <p class="example-text">"${item.example}"</p>
+                        <p class="text-xs text-gray-400 mt-2 font-black">${item.translation}</p>
+                    </div>
+
+                    <div class="mb-6 bg-blue-50 p-4 rounded-3xl border-2 border-blue-100">
+                        <p class="text-blue-500 font-black text-[10px] uppercase mb-1 tracking-widest">Etymology / Word Root</p>
+                        <p class="text-sm font-bold text-blue-900 leading-relaxed">${item.etymology}</p>
+                    </div>
+
+                    <div class="mini-match-box">
+                         <p class="text-pink-500 font-black text-xs mb-3 uppercase tracking-widest flex items-center gap-2">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            Mini Match (Oxford)
+                         </p>
+                         <div class="grid grid-cols-2 gap-3">
+                            ${item.collocations.map((c, i) => `<div class="mini-match-btn cursor-pointer" onclick="handleMatch(this, '${item.word}', ${i}, 'en')">${c[0]} ${c[1]}</div><div class="mini-match-btn cursor-pointer" onclick="handleMatch(this, '${item.word}', ${i}, 'cn')">${c[2]}</div>`).join('')}
                          </div>
                     </div>
                 </div>
@@ -372,7 +431,7 @@
             } else {
                 const target = q.targetWord || q.word;
                 const displayHint = `<span class="cloze-blank">${target[0]}${"_".repeat(target.length-2)}${target[target.length-1]}</span>`;
-                body.innerHTML = `<div class="bg-white neo-brutal p-6 w-full max-w-sm" style="border-radius:25px;"><span class="bg-purple-100 text-purple-600 text-[10px] font-black px-2 py-1 rounded mb-4 inline-block uppercase">Cloze Test</span><div class="text-lg font-bold leading-relaxed mb-6">${q.example.replace(new RegExp(target, 'gi'), displayHint)}</div><p id="coach-hint" class="hidden text-gray-400 italic text-sm mb-4">${q.translation}</p><button onclick="document.getElementById('coach-hint').classList.toggle('hidden')" class="text-blue-500 text-xs font-bold mb-6">Show Translation</button><input id="coach-input" type="text" class="w-full neo-brutal p-4 font-bold text-center text-xl" placeholder="Type word..." autocomplete="off" style="border-radius:15px; border-color: #E2E8F0;"></div>`;
+                body.innerHTML = `<div class="bg-white neo-brutal p-6 w-full max-w-sm" style="border-radius:25px;"><span class="bg-purple-100 text-purple-600 text-[10px] font-black px-2 py-1 rounded mb-4 inline-block uppercase">Cloze Test</span><div class="text-lg font-bold leading-relaxed mb-6">${q.example.replace(new RegExp(target, 'gi'), displayHint)}</div><p id="coach-hint" class="hidden text-gray-400 italic text-sm mb-4 bg-gray-50 p-2 rounded">${q.translation}</p><button onclick="document.getElementById('coach-hint').classList.toggle('hidden')" class="text-blue-500 text-xs font-bold mb-6">Show Translation</button><input id="coach-input" type="text" class="w-full neo-brutal p-4 font-bold text-center text-xl" placeholder="Type word..." autocomplete="off" style="border-radius:15px; border-color: #E2E8F0;"></div>`;
             }
             const input = document.getElementById('coach-input');
             if(input) { input.focus(); input.onkeyup = (e) => { if(e.key === "Enter") performCheck(); }; }
