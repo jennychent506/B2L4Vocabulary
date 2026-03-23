@@ -139,7 +139,7 @@
 </head>
 <body>
 
-    <!-- 1. 登入畫面 -->
+    <!-- 1. LOGIN SCREEN -->
     <div id="screen-login" class="min-h-screen flex flex-col items-center justify-center p-6">
         <div class="w-full max-w-sm neo-brutal login-card">
             <div class="login-top-bar"></div>
@@ -176,7 +176,7 @@
         </div>
     </div>
 
-    <!-- 2. 主儀表板 -->
+    <!-- 2. DASHBOARD -->
     <div id="screen-dashboard" class="hidden-screen min-h-screen flex flex-col">
         <header class="p-4 bg-white border-b-4 border-black z-50">
             <div class="flex justify-between items-center max-w-lg mx-auto">
@@ -224,7 +224,7 @@
         </footer>
     </div>
 
-    <!-- 3. 活動覆蓋層 -->
+    <!-- 3. ACTIVITY OVERLAY -->
     <div id="overlay-activity" class="hidden-screen fixed inset-0 z-[100] bg-[#FFF5EB] flex flex-col">
         <header class="p-4 flex justify-between items-center border-b-4 border-black bg-white">
             <button onclick="exitActivity()" class="neo-brutal px-3 py-1 bg-white flex items-center gap-1 font-bold text-sm" style="border-radius:10px; box-shadow: 2px 2px 0px black;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg> EXIT</button>
@@ -237,7 +237,7 @@
     </div>
 
     <script>
-        // --- 請將 GAS 部署網址貼在下方這行 (第 261 行) ---
+        // --- 請將 GAS 部署網址貼在下方這行 (第 262 行) ---
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzyFva945ZNpjqANvNmvfNbjYeUSZrPnf0b5NfkL93zKnlXrE2jSNqN-fpwkZfzQEue/exec"; 
 
         const VOCAB_DATA = [
@@ -362,7 +362,7 @@
             const checkBtn = document.getElementById('btn-check-answer');
             document.getElementById('activity-progress').textContent = `${activeActivity.currentIdx + 1} / 15`;
             body.innerHTML = "";
-            checkBtn.onclick = checkCoachAnswer;
+            checkBtn.onclick = (e) => checkCoachAnswer(false); // 修正：強制傳入 false 代表非語音
             checkBtn.classList.remove('bg-green-500', 'bg-red-500'); checkBtn.classList.add('bg-black');
             checkBtn.textContent = "Check Answer";
 
@@ -385,34 +385,31 @@
             const micBtn = document.getElementById('mic-btn');
             rec.start(); micBtn.classList.add('pulse-mic', 'bg-red-400');
             rec.onresult = (e) => {
-                const res = e.results[0][0].transcript.toLowerCase().replace(/[.,!]/g, '').trim();
+                const res = e.results[0][0].transcript.toLowerCase().replace(/[^a-z0-9]/gi, '').trim();
                 document.getElementById('speech-text').innerText = `You said: "${res}"`;
                 activeActivity.lastSpeechResult = res; checkCoachAnswer(true);
             };
             rec.onspeechend = () => { rec.stop(); micBtn.classList.remove('pulse-mic', 'bg-red-400'); };
         }
 
-        /**
-         * 核心評分邏輯
-         * @param {any} inputArg - 若為語音辨識會傳入 true，若為點擊按鈕會傳入 Event 物件
-         */
-        function checkCoachAnswer(inputArg) {
+        // 核心修正：標準化字符串
+        function normalize(str) {
+            return (str || "").toLowerCase().replace(/[^a-z0-9]/gi, '').trim();
+        }
+
+        function checkCoachAnswer(isSpeechMode) {
             const q = activeActivity.questions[activeActivity.currentIdx];
             const btn = document.getElementById('btn-check-answer');
-            const target = (activeActivity.type === 'FILL IN' ? q.targetWord : q.word).toLowerCase().trim();
-            
-            // 關鍵修復：判斷 inputArg 是否為布林值 true (代表語音)
-            const isSpeech = (inputArg === true);
+            const target = normalize(activeActivity.type === 'FILL IN' ? q.targetWord : q.word);
             
             let userInput = "";
-            if (isSpeech) {
-                userInput = activeActivity.lastSpeechResult.toLowerCase().trim();
+            if (isSpeechMode === true) {
+                userInput = normalize(activeActivity.lastSpeechResult);
             } else {
-                // 從輸入框取得並強制轉小寫且去空白
-                userInput = (document.getElementById('coach-input')?.value || "").toLowerCase().trim();
+                userInput = normalize(document.getElementById('coach-input')?.value);
             }
 
-            if(userInput === target) { 
+            if(userInput === target && userInput !== "") { 
                 btn.classList.add('bg-green-500'); 
                 btn.textContent = "CORRECT!"; 
                 currentUser.xp += 10; 
@@ -420,10 +417,10 @@
                 updateXP(); 
             } else { 
                 btn.classList.add('bg-red-500'); 
-                btn.textContent = "WRONG! Answer: " + (activeActivity.type === 'FILL IN' ? q.targetWord : q.word); 
+                const expected = (activeActivity.type === 'FILL IN' ? q.targetWord : q.word);
+                btn.textContent = "WRONG! Answer: " + expected; 
             }
             
-            // 綁定「下一題」的邏輯
             btn.onclick = () => {
                 activeActivity.currentIdx++;
                 if(activeActivity.currentIdx < 15) renderCoachQuestion();
