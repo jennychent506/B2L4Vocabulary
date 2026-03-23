@@ -52,10 +52,6 @@
             border-radius: 20px;
             transition: all 0.1s;
         }
-        .btn-start:active {
-            transform: translate(2px, 2px);
-            box-shadow: 2px 2px 0px var(--pop-black);
-        }
 
         .input-brutal {
             border: 3px solid var(--pop-black);
@@ -190,11 +186,9 @@
             </div>
             <div class="flex mt-4 gap-2 max-w-lg mx-auto">
                 <button id="tab-learn" onclick="switchMode('learn')" class="flex-1 py-3 neo-brutal font-bold flex items-center justify-center gap-2 bg-white" style="border-radius:15px; box-shadow: 3px 3px 0px black;">
-                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
                     LEARN
                 </button>
                 <button id="tab-coach" onclick="switchMode('coach')" class="flex-1 py-3 neo-brutal font-bold flex items-center justify-center gap-2 bg-gray-100" style="border-radius:15px; box-shadow: 3px 3px 0px black;">
-                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
                     COACH
                 </button>
             </div>
@@ -204,35 +198,51 @@
             <div id="learn-card-container"></div>
         </main>
 
+        <!-- COACH 選單：已恢復圖示與描述版本 -->
         <main id="content-coach" class="hidden-screen flex-1 p-4 max-w-lg mx-auto w-full space-y-4">
-            <button onclick="startCoach('PRO SPEAK')" class="w-full neo-brutal bg-[#A0E9A8] p-6 flex items-center gap-6">
-                <div class="bg-white p-3 rounded-xl border-2 border-black"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg></div>
-                <div class="text-left"><h3 class="text-xl font-black">PRO SPEAK</h3><p class="text-sm font-bold opacity-70">發音挑戰 (隨機 15 題)</p></div>
+            <button onclick="startCoach('PRO SPEAK')" class="w-full neo-brutal bg-[#A0E9A8] p-6 flex items-center gap-6 text-left">
+                <div class="bg-white p-4 rounded-2xl border-3 border-black">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-black uppercase">PRO SPEAK</h3>
+                    <p class="text-sm font-bold opacity-70">發音挑戰 (隨機 15 題)</p>
+                </div>
             </button>
-            <button onclick="startCoach('SPELL IT')" class="w-full neo-brutal bg-[#B6C2FF] p-6 flex items-center gap-6">
-                <div class="bg-white p-3 rounded-xl border-2 border-black"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M6 8h.01"/><path d="M10 8h.01"/><path d="M14 8h.01"/><path d="M18 8h.01"/><path d="M8 12h.01"/><path d="M12 12h.01"/><path d="M16 12h.01"/><path d="M7 16h10"/></svg></div>
-                <div class="text-left"><h3 class="text-xl font-black">SPELL IT</h3><p class="text-sm font-bold opacity-70">聽音拼寫 (隨機 15 題)</p></div>
+            <button onclick="startCoach('SPELL IT')" class="w-full neo-brutal bg-[#B6C2FF] p-6 flex items-center gap-6 text-left">
+                <div class="bg-white p-4 rounded-2xl border-3 border-black">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M6 8h.01"/><path d="M10 8h.01"/><path d="M14 8h.01"/><path d="M18 8h.01"/><path d="M8 12h.01"/><path d="M12 12h.01"/><path d="M16 12h.01"/><path d="M7 16h10"/></svg>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-black uppercase">SPELL IT</h3>
+                    <p class="text-sm font-bold opacity-70">聽音拼寫 (隨機 15 題)</p>
+                </div>
             </button>
-            <button onclick="startCoach('FILL IN')" class="w-full neo-brutal bg-[#FFD5A1] p-6 flex items-center gap-6">
-                <div class="bg-white p-3 rounded-xl border-2 border-black"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg></div>
-                <div class="text-left"><h3 class="text-xl font-black">FILL IN</h3><p class="text-sm font-bold opacity-70">搭配詞克漏字 (隨機 15 題)</p></div>
+            <button onclick="startCoach('FILL IN')" class="w-full neo-brutal bg-[#FFD5A1] p-6 flex items-center gap-6 text-left">
+                <div class="bg-white p-4 rounded-2xl border-3 border-black">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-black uppercase">FILL IN</h3>
+                    <p class="text-sm font-bold opacity-70">搭配詞克漏字 (隨機 15 題)</p>
+                </div>
             </button>
         </main>
 
         <footer id="learn-footer" class="p-4 bg-white border-t-4 border-black">
-            <button onclick="nextLearnWord()" class="bottom-action-btn">NEXT WORD <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14m-7-7 7 7-7 7"/></svg></button>
+            <button onclick="nextLearnWord()" class="bottom-action-btn">NEXT WORD →</button>
         </footer>
     </div>
 
     <!-- 3. ACTIVITY OVERLAY -->
     <div id="overlay-activity" class="hidden-screen fixed inset-0 z-[100] bg-[#FFF5EB] flex flex-col">
         <header class="p-4 flex justify-between items-center border-b-4 border-black bg-white">
-            <button onclick="exitActivity()" class="neo-brutal px-3 py-1 bg-white flex items-center gap-1 font-bold text-sm" style="border-radius:10px; box-shadow: 2px 2px 0px black;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg> EXIT</button>
+            <button onclick="exitActivity()" class="neo-brutal px-3 py-1 bg-white font-bold text-sm">EXIT</button>
             <div id="activity-progress" class="bg-gray-100 px-3 py-1 rounded-full font-bold text-sm border-2 border-black">1 / 15</div>
         </header>
         <div id="activity-body" class="flex-1 p-6 flex flex-col items-center justify-center overflow-y-auto"></div>
         <footer class="p-6 bg-white border-t-4 border-black">
-            <button id="btn-check-answer" class="bottom-action-btn">Check Answer</button>
+            <button id="btn-action" class="bottom-action-btn">Check Answer</button>
         </footer>
     </div>
 
@@ -259,7 +269,7 @@
             { word: "policy", targetWord: "policies", pos: "n.", chinese: "政策", english: "a plan adopted by a government or organization", syllables: ["pol", "i", "cy"], example: "The government adopted stricter policies on recycling.", translation: "政府採納了更嚴格的回收政策。", collocations: [["government", "policy", "政府政策"], ["strict", "policy", "嚴格政策"], ["public", "policy", "公共政策"]] },
             { word: "ensure", targetWord: "ensure", pos: "vt.", chinese: "確保", english: "to make certain that something happens", syllables: ["en", "sure"], example: "A new law will be made to ensure that every child will get proper care.", translation: "將制定一項新法律以確保每個孩子都能得到適當的照料。", collocations: [["ensure", "safety", "確保安全"], ["ensure", "success", "確保成功"], ["ensure", "quality", "確保品質"]] },
             { word: "establish", targetWord: "established", pos: "vt.", chinese: "建立", english: "to start or found an organization", syllables: ["es", "tab", "lish"], example: "Harvard University was established in 1636 and is the oldest university in the US.", translation: "哈佛大學成立於 1636 年，是美國最古老的大學。", collocations: [["establish", "a business", "創立事業"], ["establish", "a foundation", "建立基金會"], ["established", "in", "成立於..."]] },
-            { word: "honor", targetWord: "honors", pos: "n.", chinese: "榮譽", english: "a special award or great respect", syllables: ["hon", "or"], example: "Ang Lee has received many honors and awards for his inspiring movies.", translation: "李安因其激勵人心的電影獲得了許多榮譽和獎項。", collocations: [["great", "honor", "莫大榮幸"], ["in honor of", "向...致敬"], ["receive an", "honor", "獲得榮譽"]] },
+            { word: "honor", targetWord: "honors", pos: "n.", chinese: "榮譽", english: "a special award or great respect", syllables: ["hon", "or"], example: "Ang Lee has received many honors and awards for his inspiring movies.", translation: "李安因其激勵人心的電影獲得了許多榮譽 and 獎項。", collocations: [["great", "honor", "莫大榮幸"], ["in honor of", "向...致敬"], ["receive an", "honor", "獲得榮譽"]] },
             { word: "weapon", targetWord: "weapon", pos: "n.", chinese: "手段", english: "an effective thing or tool for success/fighting", syllables: ["weap", "on"], example: "Exercising is considered to be an effective weapon against stress.", translation: "運動被認為是對抗壓力的有效手段。", collocations: [["deadly", "weapon", "致命武器"], ["effective", "weapon", "有效手段"], ["weapon", "against", "對抗...的武器"]] }
         ];
 
@@ -284,24 +294,13 @@
             const contents = { learn: document.getElementById('content-learn'), coach: document.getElementById('content-coach') };
             const learnFooter = document.getElementById('learn-footer');
             Object.keys(tabs).forEach(k => {
-                tabs[k].classList.remove('bg-white');
-                tabs[k].classList.add('bg-gray-100');
+                tabs[k].classList.remove('bg-white'); tabs[k].classList.add('bg-gray-100');
                 contents[k].classList.add('hidden-screen');
             });
             tabs[mode].classList.add('bg-white');
             contents[mode].classList.remove('hidden-screen');
-            if(mode === 'learn') {
-                learnFooter.classList.remove('hidden-screen');
-                renderLearnCard();
-            } else {
-                learnFooter.classList.add('hidden-screen');
-            }
-        }
-
-        function speak(text) {
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'en-US';
-            window.speechSynthesis.speak(utterance);
+            if(mode === 'learn') { learnFooter.classList.remove('hidden-screen'); renderLearnCard(); } 
+            else { learnFooter.classList.add('hidden-screen'); }
         }
 
         function renderLearnCard() {
@@ -309,19 +308,19 @@
             const container = document.getElementById('learn-card-container');
             container.innerHTML = `
                 <div class="card-main neo-brutal" style="border-radius:30px;">
-                    <div class="bg-blue-600 h-40 -mx-6 -mt-6 mb-6 flex items-center justify-center relative" style="background-image: radial-gradient(circle, #4F46E5 10%, transparent 10%); background-size: 15px 15px; border-radius: 30px 30px 0 0;">
-                        <span class="absolute top-4 left-4 bg-black text-white text-xs font-black px-2 py-1 rounded-lg">${item.pos}</span>
-                        <h2 class="text-white text-4xl font-black tracking-wide">${item.word}</h2>
+                    <div class="bg-blue-600 h-32 -mx-6 -mt-6 mb-6 flex items-center justify-center relative" style="border-radius: 30px 30px 0 0;">
+                        <span class="absolute top-4 left-4 bg-black text-white text-xs px-2 py-1 rounded">${item.pos}</span>
+                        <h2 class="text-white text-4xl font-black">${item.word}</h2>
                     </div>
-                    <div class="flex items-center gap-2 mb-4">
-                        <span class="text-gray-400 font-bold text-sm">/${item.word}/</span>
-                        <div class="flex">${item.syllables.map(s => `<span class="syllable-btn text-xs px-2">${s}</span>`).join('')}</div>
-                        <button onclick="speak('${item.word}')" class="w-10 h-10 neo-brutal rounded-full flex items-center justify-center bg-white ml-auto" style="box-shadow: 2px 2px 0px black;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></button>
+                    <div class="mb-4">
+                        <p class="font-black text-sm text-gray-400">Meaning</p>
+                        <p class="text-lg font-bold">${item.english} (${item.chinese})</p>
                     </div>
-                    <div class="mb-4"><p class="text-md font-black">Meaning</p><p class="text-gray-600 text-sm font-medium pl-4 border-l-4 border-gray-100 mt-1">${item.english} (${item.chinese})</p></div>
-                    <div class="mb-4"><p class="text-md font-black">Example</p><p class="italic text-gray-500 text-sm font-medium mt-1">"${item.example}"</p></div>
+                    <div class="mb-4">
+                        <p class="font-black text-sm text-gray-400">Example</p>
+                        <p class="italic text-gray-600">"${item.example}"</p>
+                    </div>
                     <div class="bg-pink-50 p-4 rounded-xl border-2 border-pink-100">
-                         <p class="text-pink-500 font-black text-xs mb-3">Mini Match</p>
                          <div class="grid grid-cols-2 gap-2">
                             ${item.collocations.map((c, i) => `<div class="mini-match-btn cursor-pointer text-xs" onclick="handleMatch(this, '${item.word}', ${i}, 'en')">${c[0]} ${c[1]}</div><div class="mini-match-btn cursor-pointer text-xs" onclick="handleMatch(this, '${item.word}', ${i}, 'cn')">${c[2]}</div>`).join('')}
                          </div>
@@ -359,53 +358,71 @@
         function renderCoachQuestion() {
             const q = activeActivity.questions[activeActivity.currentIdx];
             const body = document.getElementById('activity-body');
-            const checkBtn = document.getElementById('btn-check-answer');
+            const actionBtn = document.getElementById('btn-action');
+            
             activeActivity.isChecked = false;
             activeActivity.lastSpeechResult = "";
-            
             document.getElementById('activity-progress').textContent = `${activeActivity.currentIdx + 1} / 15`;
+            
             body.innerHTML = "";
-            checkBtn.onclick = handleCheckClick;
-            checkBtn.classList.remove('bg-green-500', 'bg-red-500'); checkBtn.classList.add('bg-black');
-            checkBtn.textContent = "Check Answer";
+            actionBtn.textContent = "Check Answer";
+            actionBtn.className = "bottom-action-btn"; 
+            actionBtn.onclick = () => performCheck(); 
 
             if(activeActivity.type === 'PRO SPEAK') {
-                body.innerHTML = `<h2 class="text-5xl font-black mb-8">${q.word}</h2><div id="mic-btn" class="w-32 h-32 rounded-full bg-yellow-400 neo-brutal flex items-center justify-center cursor-pointer" onclick="startMic()"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg></div><p id="mic-status" class="mt-4 font-black text-xs text-gray-400">TAP TO RECORD</p><p id="speech-text" class="mt-4 text-xl font-bold italic"></p>`;
+                body.innerHTML = `<h2 class="text-5xl font-black mb-8">${q.word}</h2><div id="mic-btn" class="w-32 h-32 rounded-full bg-yellow-400 neo-brutal flex items-center justify-center cursor-pointer" onclick="startMic()"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg></div><p id="speech-text" class="mt-4 text-xl font-bold italic"></p>`;
             } else if(activeActivity.type === 'SPELL IT') {
-                body.innerHTML = `<button onclick="speak('${q.word}')" class="w-24 h-24 rounded-full bg-blue-100 border-4 border-black mb-8 flex items-center justify-center"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></button><p class="text-center font-bold text-gray-500 mb-6 text-sm px-4">${q.english}</p><div class="w-full max-w-xs text-center border-b-8 border-black"><input id="coach-input" type="text" class="w-full text-3xl font-black bg-transparent text-center focus:outline-none py-4" placeholder="Type here..." autocomplete="off"></div>`;
+                body.innerHTML = `<button onclick="speak('${q.word}')" class="w-24 h-24 rounded-full bg-blue-100 border-4 border-black mb-8 flex items-center justify-center"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></button><div class="w-full max-w-xs text-center border-b-8 border-black"><input id="coach-input" type="text" class="w-full text-3xl font-black bg-transparent text-center py-4" placeholder="Type here..." autocomplete="off"></div>`;
                 setTimeout(()=>speak(q.word), 300);
             } else {
                 const target = q.targetWord || q.word;
                 const displayHint = `<span class="cloze-blank">${target[0]}${"_".repeat(target.length-2)}${target[target.length-1]}</span>`;
-                body.innerHTML = `<div class="bg-white neo-brutal p-6 w-full max-w-sm" style="border-radius:25px;"><span class="bg-purple-100 text-purple-600 text-[10px] font-black px-2 py-1 rounded mb-4 inline-block">CLOZE TEST</span><div class="text-lg font-bold leading-relaxed mb-6">${q.example.replace(new RegExp(target, 'gi'), displayHint)}</div><p id="coach-hint" class="hidden text-gray-400 italic text-sm mb-4">${q.translation}</p><button onclick="document.getElementById('coach-hint').classList.toggle('hidden')" class="text-blue-500 text-xs font-bold mb-6">Show Translation</button><input id="coach-input" type="text" class="w-full neo-brutal p-4 font-bold text-center text-xl" placeholder="Type the word..." autocomplete="off" style="border-radius:15px; border-color: #E2E8F0;"></div>`;
+                body.innerHTML = `<div class="bg-white neo-brutal p-6 w-full max-w-sm" style="border-radius:25px;"><span class="bg-purple-100 text-purple-600 text-[10px] font-black px-2 py-1 rounded mb-4 inline-block">CLOZE TEST</span><div class="text-lg font-bold leading-relaxed mb-6">${q.example.replace(new RegExp(target, 'gi'), displayHint)}</div><input id="coach-input" type="text" class="w-full neo-brutal p-4 font-bold text-center text-xl" placeholder="Type the word..." autocomplete="off" style="border-radius:15px; border-color: #E2E8F0;"></div>`;
             }
 
-            // 監聽 Enter 鍵
             const input = document.getElementById('coach-input');
-            if(input) {
-                input.focus();
-                input.onkeyup = (e) => { if(e.key === "Enter") handleCheckClick(); };
-            }
+            if(input) { input.focus(); input.onkeyup = (e) => { if(e.key === "Enter") performCheck(); }; }
         }
 
-        function normalize(str) {
-            return (str || "").toLowerCase().replace(/[^a-z0-9]/gi, '').trim();
+        function superNormalize(str) {
+            return (str || "").toString().toLowerCase().replace(/[^a-z0-9]/gi, '').trim();
         }
 
-        function handleCheckClick() {
+        function performCheck() {
             if (activeActivity.isChecked) {
-                // 如果已經檢查過了，點擊就是「下一題」
                 activeActivity.currentIdx++;
                 if (activeActivity.currentIdx < 15) renderCoachQuestion();
                 else { submitResult(); alert(`挑戰完成！您的得分是：${activeActivity.score}`); exitActivity(); }
                 return;
             }
-            checkCoachAnswer(false); // 一般模式檢查
+
+            const q = activeActivity.questions[activeActivity.currentIdx];
+            const actionBtn = document.getElementById('btn-action');
+            const targetStr = superNormalize(q.targetWord || q.word);
+            
+            let userInput = "";
+            const inputEl = document.getElementById('coach-input');
+            
+            if (activeActivity.type === 'PRO SPEAK' && activeActivity.lastSpeechResult !== "") {
+                userInput = superNormalize(activeActivity.lastSpeechResult);
+            } else if (inputEl) {
+                userInput = superNormalize(inputEl.value);
+            }
+
+            if(userInput === targetStr && userInput !== "") { 
+                actionBtn.classList.add('bg-green-500'); 
+                actionBtn.textContent = "CORRECT!"; 
+                currentUser.xp += 10; activeActivity.score += 10; updateXP(); 
+            } else { 
+                actionBtn.classList.add('bg-red-500'); 
+                actionBtn.textContent = "WRONG! Answer: " + (q.targetWord || q.word); 
+            }
+            activeActivity.isChecked = true;
         }
 
         function startMic() {
             const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            if (!SpeechRecognition) return alert("不支援此功能");
+            if (!SpeechRecognition) return alert("不支援語音辨識");
             const rec = new SpeechRecognition(); rec.lang = 'en-US';
             const micBtn = document.getElementById('mic-btn');
             rec.start(); micBtn.classList.add('pulse-mic', 'bg-red-400');
@@ -413,52 +430,21 @@
                 const res = e.results[0][0].transcript;
                 document.getElementById('speech-text').innerText = `You said: "${res}"`;
                 activeActivity.lastSpeechResult = res; 
-                checkCoachAnswer(true); // 語音模式檢查
+                performCheck(); 
             };
             rec.onspeechend = () => { rec.stop(); micBtn.classList.remove('pulse-mic', 'bg-red-400'); };
         }
 
-        function checkCoachAnswer(isFromSpeech) {
-            const q = activeActivity.questions[activeActivity.currentIdx];
-            const btn = document.getElementById('btn-check-answer');
-            const target = normalize(activeActivity.type === 'FILL IN' ? q.targetWord : q.word);
-            
-            let userInput = "";
-            if (isFromSpeech === true) {
-                userInput = normalize(activeActivity.lastSpeechResult);
-            } else {
-                userInput = normalize(document.getElementById('coach-input')?.value);
-            }
-
-            if(userInput === target && userInput !== "") { 
-                btn.classList.add('bg-green-500'); 
-                btn.textContent = "CORRECT!"; 
-                currentUser.xp += 10; 
-                activeActivity.score += 10; 
-                updateXP(); 
-            } else { 
-                btn.classList.add('bg-red-500'); 
-                const expected = (activeActivity.type === 'FILL IN' ? q.targetWord : q.word);
-                btn.textContent = "WRONG! Answer: " + expected; 
-            }
-            
-            activeActivity.isChecked = true;
-            btn.classList.remove('bg-black');
+        function speak(text) {
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US'; window.speechSynthesis.speak(utterance);
         }
 
         function submitResult() {
             if(!SCRIPT_URL) return;
             fetch(SCRIPT_URL, { 
-                method: "POST", 
-                mode: "no-cors", 
-                headers: { "Content-Type": "application/json" }, 
-                body: JSON.stringify({ 
-                    class: currentUser.class, 
-                    no: currentUser.no, 
-                    name: currentUser.name, 
-                    type: activeActivity.type, 
-                    score: activeActivity.score 
-                }) 
+                method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, 
+                body: JSON.stringify({ class: currentUser.class, no: currentUser.no, name: currentUser.name, type: activeActivity.type, score: activeActivity.score }) 
             });
         }
 
