@@ -139,7 +139,7 @@
 </head>
 <body>
 
-    <!-- 1. LOGIN SCREEN -->
+    <!-- 1. 登入畫面 -->
     <div id="screen-login" class="min-h-screen flex flex-col items-center justify-center p-6">
         <div class="w-full max-w-sm neo-brutal login-card">
             <div class="login-top-bar"></div>
@@ -176,7 +176,7 @@
         </div>
     </div>
 
-    <!-- 2. DASHBOARD -->
+    <!-- 2. 主儀表板 -->
     <div id="screen-dashboard" class="hidden-screen min-h-screen flex flex-col">
         <header class="p-4 bg-white border-b-4 border-black z-50">
             <div class="flex justify-between items-center max-w-lg mx-auto">
@@ -224,7 +224,7 @@
         </footer>
     </div>
 
-    <!-- 3. ACTIVITY OVERLAY -->
+    <!-- 3. 活動覆蓋層 -->
     <div id="overlay-activity" class="hidden-screen fixed inset-0 z-[100] bg-[#FFF5EB] flex flex-col">
         <header class="p-4 flex justify-between items-center border-b-4 border-black bg-white">
             <button onclick="exitActivity()" class="neo-brutal px-3 py-1 bg-white flex items-center gap-1 font-bold text-sm" style="border-radius:10px; box-shadow: 2px 2px 0px black;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg> EXIT</button>
@@ -237,8 +237,8 @@
     </div>
 
     <script>
-        // --- 部署網址 (LINE 262) ---
-        const SCRIPT_URL = ""; 
+        // --- 請將 GAS 部署網址貼在下方這行 (第 262 行) ---
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzyFva945ZNpjqANvNmvfNbjYeUSZrPnf0b5NfkL93zKnlXrE2jSNqN-fpwkZfzQEue/exec"; 
 
         const VOCAB_DATA = [
             { word: "female", targetWord: "female", pos: "adj.", chinese: "女性的", english: "being or referring to a woman", syllables: ["fe", "male"], example: "Amelia Earhart was the first female pilot to fly solo across the Atlantic Ocean.", translation: "艾蜜莉亞·艾爾哈特是第一位獨自飛越大西洋的女性飛行員。", collocations: [["female", "pilot", "女性飛行員"], ["female", "student", "女學生"], ["female", "lead", "女主角"]] },
@@ -374,13 +374,13 @@
             } else {
                 const target = q.targetWord || q.word;
                 const displayHint = `<span class="cloze-blank">${target[0]}${"_".repeat(target.length-2)}${target[target.length-1]}</span>`;
-                body.innerHTML = `<div class="bg-white neo-brutal p-6 w-full max-w-sm"><span class="bg-purple-100 text-purple-600 text-[10px] font-black px-2 py-1 rounded mb-4 inline-block">CLOZE TEST</span><div class="text-lg font-bold leading-relaxed mb-6">${q.example.replace(new RegExp(target, 'gi'), displayHint)}</div><p id="coach-hint" class="hidden text-gray-400 italic text-sm mb-4">${q.translation}</p><button onclick="document.getElementById('coach-hint').classList.toggle('hidden')" class="text-blue-500 text-xs font-bold mb-6">Show Translation</button><input id="coach-input" type="text" class="w-full neo-brutal p-4 font-bold text-center text-xl" placeholder="Type the word..." autocomplete="off"></div>`;
+                body.innerHTML = `<div class="bg-white neo-brutal p-6 w-full max-w-sm" style="border-radius:25px;"><span class="bg-purple-100 text-purple-600 text-[10px] font-black px-2 py-1 rounded mb-4 inline-block">CLOZE TEST</span><div class="text-lg font-bold leading-relaxed mb-6">${q.example.replace(new RegExp(target, 'gi'), displayHint)}</div><p id="coach-hint" class="hidden text-gray-400 italic text-sm mb-4">${q.translation}</p><button onclick="document.getElementById('coach-hint').classList.toggle('hidden')" class="text-blue-500 text-xs font-bold mb-6">Show Translation</button><input id="coach-input" type="text" class="w-full neo-brutal p-4 font-bold text-center text-xl" placeholder="Type the word..." autocomplete="off" style="border-radius:15px; border-color: #E2E8F0;"></div>`;
             }
         }
 
         function startMic() {
             const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            if (!SpeechRecognition) return;
+            if (!SpeechRecognition) return alert("不支援此功能");
             const rec = new SpeechRecognition(); rec.lang = 'en-US';
             const micBtn = document.getElementById('mic-btn');
             rec.start(); micBtn.classList.add('pulse-mic', 'bg-red-400');
@@ -397,17 +397,9 @@
             const btn = document.getElementById('btn-check-answer');
             const target = (activeActivity.type === 'FILL IN' ? q.targetWord : q.word).toLowerCase().trim();
             
-            let userInput = "";
-            if (isSpeech) {
-                userInput = activeActivity.lastSpeechResult;
-            } else {
-                userInput = document.getElementById('coach-input')?.value.trim().toLowerCase() || "";
-            }
+            let userInput = isSpeech ? activeActivity.lastSpeechResult : (document.getElementById('coach-input')?.value.trim().toLowerCase() || "");
 
-            // 核心比對邏輯：強制小寫並移除前後空白
-            let isCorrect = userInput === target;
-
-            if(isCorrect) { 
+            if(userInput === target) { 
                 btn.classList.add('bg-green-500'); btn.textContent = "CORRECT!"; 
                 currentUser.xp += 10; activeActivity.score += 10; updateXP(); 
             } else { 
@@ -417,7 +409,7 @@
             btn.onclick = () => {
                 activeActivity.currentIdx++;
                 if(activeActivity.currentIdx < 15) renderCoachQuestion();
-                else { submitResult(); exitActivity(); }
+                else { submitResult(); alert(`挑戰完成！您的得分是：${activeActivity.score}`); exitActivity(); }
             };
         }
 
