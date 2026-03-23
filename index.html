@@ -139,7 +139,7 @@
 </head>
 <body>
 
-    <!-- 1. 登入畫面 -->
+    <!-- 1. LOGIN SCREEN -->
     <div id="screen-login" class="min-h-screen flex flex-col items-center justify-center p-6">
         <div class="w-full max-w-sm neo-brutal login-card">
             <div class="login-top-bar"></div>
@@ -176,7 +176,7 @@
         </div>
     </div>
 
-    <!-- 2. 主儀表板 -->
+    <!-- 2. DASHBOARD -->
     <div id="screen-dashboard" class="hidden-screen min-h-screen flex flex-col">
         <header class="p-4 bg-white border-b-4 border-black z-50">
             <div class="flex justify-between items-center max-w-lg mx-auto">
@@ -224,7 +224,7 @@
         </footer>
     </div>
 
-    <!-- 3. 活動覆蓋層 -->
+    <!-- 3. ACTIVITY OVERLAY -->
     <div id="overlay-activity" class="hidden-screen fixed inset-0 z-[100] bg-[#FFF5EB] flex flex-col">
         <header class="p-4 flex justify-between items-center border-b-4 border-black bg-white">
             <button onclick="exitActivity()" class="neo-brutal px-3 py-1 bg-white flex items-center gap-1 font-bold text-sm" style="border-radius:10px; box-shadow: 2px 2px 0px black;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg> EXIT</button>
@@ -237,8 +237,8 @@
     </div>
 
     <script>
-        // 將您的 GAS 部署網址貼在下方的引號內
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzyFva945ZNpjqANvNmvfNbjYeUSZrPnf0b5NfkL93zKnlXrE2jSNqN-fpwkZfzQEue/exec"; 
+        // --- 部署網址 (LINE 262) ---
+        const SCRIPT_URL = ""; 
 
         const VOCAB_DATA = [
             { word: "female", targetWord: "female", pos: "adj.", chinese: "女性的", english: "being or referring to a woman", syllables: ["fe", "male"], example: "Amelia Earhart was the first female pilot to fly solo across the Atlantic Ocean.", translation: "艾蜜莉亞·艾爾哈特是第一位獨自飛越大西洋的女性飛行員。", collocations: [["female", "pilot", "女性飛行員"], ["female", "student", "女學生"], ["female", "lead", "女主角"]] },
@@ -380,12 +380,12 @@
 
         function startMic() {
             const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            if (!SpeechRecognition) return alert("不支援此功能");
+            if (!SpeechRecognition) return;
             const rec = new SpeechRecognition(); rec.lang = 'en-US';
             const micBtn = document.getElementById('mic-btn');
             rec.start(); micBtn.classList.add('pulse-mic', 'bg-red-400');
             rec.onresult = (e) => {
-                const res = e.results[0][0].transcript.toLowerCase().replace(/[.,!]/g, '');
+                const res = e.results[0][0].transcript.toLowerCase().replace(/[.,!]/g, '').trim();
                 document.getElementById('speech-text').innerText = `You said: "${res}"`;
                 activeActivity.lastSpeechResult = res; checkCoachAnswer(true);
             };
@@ -395,9 +395,25 @@
         function checkCoachAnswer(isSpeech = false) {
             const q = activeActivity.questions[activeActivity.currentIdx];
             const btn = document.getElementById('btn-check-answer');
-            let isCorrect = isSpeech ? activeActivity.lastSpeechResult === q.word.toLowerCase() : document.getElementById('coach-input')?.value.trim().toLowerCase() === (activeActivity.type === 'FILL IN' ? q.targetWord : q.word).toLowerCase();
-            if(isCorrect) { btn.classList.add('bg-green-500'); btn.textContent = "CORRECT!"; currentUser.xp += 10; activeActivity.score += 10; updateXP(); }
-            else { btn.classList.add('bg-red-500'); btn.textContent = "WRONG! Answer: " + (activeActivity.type === 'FILL IN' ? q.targetWord : q.word); }
+            const target = (activeActivity.type === 'FILL IN' ? q.targetWord : q.word).toLowerCase().trim();
+            
+            let userInput = "";
+            if (isSpeech) {
+                userInput = activeActivity.lastSpeechResult;
+            } else {
+                userInput = document.getElementById('coach-input')?.value.trim().toLowerCase() || "";
+            }
+
+            // 核心比對邏輯：強制小寫並移除前後空白
+            let isCorrect = userInput === target;
+
+            if(isCorrect) { 
+                btn.classList.add('bg-green-500'); btn.textContent = "CORRECT!"; 
+                currentUser.xp += 10; activeActivity.score += 10; updateXP(); 
+            } else { 
+                btn.classList.add('bg-red-500'); btn.textContent = "WRONG! Answer: " + (activeActivity.type === 'FILL IN' ? q.targetWord : q.word); 
+            }
+            
             btn.onclick = () => {
                 activeActivity.currentIdx++;
                 if(activeActivity.currentIdx < 15) renderCoachQuestion();
