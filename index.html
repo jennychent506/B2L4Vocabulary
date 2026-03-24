@@ -94,7 +94,6 @@
             font-weight: 900;
             letter-spacing: -2px;
             text-align: center;
-            text-transform: uppercase;
         }
 
         .pill-container { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 20px; }
@@ -127,7 +126,7 @@
         .mini-match-box {
             background-color: #FFF1F7;
             border-radius: 25px;
-            padding: 20px;
+            padding: 18px;
             margin-top: 25px;
             border: 2px solid #FFE4F0;
         }
@@ -135,8 +134,8 @@
         .mini-match-btn {
             background: white;
             border: 2px solid #F3F4F6;
-            padding: 12px 8px;
-            border-radius: 15px;
+            padding: 10px 8px;
+            border-radius: 12px;
             font-size: 0.85rem;
             text-align: center;
             font-weight: 800;
@@ -161,13 +160,19 @@
             gap: 12px;
         }
 
+        .pulse-mic { animation: pulse 1.5s infinite; }
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(233, 109, 158, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(233, 109, 158, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(233, 109, 158, 0); }
+        }
+
         .cloze-blank {
             color: var(--pop-purple);
             text-decoration: underline;
             text-underline-offset: 8px;
             font-weight: 900;
             letter-spacing: 2px;
-            white-space: pre-wrap;
         }
     </style>
 </head>
@@ -230,7 +235,7 @@
         <main id="content-learn" class="flex-1 p-6 max-w-lg mx-auto w-full overflow-y-auto"><div id="learn-card-container"></div></main>
         <main id="content-coach" class="hidden-screen flex-1 p-4 max-w-lg mx-auto w-full space-y-4">
             <button onclick="startCoach('PRO SPEAK')" class="w-full neo-brutal bg-[#A0E9A8] p-6 flex items-center gap-6 text-left">
-                <div class="bg-white p-4 rounded-2xl border-3 border-black"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg></div>
+                <div class="bg-white p-4 rounded-2xl border-3 border-black"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg></div>
                 <div><h3 class="text-2xl font-black uppercase">Pro Speak</h3><p class="text-sm font-bold opacity-70">發音挑戰 (隨機 15 題)</p></div>
             </button>
             <button onclick="startCoach('SPELL IT')" class="w-full neo-brutal bg-[#B6C2FF] p-6 flex items-center gap-6 text-left">
@@ -245,7 +250,7 @@
         <footer id="learn-footer" class="p-4 bg-white border-t-4 border-black"><button onclick="nextLearnWord()" class="bottom-action-btn uppercase">Next Word →</button></footer>
     </div>
 
-    <!-- 3. OVERLAY -->
+    <!-- 3. ACTIVITY OVERLAY -->
     <div id="overlay-activity" class="hidden-screen fixed inset-0 z-[100] bg-[#FFF5EB] flex flex-col">
         <header class="p-4 flex justify-between items-center border-b-4 border-black bg-white"><button onclick="exitActivity()" class="neo-brutal px-3 py-1 bg-white font-bold text-sm uppercase">Exit</button><div id="activity-progress" class="bg-gray-100 px-3 py-1 rounded-full font-bold text-sm border-2 border-black">1 / 15</div></header>
         <div id="activity-body" class="flex-1 p-6 flex flex-col items-center justify-center overflow-y-auto text-center"></div>
@@ -253,15 +258,15 @@
     </div>
 
     <script>
-        // --- 請將最新部署的 GAS 網址貼在下方這行 (第 292 行) ---
+        // --- 請將最新部署的 GAS 網址貼在下方這行 (第 296 行) ---
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzyFva945ZNpjqANvNmvfNbjYeUSZrPnf0b5NfkL93zKnlXrE2jSNqN-fpwkZfzQEue/exec"; 
 
         const VOCAB_DATA = [
             { word: "female", targetWord: "female", pos: "adj.", chinese: "女性的", english: "being or referring to a woman", syllables: ["fe", "male"], ipa: "/'fimel/", 
               learnEx: "The company is making a major effort to recruit more female engineers.", learnTrans: "公司正做出巨大努力來招聘更多的女性工程師。", 
               pdfEx: "Amelia Earhart was the first female pilot to fly solo across the Atlantic Ocean.", pdfTrans: "艾蜜莉亞·艾爾哈特是第一位獨自飛越大西洋的女性飛行員。",
-              collocations: [["female", "athlete", "女運動員"], ["female", "lead", "女主角"], ["female", "companion", "女性同伴"]], etymology: "From Latin 'femella' (woman)." },
-            { word: "region", targetWord: "regions", pos: "n.", chinese: "地區", english: "a large land area with similar features", syllables: ["re", "gion"], ipa: "/'ridʒən/", 
+              collocations: [["female", "candidate", "女性候選人"], ["female", "student", "女學生"], ["female", "lead", "女主角"]], etymology: "From Latin 'femella' (woman)." },
+            { word: "region", targetWord: "regions", pos: "n.", chinese: "地區", english: "a large land area", syllables: ["re", "gion"], ipa: "/'ridʒən/", 
               learnEx: "Rain is expected in all southern regions of the country today.", learnTrans: "預計今天該國所有南部地區都會下雨。", 
               pdfEx: "The northern regions of the country are usually windy and snowy in winter.", pdfTrans: "這個國家的北部地區冬天通常多風且積雪。",
               collocations: [["coastal", "region", "沿海地區"], ["remote", "region", "偏遠地區"], ["industrial", "region", "工業區"]], etymology: "From Latin 'regere' (to rule)." },
@@ -271,8 +276,8 @@
               collocations: [["regional", "contest", "地區比賽"], ["regional", "council", "地區議會"], ["regional", "news", "地區新聞"]], etymology: "region + -al." },
             { word: "forbid", targetWord: "forbidding", pos: "vt.", chinese: "禁止", english: "to order someone not to do something", syllables: ["for", "bid"], ipa: "/fo'bid/", 
               learnEx: "The law forbids smoking in all public buildings.", learnTrans: "法律禁止在所有公共建築內吸菸。", 
-              pdfEx: "By forbidding factories to dump their waste in the sea, the government was able to clean up the coast.", pdfTrans: "透過禁止工廠將廢棄物傾倒在海中，政府得以清理海岸。",
-              collocations: [["strictly", "forbidden", "嚴格禁止"], ["forbid", "entry", "禁止進入"], ["forbid", "doing", "禁止做某事"]], etymology: "for- (away) + bid (command)." },
+              pdfEx: "By forbidding factories to dump their waste in the sea, the government cleaned up the coast.", pdfTrans: "透過禁止工廠將廢棄物傾倒在海中，政府得以清理海岸。",
+              collocations: [["strictly", "forbid", "嚴格禁止"], ["law", "forbids", "法律禁止"], ["forbid", "entry", "禁止進入"]], etymology: "for- (away) + bid (command)." },
             { word: "continue", targetWord: "continued", pos: "vt.", chinese: "繼續", english: "to carry on or not stop", syllables: ["con", "tin", "ue"], ipa: "/kən'tınjo/", 
               learnEx: "I’ll stop for a minute, but please continue with your work.", learnTrans: "我會停一下，但請繼續你的工作。", 
               pdfEx: "After a short break for lunch, Wally continued his work.", pdfTrans: "午餐休息一會兒後，華利繼續他的工作。",
@@ -286,7 +291,7 @@
               pdfEx: "The continuous rain has caused floods in many parts of the country.", pdfTrans: "持續不斷的雨水導致該國許多地區發生洪水。",
               collocations: [["continuous", "improvement", "持續進步"], ["continuous", "flow", "流動不止"], ["continuous", "rain", "持續降雨"]], etymology: "continue + -ous." },
             { word: "education", targetWord: "education", pos: "n.", chinese: "教育", english: "process of teaching and learning in a school", syllables: ["ed", "u", "ca", "tion"], ipa: "/,edzu'kesǝn/", 
-              learnEx: "She wants to give her children the best possible education.", learnTrans: "她想給孩子最好的教育。", 
+              learnEx: "He received his higher education at Oxford University.", learnTrans: "他在牛津大學接受高等教育。", 
               pdfEx: "Two new schools were built to improve the quality of education in this remote area.", pdfTrans: "為了提高這個偏遠地區的教育品質，興建了兩所新學校。",
               collocations: [["higher", "education", "高等教育"], ["receive", "education", "接受教育"], ["primary", "education", "初等教育"]], etymology: "e- (out) + ducere (lead)." },
             { word: "educational", targetWord: "educational", pos: "adj.", chinese: "教育的", english: "relating to providing information", syllables: ["ed", "u", "ca", "tion", "al"], ipa: "/,edzu'kefǝn!/", 
@@ -318,7 +323,7 @@
               pdfEx: "It really annoys Mrs. Donald when her children don't wash their hands before dinner.", pdfTrans: "當孩子們不洗手時，這真的讓她很惱火。",
               collocations: [["deeply", "annoyed", "深感惱怒"], ["slightly", "annoyed", "微感惱怒"], ["sounds", "annoying", "聽起來很煩人"]], etymology: "From Latin 'in odio'." },
             { word: "threaten", targetWord: "threatened", pos: "vt.", chinese: "威脅", syllables: ["threat", "en"], ipa: "/θετη/", english: "warn someone of harm if they don't comply", 
-              learnEx: "The manager threatened to fire him if he was late again.", learnTrans: "經理威脅說如果他再遲到就開除他。", 
+              learnEx: "The terrorists threatened to blow up the building.", learnTrans: "恐怖分子威脅要炸毀大樓。", 
               pdfEx: "The robber threatened the bank staff with a gun and made them hand over the money.", pdfTrans: "搶匪用槍威脅銀行職員，逼他們交出錢來。",
               collocations: [["threaten", "with", "以...威脅"], ["threaten", "to do", "威脅要做"], ["seriously", "threaten", "嚴重威脅"]], etymology: "threat + -en (suffix)." },
             { word: "threat", targetWord: "threats", pos: "n.", chinese: "威脅", english: "a statement or sign of harm", syllables: ["threat"], ipa: "/θετ/", 
@@ -343,7 +348,7 @@
               collocations: [["sign", "a contract", "簽署合約"], ["sign", "a treaty", "簽署條約"], ["sign", "into law", "簽署生效"]], etymology: "From Latin 'signum' (mark)." },
             { word: "persuade", targetWord: "persuade", pos: "vt.", chinese: "說服", syllables: ["per", "suade"], ipa: "/po'swed/", english: "use arguments to make someone do something", 
               learnEx: "I managed to persuade him to change his mind about the trip.", learnTrans: "我設法說服他改變了關於旅行的主意。", 
-              pdfEx: "Mr. Kennedy was worried about his daughter's health and tried to persuade her to do more exercise.", pdfTrans: "甘迺迪先生試圖說服她多做運動。",
+              pdfEx: "Mr. Kennedy was worried about his daughter's health and tried to persuade her to do more exercise.", pdfTrans: "甘迺迪先生擔心他女兒的健康，試圖說服她多做運動。",
               collocations: [["persuade", "someone to", "說服某人做..."], ["try to", "persuade", "試圖說服"], ["easily", "persuaded", "容易被說服"]], etymology: "per- (thoroughly) + suadere (urge)." },
             { word: "persuasion", targetWord: "persuasion", pos: "n.", chinese: "說服", syllables: ["per", "sua", "sion"], ipa: "/pə-swezǝn/", english: "the act of persuading someone", 
               learnEx: "It took a great deal of persuasion to get her to join us.", learnTrans: "花了很多口舌才讓她加入我們。", 
@@ -358,7 +363,7 @@
               pdfEx: "Oliver was adopted by his aunt when both of his parents died in a plane crash.", pdfTrans: "奧利佛被他的姑姑領養了。",
               collocations: [["adopt", "an approach", "採取方法"], ["adopt", "a policy", "採納政策"], ["adopt", "a child", "領養小孩"]], etymology: "ad- (to) + optare (choose)." },
             { word: "policy", targetWord: "policies", pos: "n.", chinese: "政策", syllables: ["pol", "i", "cy"], ipa: "/'paləsı/", english: "a plan adopted by an organization", 
-              learnEx: "It is company policy to respond to all emails within 24 hours.", learnTrans: "在 24 小時內回覆所有電子郵件是公司的政策。", 
+              learnEx: "The store has a generous return policy for customers.", learnTrans: "該商店為顧客提供了慷慨的退貨政策。", 
               pdfEx: "The amount of waste has been greatly reduced since our government adopted stricter policies on recycling.", pdfTrans: "自從政府採取更嚴格的回收政策後...",
               collocations: [["implement", "a policy", "實行政策"], ["foreign", "policy", "外交政策"], ["strict", "policy", "嚴格政策"]], etymology: "From Greek 'polis' (city)." },
             { word: "ensure", targetWord: "ensure", pos: "vt.", chinese: "確保", syllables: ["en", "sure"], ipa: "/in'for/", english: "to make certain that something happens", 
@@ -456,7 +461,7 @@
                 <div class="card-main">
                     <div class="learn-header">
                         <span class="pos-badge">${item.pos}</span>
-                        <h2 class="word-title uppercase">${item.word}</h2>
+                        <h2 class="word-title">${item.word}</h2>
                     </div>
                     <div class="pill-container">
                         ${item.syllables.map(s => `<span class="syllable-pill">${s}</span>`).join('')}
@@ -466,7 +471,7 @@
                         </button>
                     </div>
                     <div class="mb-5"><p class="section-label">Meaning</p><p class="meaning-text">${item.english} <span class="text-purple-600">(${item.chinese})</span></p></div>
-                    <div class="mb-5"><p class="section-label">Example (Longman/Cambridge)</p><p class="example-text">"${item.learnEx}"</p><p class="text-xs text-gray-400 mt-2 font-black">${item.learnTrans}</p></div>
+                    <div class="mb-5"><p class="section-label">Example (Cambridge/Longman)</p><p class="example-text">"${item.learnEx}"</p><p class="text-xs text-gray-400 mt-2 font-black">${item.learnTrans}</p></div>
                     <div class="mb-5 bg-blue-50 p-4 rounded-3xl border-2 border-blue-100"><p class="text-blue-500 font-black text-[10px] uppercase mb-1 tracking-widest">Etymology / Word Root</p><p class="text-sm font-bold text-blue-900 leading-relaxed">${item.etymology}</p></div>
                     <div class="mini-match-box"><p class="text-pink-500 font-black text-xs mb-3 uppercase tracking-widest">Mini Match (Oxford)</p>
                          <div class="grid grid-cols-2 gap-3">
@@ -521,26 +526,29 @@
             actionBtn.onclick = () => performCheck(); 
 
             if(activeActivity.type === 'PRO SPEAK') {
-                body.innerHTML = `<h2 class="text-5xl font-black mb-8 text-center uppercase">${q.word}</h2><div id="mic-btn" class="w-32 h-32 rounded-full bg-yellow-400 neo-brutal flex items-center justify-center cursor-pointer mx-auto" onclick="startMic()"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg></div><p id="speech-text" class="mt-4 text-xl font-bold italic text-blue-600"></p>`;
+                body.innerHTML = `
+                    <h2 class="text-5xl font-black mb-8 text-center uppercase">${q.word}</h2>
+                    <div id="mic-btn" class="w-32 h-32 rounded-full bg-yellow-400 neo-brutal flex items-center justify-center cursor-pointer mx-auto" onclick="startMic()">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
+                    </div>
+                    <p id="speech-status" class="mt-4 font-black text-xs text-gray-400 uppercase tracking-widest">Tap to speak</p>
+                    <p id="speech-text" class="mt-4 text-xl font-bold italic text-blue-600"></p>`;
             } else if(activeActivity.type === 'SPELL IT') {
                 body.innerHTML = `<button onclick="speak('${q.word}')" class="w-24 h-24 rounded-full bg-blue-100 border-4 border-black mb-8 flex items-center justify-center mx-auto"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg></button><p class="text-center font-bold text-gray-500 mb-6 text-sm px-4">Definition: ${q.english}</p><div class="w-full max-w-xs mx-auto border-b-8 border-black"><input id="coach-input" type="text" class="w-full text-3xl font-black bg-transparent text-center focus:outline-none py-4" placeholder="???" autocomplete="off"></div>`;
                 setTimeout(()=>speak(q.word), 300);
             } else {
-                // --- FILL IN 強化版：完美處理片語與特殊字元 ---
+                // --- FILL IN 強化版 ---
                 const target = q.targetWord; 
                 const displayHint = `<span class="cloze-blank">${generatePhraseHint(target)}</span>`;
-                const originalSentence = q.pdfEx;
+                const sentence = q.pdfEx;
                 
-                // 轉義正則特殊字符並建立不分大小寫的 Regex
-                const escapedTarget = target.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-                const regex = new RegExp(`\\b${escapedTarget}\\b`, 'gi');
-                
-                // 執行替換
-                let processedEx = originalSentence.replace(regex, displayHint);
+                // 更穩定的挖空替換邏輯：對句子進行單字拆解與精準匹配
+                const regex = new RegExp(`\\b${target.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')}\\b`, 'gi');
+                let processedEx = sentence.replace(regex, displayHint);
 
-                // 如果 regex 因為特殊字符匹配不到（通常是片語包含特定標點），則進行基礎降級替換
-                if (processedEx === originalSentence) {
-                    processedEx = originalSentence.toLowerCase().replace(target.toLowerCase(), displayHint);
+                // 如果 regex 因特殊字符失敗，退回基礎邏輯
+                if (processedEx === sentence) {
+                    processedEx = sentence.toLowerCase().replace(target.toLowerCase(), displayHint);
                 }
 
                 body.innerHTML = `<div class="bg-white neo-brutal p-6 w-full max-w-sm mx-auto" style="border-radius:25px;"><span class="bg-purple-100 text-purple-600 text-[10px] font-black px-2 py-1 rounded mb-4 inline-block uppercase tracking-wider">Cloze Test (PDF Example)</span><div class="text-xl font-bold leading-relaxed mb-6 text-left">${processedEx}</div><p id="coach-hint" class="hidden text-gray-400 italic text-sm mb-4 bg-gray-50 p-2 rounded text-left">${q.pdfTrans}</p><button onclick="document.getElementById('coach-hint').classList.toggle('hidden')" class="text-blue-500 text-xs font-bold mb-6 block">Show Translation</button><input id="coach-input" type="text" class="w-full neo-brutal p-4 font-bold text-center text-xl" placeholder="Type word..." autocomplete="off" style="border-radius:15px; border-color: #E2E8F0;" autofocus></div>`;
@@ -549,12 +557,53 @@
             if(input) { input.focus(); input.onkeyup = (e) => { if(e.key === "Enter") performCheck(); }; }
         }
 
+        function startMic() {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRecognition) return alert("您的瀏覽器不支援語音辨識。請使用 Chrome。");
+            
+            if (activeActivity.rec) activeActivity.rec.stop();
+            const rec = new SpeechRecognition();
+            rec.lang = 'en-US';
+            rec.continuous = false;
+            rec.interimResults = false;
+            activeActivity.rec = rec;
+
+            const micBtn = document.getElementById('mic-btn');
+            const status = document.getElementById('speech-status');
+            
+            rec.onstart = () => { 
+                micBtn.classList.add('pulse-mic', 'bg-red-400'); 
+                status.innerText = "LISTENING..."; 
+                status.classList.replace('text-gray-400', 'text-red-500');
+            };
+            
+            rec.onerror = (e) => { 
+                status.innerText = "ERROR: " + e.error; 
+                micBtn.classList.remove('pulse-mic', 'bg-red-400'); 
+            };
+
+            rec.onresult = (e) => {
+                const res = e.results[0][0].transcript;
+                document.getElementById('speech-text').innerText = `You said: "${res}"`;
+                activeActivity.lastSpeechResult = res;
+                performCheck(); 
+            };
+
+            rec.onend = () => { 
+                micBtn.classList.remove('pulse-mic', 'bg-red-400'); 
+                if(!activeActivity.isChecked) status.innerText = "TAP TO SPEAK"; 
+                status.classList.replace('text-red-500', 'text-gray-400');
+            };
+
+            rec.start();
+        }
+
         function superNormalize(str) { return (str || "").toString().toLowerCase().trim().replace(/[^a-z0-9]/gi, ''); }
 
         function performCheck() {
             if (activeActivity.isChecked) {
                 activeActivity.currentIdx++;
-                if (activeActivity.currentIdx < activeActivity.questions.length) renderCoachQuestion();
+                if (activeActivity.currentIdx < 15) renderCoachQuestion();
                 else { submitResult(); exitActivity(); alert(`挑戰完成！您的得分是：${activeActivity.score}`); }
                 return;
             }
@@ -570,18 +619,6 @@
                 actionBtn.classList.add('bg-red-500'); actionBtn.textContent = "WRONG! Ans: " + displayAns; 
             }
             activeActivity.isChecked = true;
-        }
-
-        function startMic() {
-            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            if (!SpeechRecognition) return alert("您的瀏覽器不支援語音辨識。");
-            const rec = new SpeechRecognition(); rec.lang = 'en-US';
-            rec.onresult = (e) => {
-                activeActivity.lastSpeechResult = e.results[0][0].transcript;
-                document.getElementById('speech-text').innerText = `You said: "${activeActivity.lastSpeechResult}"`;
-                performCheck(); 
-            };
-            rec.start();
         }
 
         function speak(text) { const utterance = new SpeechSynthesisUtterance(text); utterance.lang = 'en-US'; window.speechSynthesis.speak(utterance); }
@@ -605,7 +642,11 @@
             });
         }
 
-        function exitActivity() { document.getElementById('overlay-activity').classList.add('hidden-screen'); document.getElementById('screen-dashboard').classList.remove('hidden-screen'); }
+        function exitActivity() { 
+            if (activeActivity.rec) activeActivity.rec.stop();
+            document.getElementById('overlay-activity').classList.add('hidden-screen'); 
+            document.getElementById('screen-dashboard').classList.remove('hidden-screen'); 
+        }
     </script>
 </body>
 </html>
