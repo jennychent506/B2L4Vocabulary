@@ -250,7 +250,7 @@
         <footer id="learn-footer" class="p-4 bg-white border-t-4 border-black"><button onclick="nextLearnWord()" class="bottom-action-btn uppercase">Next Word →</button></footer>
     </div>
 
-    <!-- 3. ACTIVITY OVERLAY -->
+    <!-- 3. OVERLAY -->
     <div id="overlay-activity" class="hidden-screen fixed inset-0 z-[100] bg-[#FFF5EB] flex flex-col">
         <header class="p-4 flex justify-between items-center border-b-4 border-black bg-white"><button onclick="exitActivity()" class="neo-brutal px-3 py-1 bg-white font-bold text-sm uppercase">Exit</button><div id="activity-progress" class="bg-gray-100 px-3 py-1 rounded-full font-bold text-sm border-2 border-black">1 / 15</div></header>
         <div id="activity-body" class="flex-1 p-6 flex flex-col items-center justify-center overflow-y-auto text-center"></div>
@@ -258,14 +258,14 @@
     </div>
 
     <script>
-        // --- 請將最新部署的 GAS 網址貼在下方這行 (第 296 行) ---
+        // --- 請將最新部署的 GAS 網址貼在下方這行 (第 446 行) ---
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzyFva945ZNpjqANvNmvfNbjYeUSZrPnf0b5NfkL93zKnlXrE2jSNqN-fpwkZfzQEue/exec"; 
 
         const VOCAB_DATA = [
             { word: "female", targetWord: "female", pos: "adj.", chinese: "女性的", english: "being or referring to a woman", syllables: ["fe", "male"], ipa: "/'fimel/", 
               learnEx: "The company is making a major effort to recruit more female engineers.", learnTrans: "公司正做出巨大努力來招聘更多的女性工程師。", 
               pdfEx: "Amelia Earhart was the first female pilot to fly solo across the Atlantic Ocean.", pdfTrans: "艾蜜莉亞·艾爾哈特是第一位獨自飛越大西洋的女性飛行員。",
-              collocations: [["female", "candidate", "女性候選人"], ["female", "student", "女學生"], ["female", "lead", "女主角"]], etymology: "From Latin 'femella', diminutive of 'femina' (woman)." },
+              collocations: [["female", "candidate", "女性候選人"], ["female", "student", "女學生"], ["female", "lead", "女主角"]], etymology: "From Latin 'femella', diminutive of 'femina'." },
             { word: "region", targetWord: "regions", pos: "n.", chinese: "地區", english: "a large land area", syllables: ["re", "gion"], ipa: "/'ridʒən/", 
               learnEx: "Rain is expected in all southern regions of the country today.", learnTrans: "預計今天該國所有南部地區都會下雨。", 
               pdfEx: "The northern regions of the country are usually windy and snowy in winter.", pdfTrans: "這個國家的北部地區冬天通常多風且積雪。",
@@ -281,7 +281,7 @@
             { word: "continue", targetWord: "continued", pos: "vt.", chinese: "繼續", english: "to carry on or not stop", syllables: ["con", "tin", "ue"], ipa: "/kən'tınjo/", 
               learnEx: "I’ll stop for a minute, but please continue with your work.", learnTrans: "我會停一下，但請繼續你的工作。", 
               pdfEx: "After a short break for lunch, Wally continued his work.", pdfTrans: "午餐休息一會兒後，華利繼續他的工作。",
-              collocations: [["continue", "working", "繼續工作"], ["continue", "education", "繼續受教育"], ["continue", "support", "持續支持"]], etymology: "con- (together) + tenere (hold)." },
+              collocations: [["continue", "working", "繼續工作"], ["continue", "education", "繼續受教育"], ["continue", "support", "持續支持"]], etymology: "From Latin 'con-' (together) + 'tenere' (to hold)." },
             { word: "continues", targetWord: "continues", pos: "vt.", chinese: "繼續", english: "happening without stopping", syllables: ["con", "tin", "ues"], ipa: "/kən'tınjoz/", 
               learnEx: "If the rain continues, we'll have to cancel tonight's plans.", learnTrans: "如果雨還下個不停，我們只好取消今晚的計劃。", 
               pdfEx: "If the rain continues, we'll have to cancel tonight's plans.", pdfTrans: "如果雨還下個不停，我們只好取消今晚的計劃。",
@@ -291,9 +291,9 @@
               pdfEx: "The continuous rain has caused floods in many parts of the country.", pdfTrans: "持續不斷的雨水導致該國許多地區發生洪水。",
               collocations: [["continuous", "rain", "持續降雨"], ["continuous", "flow", "流動不止"], ["continuous", "improvement", "持續進步"]], etymology: "continue + -ous (suffix)." },
             { word: "education", targetWord: "education", pos: "n.", chinese: "教育", english: "process of teaching and learning in a school", syllables: ["ed", "u", "ca", "tion"], ipa: "/,edzu'kesǝn/", 
-              learnEx: "He received his higher education at Oxford University.", learnTrans: "他在牛津大學接受高等教育。", 
+              learnEx: "She wants to give her children the best possible education.", learnTrans: "她想給孩子最好的教育。", 
               pdfEx: "Two new schools were built to improve the quality of education in this remote area.", pdfTrans: "為了提高這個偏遠地區的教育品質，興建了兩所新學校。",
-              collocations: [["higher", "education", "高等教育"], ["primary", "education", "初等教育"], ["receive", "education", "接受教育"]], etymology: "e- (out) + ducere (lead)." },
+              collocations: [["higher", "education", "高等教育"], ["receive", "education", "接受教育"], ["primary", "education", "初等教育"]], etymology: "e- (out) + ducere (lead)." },
             { word: "educational", targetWord: "educational", pos: "adj.", chinese: "教育的", english: "relating to providing information", syllables: ["ed", "u", "ca", "tion", "al"], ipa: "/,edzu'kefǝn!/", 
               learnEx: "Watching quality television can have great educational value.", learnTrans: "觀看高品質的電視節目具有極大的教育價值。", 
               pdfEx: "According to the advertisement, language learning textbooks and other educational materials can be ordered online.", pdfTrans: "語言學習教科書和其他教育教材可以網上訂購。",
@@ -309,7 +309,7 @@
             { word: "equal", targetWord: "equal", pos: "adj.", chinese: "相等的", english: "having the same rights", syllables: ["e", "qual"], ipa: "/'ikwǝl/", 
               learnEx: "All citizens should have equal rights under the law.", learnTrans: "所有公民在法律面前應享有平等的權利。", 
               pdfEx: "Everyone should enjoy equal rights and be treated the same.", pdfTrans: "每個人都應該享有平等的權利並受到同樣的對待。",
-              collocations: [["equal", "rights", "平等權利"], ["equal", "to", "等於"], ["equal", "opportunities", "平等機會"]], etymology: "From Latin 'aequalis'." },
+              collocations: [["equal", "rights", "平等權利"], ["equal", "to", "等於"], ["equal", "opportunities", "平等機會"]], etymology: "From Latin 'aequalis' (even)." },
             { word: "equality", targetWord: "equality", pos: "n.", chinese: "平等", english: "the state of being equal", syllables: ["e", "qual", "i", "ty"], ipa: "/i'kwalǝtı/", 
               learnEx: "The organization fights for gender equality in sports.", learnTrans: "該組織為運動領域的性別平等而奮鬥。", 
               pdfEx: "Mary has been dedicating herself to the fight for job equality for a decade.", pdfTrans: "瑪麗十年來一直致力於爭取工作平等。",
@@ -317,27 +317,27 @@
             { word: "control", targetWord: "controlled", pos: "vt.", chinese: "控制", english: "to limit or rule something", syllables: ["con", "trol"], ipa: "/kən'trol/", 
               learnEx: "He struggled to control his emotions when he heard the news.", learnTrans: "聽到這個消息時，他掙扎著控制自己的情緒。", 
               pdfEx: "It is important to control your weight. Being too thin or too fat is bad for your health.", pdfTrans: "控制體重很重要。太瘦或太胖對健康都不好。",
-              collocations: [["under", "control", "在控制中"], ["out of", "control", "失控"], ["birth", "control", "避孕控制"]], etymology: "From French 'contra' + 'rotulus'." },
+              collocations: [["under", "control", "在控制中"], ["exert", "control", "施加控制"], ["out of", "control", "失控"]], etymology: "From French 'contra' + 'rotulus'." },
             { word: "annoy", targetWord: "annoys", pos: "vt.", chinese: "惱怒", english: "to cause someone to become angry", syllables: ["an", "noy"], ipa: "/ənər/", 
               learnEx: "The loud noise from the street began to annoy the residents.", learnTrans: "街道上的巨大噪音開始讓居民感到惱火。", 
               pdfEx: "It really annoys Mrs. Donald when her children don't wash their hands before dinner.", pdfTrans: "當孩子們不洗手時，這真的讓她很惱火。",
               collocations: [["deeply", "annoyed", "深感惱怒"], ["sounds", "annoying", "聽起來很煩人"], ["extremely", "annoying", "極度煩人"]], etymology: "From Latin 'in odio'." },
             { word: "threaten", targetWord: "threatened", pos: "vt.", chinese: "威脅", syllables: ["threat", "en"], ipa: "/θετη/", english: "warn someone of harm if they don't comply", 
-              learnEx: "The terrorists threatened to blow up the building.", learnTrans: "恐怖分子威脅要炸毀大樓。", 
+              learnEx: "The manager threatened to fire him if he was late again.", learnTrans: "經理威脅說如果他再遲到就開除他。", 
               pdfEx: "The robber threatened the bank staff with a gun and made them hand over the money.", pdfTrans: "搶匪用槍威脅銀行職員，逼他們交出錢來。",
               collocations: [["threaten", "with", "以...威脅"], ["seriously", "threaten", "嚴重威脅"], ["threaten", "to leave", "威脅要離開"]], etymology: "threat + -en (suffix)." },
             { word: "threat", targetWord: "threats", pos: "n.", chinese: "威脅", english: "a statement or sign of harm", syllables: ["threat"], ipa: "/θετ/", 
               learnEx: "Climate change poses a serious threat to the environment.", learnTrans: "氣候變遷對環境構成了嚴重的威脅。", 
               pdfEx: "The boy is always making threats against the younger students in his school.", pdfTrans: "男孩總是威脅較小的學生。",
-              collocations: [["pose a", "threat", "造成威脅"], ["bomb", "threat", "炸彈威脅"], ["nuclear", "threat", "核威脅"]], etymology: "Old English 'threat'." },
+              collocations: [["pose a", "threat", "造成威脅"], ["bomb", "threat", "炸彈威脅"], ["nuclear", "threat", "核威脅"]], etymology: "Old English 'threat' (oppression)." },
             { word: "surgery", targetWord: "surgery", pos: "n.", chinese: "外科手術", syllables: ["sur", "ger", "y"], ipa: "/'s3-dzərı/", english: "medical treatment involving cutting the body", 
               learnEx: "She had to undergo major surgery on her heart last year.", learnTrans: "她去年必須接受心臟大手術。", 
               pdfEx: "When Joel had a heart operation, it was a very young doctor who performed the surgery.", pdfTrans: "是由一位非常年輕的醫生執刀的手術。",
-              collocations: [["perform", "surgery", "進行手術"], ["undergo", "surgery", "接受手術"], ["major", "surgery", "大手術"]], etymology: "Greek 'cheir' (hand) + 'ergon' (work)." },
+              collocations: [["perform", "surgery", "進行手術"], ["undergo", "surgery", "接受手術"], ["elective", "surgery", "非急需手術"]], etymology: "Greek 'cheir' (hand) + 'ergon' (work)." },
             { word: "recover", targetWord: "recovered", pos: "vi.", chinese: "康復", syllables: ["re", "cov", "er"], ipa: "/ri'kavǝ-/", english: "to heal or get better after sickness", 
               learnEx: "It takes time to recover from a serious illness or injury.", learnTrans: "從重病或重傷中康復需要時間。", 
               pdfEx: "Stacy recovered from the flu and went back to work last week.", pdfTrans: "史黛西上週感冒康復並回去工作了。",
-              collocations: [["fully", "recover", "完全康復"], ["recover", "quickly", "快速康復"], ["recover", "from", "從...康復"]], etymology: "re- (again) + capere (take)." },
+              collocations: [["recover", "fully", "完全康復"], ["recover", "quickly", "快速康復"], ["recover", "from", "從...康復"]], etymology: "re- (again) + capere (take)." },
             { word: "recovery", targetWord: "recovery", pos: "n.", chinese: "恢復", syllables: ["re", "cov", "er", "y"], ipa: "/ri'kavǝrı/", english: "the process of healing", 
               learnEx: "Doctors are optimistic about his chances of a full recovery.", learnTrans: "醫生對他完全康復的機會感到樂觀。", 
               pdfEx: "Thanks to the vet's continuous attention, the panda made a full recovery from its injuries.", pdfTrans: "由於獸醫持續的照料，這隻熊貓完全康復了。",
@@ -345,7 +345,7 @@
             { word: "sign", targetWord: "signed", pos: "vt.", chinese: "簽名；簽署", syllables: ["sign"], ipa: "/sain/", english: "write one's name to show agreement", 
               learnEx: "Please sign the contract and return it to our office.", learnTrans: "請簽署合約並將其寄回我們的辦公室。", 
               pdfEx: "David signed his name at the bottom of the letter.", pdfTrans: "大衛在信末簽了名。",
-              collocations: [["sign", "a contract", "簽署合約"], ["sign", "a letter", "簽信"], ["sign", "into law", "簽署生效"]], etymology: "/mark/." },
+              collocations: [["sign", "a contract", "簽署合約"], ["sign", "a treaty", "簽署條約"], ["sign", "into law", "簽署生效"]], etymology: "From Latin 'signum' (mark)." },
             { word: "persuade", targetWord: "persuade", pos: "vt.", chinese: "說服", syllables: ["per", "suade"], ipa: "/po'swed/", english: "use arguments to make someone do something", 
               learnEx: "I managed to persuade him to change his mind about the trip.", learnTrans: "我設法說服他改變了關於旅行的主意。", 
               pdfEx: "Mr. Kennedy was worried about his daughter's health and tried to persuade her to do more exercise.", pdfTrans: "甘迺迪先生試圖說服她多做運動。",
@@ -363,9 +363,9 @@
               pdfEx: "Oliver was adopted by his aunt when both of his parents died in a plane crash.", pdfTrans: "奧利佛被他的姑姑領養了。",
               collocations: [["adopt", "an approach", "採取方法"], ["adopt", "a policy", "採納政策"], ["adopt", "a child", "領養小孩"]], etymology: "ad- (to) + optare (choose)." },
             { word: "policy", targetWord: "policies", pos: "n.", chinese: "政策", syllables: ["pol", "i", "cy"], ipa: "/'paləsı/", english: "a plan adopted by an organization", 
-              learnEx: "The store has a generous return policy for customers.", learnTrans: "該商店為顧客提供了慷慨的退貨政策。", 
+              learnEx: "It is company policy to respond to all emails within 24 hours.", learnTrans: "在 24 小時內回覆所有電子郵件是公司的政策。", 
               pdfEx: "The amount of waste has been greatly reduced since our government adopted stricter policies on recycling.", pdfTrans: "自從政府採取更嚴格的回收政策後...",
-              collocations: [["foreign", "policy", "外交政策"], ["strict", "policy", "嚴格政策"], ["implement", "a policy", "實行政策"]], etymology: "/polis/ (city)." },
+              collocations: [["foreign", "policy", "外交政策"], ["strict", "policy", "嚴格政策"], ["implement", "a policy", "實行政策"]], etymology: "From Greek 'polis' (city)." },
             { word: "ensure", targetWord: "ensure", pos: "vt.", chinese: "確保", syllables: ["en", "sure"], ipa: "/in'for/", english: "to make certain that something happens", 
               learnEx: "The airline must ensure the safety of all its passengers.", learnTrans: "航空公司必須確保所有乘客的安全。", 
               pdfEx: "A new law will be made to ensure that every child will get proper care and education.", pdfTrans: "將制定一項新法律以確保每個孩子都能得到適當的照料。",
@@ -373,15 +373,19 @@
             { word: "establish", targetWord: "established", pos: "vt.", chinese: "建立", syllables: ["es", "tab", "lish"], ipa: "/ə'stæblı/", english: "to start or found an organization", 
               learnEx: "The committee was established to investigate the causes of the accident.", learnTrans: "委員會被建立起來以調查事故原因。", 
               pdfEx: "Harvard University was established in 1636 and is the oldest university in the US.", pdfTrans: "哈佛大學成立於 1636 年。",
-              collocations: [["establish", "a business", "創立事業"], ["establish", "a reputation", "建立名聲"], ["establish", "a link", "建立連結"]], etymology: "Latin 'stare' (stand)." },
+              collocations: [["establish", "a link", "建立連結"], ["establish", "a business", "創立事業"], ["establish", "a reputation", "建立名聲"]], etymology: "Latin 'stare' (stand)." },
+            { word: "establishment", targetWord: "establishment", pos: "n.", syllables: ["es", "tab", "lish", "ment"], ipa: "/ə'stæblıʃmənt/", english: "the act of starting an organization", 
+              learnEx: "The establishment of a new research center will create many jobs.", learnTrans: "新研究中心的建立將創造許多工作機會。", 
+              pdfEx: "The establishment of the children's home has ensured that over eighty orphans are provided with food and protection.", pdfTrans: "兒童之家的建立確保了八十多名孤兒獲得食物和保護。",
+              collocations: [["political", "establishment", "政治體系"], ["educational", "establishment", "教育機構"], ["religious", "establishment", "宗教機構"]], etymology: "establish + -ment (suffix)." },
             { word: "honor", targetWord: "honors", pos: "n./vt.", chinese: "榮譽；致敬", syllables: ["hon", "or"], ipa: "/'ano/", english: "special award or great respect", 
               learnEx: "It was a great honor to be invited to speak at the White House.", learnTrans: "受邀前往白宮演講是一份莫大的榮幸。", 
               pdfEx: "Ang Lee has received many honors and awards for his inspiring movies.", pdfTrans: "李安獲得了許多榮譽和獎項。",
-              collocations: [["great", "honor", "莫大榮幸"], ["highest", "honor", "最高榮譽"], ["in honor of", "向...致敬"]], etymology: "Latin 'honos'." },
+              collocations: [["high", "honor", "極高榮譽"], ["guest of", "honor", "貴賓"], ["in honor of", "向...致敬"]], etymology: "Latin 'honos'." },
             { word: "honorable", targetWord: "honorable", pos: "adj.", chinese: "值得敬佩的", syllables: ["hon", "or", "a", "ble"], ipa: "/'anərəbl/", english: "deserving respect and admiration", 
               learnEx: "He made an honorable decision to admit his mistake.", learnTrans: "他做了一個高尚的決定，承認了自己的錯誤。", 
               pdfEx: "Everyone in the courtroom stood and remained silent as the honorable judge entered.", pdfTrans: "法庭上的每個人在受人尊敬的法官進入時都起立。",
-              collocations: [["honorable", "judge", "尊敬的法官"], ["honorable", "mention", "佳作/提名"], ["honorable", "career", "體面的職業生涯"]], etymology: "honor + -able (suffix)." },
+              collocations: [["honorable", "mention", "佳作/提名"], ["honorable", "judge", "尊敬的法官"], ["honorable", "intention", "高尚意圖"]], etymology: "honor + -able (suffix)." },
             { word: "weapon", targetWord: "weapon", pos: "n.", chinese: "手段；武器", syllables: ["weap", "on"], ipa: "/'wepən/", english: "an effective tool for success or fighting", 
               learnEx: "Diplomacy is often the best weapon against conflict between nations.", learnTrans: "外交通常是對抗國家衝突的最佳手段。", 
               pdfEx: "Exercising is considered to be an effective weapon against stress.", pdfTrans: "運動被認為是對抗壓力的有效手段。",
@@ -400,10 +404,6 @@
               learnEx: "Mozart was already composing music at the age of five.", learnTrans: "莫札特在五歲時就已經在作曲了。", 
               pdfEx: "At the age of 17, Malala became the youngest person ever to win the Nobel Peace Prize.", pdfTrans: "在 17 歲時，馬拉拉成為最年輕的諾貝爾和平獎得主。", 
               collocations: [["start at", "the age of", "從...歲開始"], ["married at", "the age of", "在...歲結婚"], ["retired at", "the age of", "在...歲退休"]], etymology: "Phrase" },
-            { word: "condemn to", targetWord: "condemned to", pos: "phr.", chinese: "處以...刑罰", english: "to give someone a severe punishment", syllables: ["con", "demn", "to"], ipa: "/kən'dɛm tu/", 
-              learnEx: "The defendant was condemned to death for murder.", learnTrans: "被告因謀殺罪被判處死刑。", 
-              pdfEx: "Malala was condemned to death by the Taliban for her beliefs.", pdfTrans: "馬拉拉因其信念被塔利班處以死刑。", 
-              collocations: [["condemn", "to death", "判處死刑"], ["condemn", "to prison", "判處入獄"], ["condemn", "to silence", "迫使沉默"]], etymology: "Phrase" },
             { word: "make a difference", targetWord: "make a difference", pos: "phr.", chinese: "有影響/起作用", english: "to have an effect on a situation", syllables: ["make", "a", "dif", "fer", "ence"], ipa: "/mek ə 'difrəns/", 
               learnEx: "Your donation, no matter how small, can really make a difference to the charity.", learnTrans: "您的捐款無論多少，都能產生實質性的影響。", 
               pdfEx: "She believed that one person could really make a difference.", pdfTrans: "她相信一個人真的可以改變世界。", 
@@ -536,29 +536,24 @@
                 const target = q.targetWord; 
                 const displayHint = `<span class="cloze-blank">${generatePhraseHint(target)}</span>`;
                 const sentence = q.pdfEx;
-                
-                // 更穩定的挖空替換邏輯：對句子進行單字拆解與精準匹配
                 const regex = new RegExp(`\\b${target.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')}\\b`, 'gi');
                 let processedEx = sentence.replace(regex, displayHint);
-
                 if (processedEx === sentence) {
                     processedEx = sentence.toLowerCase().replace(target.toLowerCase(), displayHint);
                 }
-
                 body.innerHTML = `<div class="bg-white neo-brutal p-6 w-full max-w-sm mx-auto" style="border-radius:25px;"><span class="bg-purple-100 text-purple-600 text-[10px] font-black px-2 py-1 rounded mb-4 inline-block uppercase tracking-wider">Cloze Test (PDF Example)</span><div class="text-xl font-bold leading-relaxed mb-6 text-left">${processedEx}</div><p id="coach-hint" class="hidden text-gray-400 italic text-sm mb-4 bg-gray-50 p-2 rounded text-left">${q.pdfTrans}</p><button onclick="document.getElementById('coach-hint').classList.toggle('hidden')" class="text-blue-500 text-xs font-bold mb-6 block">Show Translation</button><input id="coach-input" type="text" class="w-full neo-brutal p-4 font-bold text-center text-xl" placeholder="Type word..." autocomplete="off" style="border-radius:15px; border-color: #E2E8F0;" autofocus></div>`;
             }
             const input = document.getElementById('coach-input');
             if(input) { input.focus(); input.onkeyup = (e) => { if(e.key === "Enter") performCheck(); }; }
         }
 
-        // --- PRO SPEAK 核心邏輯優化 ---
+        // --- PRO SPEAK 核心技術重構 ---
         function startMic() {
             const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
             if (!SpeechRecognition) {
-                return alert("您的瀏覽器不支援語音辨識功能。請使用 Chrome 或更新您的系統。");
+                return alert("您的瀏覽器不支援語音辨識。請使用 Chrome 或更新系統。");
             }
 
-            // 停止正在進行的辨識
             if (activeActivity.rec) {
                 try { activeActivity.rec.stop(); } catch(e) {}
             }
@@ -578,7 +573,6 @@
                 status.innerText = "LISTENING... PLEASE SPEAK NOW";
                 status.classList.add('text-red-500');
                 textDisplay.innerText = "";
-                if (window.navigator.vibrate) window.navigator.vibrate(50);
             };
 
             rec.onerror = (e) => {
@@ -586,7 +580,7 @@
                 status.classList.remove('text-red-500');
                 if (e.error === 'not-allowed') {
                     status.innerText = "ERROR: MIC PERMISSION DENIED";
-                    alert("請點擊網址旁邊的鎖頭圖標，允許麥克風權限後再試。");
+                    alert("請點擊網址旁邊的鎖頭圖標，允許麥克風權限。");
                 } else {
                     status.innerText = "ERROR: " + e.error.toUpperCase();
                 }
@@ -619,7 +613,7 @@
         function performCheck() {
             if (activeActivity.isChecked) {
                 activeActivity.currentIdx++;
-                if (activeActivity.currentIdx < activeActivity.questions.length) renderCoachQuestion();
+                if (activeActivity.currentIdx < 15) renderCoachQuestion();
                 else { submitResult(); exitActivity(); alert(`挑戰完成！您的得分是：${activeActivity.score}`); }
                 return;
             }
