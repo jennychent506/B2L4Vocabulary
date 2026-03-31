@@ -82,7 +82,7 @@
             left: 15px;
             background: black;
             color: white;
-            padding: 4px 10px;
+            padding: 4px 12px;
             border-radius: 8px;
             font-weight: 900;
             font-size: 0.8rem;
@@ -158,13 +158,6 @@
             align-items: center;
             justify-content: center;
             gap: 12px;
-        }
-
-        .pulse-mic { animation: pulse 1.5s infinite; }
-        @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(233, 109, 158, 0.7); }
-            70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(233, 109, 158, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(233, 109, 158, 0); }
         }
 
         .cloze-blank {
@@ -258,7 +251,7 @@
     </div>
 
     <script>
-        // --- 請將最新部署的 GAS 網址貼在下方這行 (第 446 行) ---
+        // --- 請將最新部署的 GAS 網址貼在下方這行 (第 418 行) ---
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzyFva945ZNpjqANvNmvfNbjYeUSZrPnf0b5NfkL93zKnlXrE2jSNqN-fpwkZfzQEue/exec"; 
 
         const VOCAB_DATA = [
@@ -291,7 +284,7 @@
               pdfEx: "The continuous rain has caused floods in many parts of the country.", pdfTrans: "持續不斷的雨水導致該國許多地區發生洪水。",
               collocations: [["continuous", "rain", "持續降雨"], ["continuous", "flow", "流動不止"], ["continuous", "improvement", "持續進步"]], etymology: "continue + -ous (suffix)." },
             { word: "education", targetWord: "education", pos: "n.", chinese: "教育", english: "process of teaching and learning in a school", syllables: ["ed", "u", "ca", "tion"], ipa: "/,edzu'kesǝn/", 
-              learnEx: "She wants to give her children the best possible education.", learnTrans: "她想給孩子最好的教育。", 
+              learnEx: "He received his higher education at Oxford University.", learnTrans: "他在牛津大學接受高等教育。", 
               pdfEx: "Two new schools were built to improve the quality of education in this remote area.", pdfTrans: "為了提高這個偏遠地區的教育品質，興建了兩所新學校。",
               collocations: [["higher", "education", "高等教育"], ["receive", "education", "接受教育"], ["primary", "education", "初等教育"]], etymology: "e- (out) + ducere (lead)." },
             { word: "educational", targetWord: "educational", pos: "adj.", chinese: "教育的", english: "relating to providing information", syllables: ["ed", "u", "ca", "tion", "al"], ipa: "/,edzu'kefǝn!/", 
@@ -314,14 +307,14 @@
               learnEx: "The organization fights for gender equality in sports.", learnTrans: "該組織為運動領域的性別平等而奮鬥。", 
               pdfEx: "Mary has been dedicating herself to the fight for job equality for a decade.", pdfTrans: "瑪麗十年來一直致力於爭取工作平等。",
               collocations: [["gender", "equality", "性別平等"], ["social", "equality", "社會平等"], ["achieve", "equality", "達成平等"]], etymology: "equal + -ity (suffix)." },
-            { word: "control", targetWord: "controlled", pos: "vt.", chinese: "控制", english: "to limit or rule something", syllables: ["con", "trol"], ipa: "/kən'trol/", 
+            { word: "control", targetWord: "control", pos: "vt.", chinese: "控制", english: "to limit or rule something", syllables: ["con", "trol"], ipa: "/kən'trol/", 
               learnEx: "He struggled to control his emotions when he heard the news.", learnTrans: "聽到這個消息時，他掙扎著控制自己的情緒。", 
               pdfEx: "It is important to control your weight. Being too thin or too fat is bad for your health.", pdfTrans: "控制體重很重要。太瘦或太胖對健康都不好。",
               collocations: [["under", "control", "在控制中"], ["exert", "control", "施加控制"], ["out of", "control", "失控"]], etymology: "From French 'contra' + 'rotulus'." },
             { word: "annoy", targetWord: "annoys", pos: "vt.", chinese: "惱怒", english: "to cause someone to become angry", syllables: ["an", "noy"], ipa: "/ənər/", 
               learnEx: "The loud noise from the street began to annoy the residents.", learnTrans: "街道上的巨大噪音開始讓居民感到惱火。", 
               pdfEx: "It really annoys Mrs. Donald when her children don't wash their hands before dinner.", pdfTrans: "當孩子們不洗手時，這真的讓她很惱火。",
-              collocations: [["deeply", "annoyed", "深感惱怒"], ["sounds", "annoying", "聽起來很煩人"], ["extremely", "annoying", "極度煩人"]], etymology: "From Latin 'in odio'." },
+              collocations: [["deeply", "annoyed", "深感惱怒"], ["slightly", "annoyed", "微感惱怒"], ["sounds", "annoying", "聽起來很煩人"]], etymology: "From Latin 'in odio'." },
             { word: "threaten", targetWord: "threatened", pos: "vt.", chinese: "威脅", syllables: ["threat", "en"], ipa: "/θετη/", english: "warn someone of harm if they don't comply", 
               learnEx: "The manager threatened to fire him if he was late again.", learnTrans: "經理威脅說如果他再遲到就開除他。", 
               pdfEx: "The robber threatened the bank staff with a gun and made them hand over the money.", pdfTrans: "搶匪用槍威脅銀行職員，逼他們交出錢來。",
@@ -333,11 +326,11 @@
             { word: "surgery", targetWord: "surgery", pos: "n.", chinese: "外科手術", syllables: ["sur", "ger", "y"], ipa: "/'s3-dzərı/", english: "medical treatment involving cutting the body", 
               learnEx: "She had to undergo major surgery on her heart last year.", learnTrans: "她去年必須接受心臟大手術。", 
               pdfEx: "When Joel had a heart operation, it was a very young doctor who performed the surgery.", pdfTrans: "是由一位非常年輕的醫生執刀的手術。",
-              collocations: [["perform", "surgery", "進行手術"], ["undergo", "surgery", "接受手術"], ["elective", "surgery", "非急需手術"]], etymology: "Greek 'cheir' (hand) + 'ergon' (work)." },
+              collocations: [["perform", "surgery", "進行手術"], ["undergo", "surgery", "接受手術"], ["major", "surgery", "大手術"]], etymology: "Greek 'cheir' (hand) + 'ergon' (work)." },
             { word: "recover", targetWord: "recovered", pos: "vi.", chinese: "康復", syllables: ["re", "cov", "er"], ipa: "/ri'kavǝ-/", english: "to heal or get better after sickness", 
               learnEx: "It takes time to recover from a serious illness or injury.", learnTrans: "從重病或重傷中康復需要時間。", 
               pdfEx: "Stacy recovered from the flu and went back to work last week.", pdfTrans: "史黛西上週感冒康復並回去工作了。",
-              collocations: [["recover", "fully", "完全康復"], ["recover", "quickly", "快速康復"], ["recover", "from", "從...康復"]], etymology: "re- (again) + capere (take)." },
+              collocations: [["fully", "recover", "完全康復"], ["recover", "quickly", "快速康復"], ["recover", "from", "從...康復"]], etymology: "re- (again) + capere (take)." },
             { word: "recovery", targetWord: "recovery", pos: "n.", chinese: "恢復", syllables: ["re", "cov", "er", "y"], ipa: "/ri'kavǝrı/", english: "the process of healing", 
               learnEx: "Doctors are optimistic about his chances of a full recovery.", learnTrans: "醫生對他完全康復的機會感到樂觀。", 
               pdfEx: "Thanks to the vet's continuous attention, the panda made a full recovery from its injuries.", pdfTrans: "由於獸醫持續的照料，這隻熊貓完全康復了。",
@@ -345,11 +338,11 @@
             { word: "sign", targetWord: "signed", pos: "vt.", chinese: "簽名；簽署", syllables: ["sign"], ipa: "/sain/", english: "write one's name to show agreement", 
               learnEx: "Please sign the contract and return it to our office.", learnTrans: "請簽署合約並將其寄回我們的辦公室。", 
               pdfEx: "David signed his name at the bottom of the letter.", pdfTrans: "大衛在信末簽了名。",
-              collocations: [["sign", "a contract", "簽署合約"], ["sign", "a treaty", "簽署條約"], ["sign", "into law", "簽署生效"]], etymology: "From Latin 'signum' (mark)." },
+              collocations: [["sign", "a contract", "簽署合約"], ["sign", "a letter", "簽信"], ["sign", "into law", "簽署生效"]], etymology: "From Latin 'signum' (mark)." },
             { word: "persuade", targetWord: "persuade", pos: "vt.", chinese: "說服", syllables: ["per", "suade"], ipa: "/po'swed/", english: "use arguments to make someone do something", 
               learnEx: "I managed to persuade him to change his mind about the trip.", learnTrans: "我設法說服他改變了關於旅行的主意。", 
-              pdfEx: "Mr. Kennedy was worried about his daughter's health and tried to persuade her to do more exercise.", pdfTrans: "甘迺迪先生試圖說服她多做運動。",
-              collocations: [["persuade", "someone to", "說服某人做..."], ["difficult to", "persuade", "難以說服"], ["easily", "persuaded", "容易被說服"]], etymology: "per- (thoroughly) + suadere (urge)." },
+              pdfEx: "Mr. Kennedy was worried about his daughter's health and tried to persuade her to do more exercise.", pdfTrans: "甘迺迪先生擔心他女兒的健康，試圖說服她多做運動。",
+              collocations: [["persuade", "someone to", "說服某人做..."], ["try to", "persuade", "試圖說服"], ["easily", "persuaded", "容易被說服"]], etymology: "per- (thoroughly) + suadere (urge)." },
             { word: "persuasion", targetWord: "persuasion", pos: "n.", chinese: "說服", syllables: ["per", "sua", "sion"], ipa: "/pə-swezǝn/", english: "the act of persuading someone", 
               learnEx: "It took a great deal of persuasion to get her to join us.", learnTrans: "花了很多口舌才讓她加入我們。", 
               pdfEx: "Using his powers of persuasion, Richie finally made his wife start painting again.", pdfTrans: "利用說服力，理奇終於讓妻子重拾畫筆。",
@@ -360,7 +353,7 @@
               collocations: [["persuasive", "argument", "有說服力的論點"], ["persuasive", "speaker", "有說服力的演講者"], ["highly", "persuasive", "非常有說服力"]], etymology: "persuade + -ive (suffix)." },
             { word: "adopt", targetWord: "adopted", pos: "vt.", chinese: "採取/領養", syllables: ["a", "dopt"], ipa: "/ə'dapt/", english: "approve a method or take a child as one's own", 
               learnEx: "The company decided to adopt a more flexible working policy.", learnTrans: "公司決定採取更靈活的工作政策。", 
-              pdfEx: "Oliver was adopted by his aunt when both of his parents died in a plane crash.", pdfTrans: "奧利佛被他的姑姑領養了。",
+              pdfEx: "Each of the four groups adopted a different strategy to solve the problem.", pdfTrans: "每個小組各採取了不同的策略來解決問題。",
               collocations: [["adopt", "an approach", "採取方法"], ["adopt", "a policy", "採納政策"], ["adopt", "a child", "領養小孩"]], etymology: "ad- (to) + optare (choose)." },
             { word: "policy", targetWord: "policies", pos: "n.", chinese: "政策", syllables: ["pol", "i", "cy"], ipa: "/'paləsı/", english: "a plan adopted by an organization", 
               learnEx: "It is company policy to respond to all emails within 24 hours.", learnTrans: "在 24 小時內回覆所有電子郵件是公司的政策。", 
@@ -391,23 +384,27 @@
               pdfEx: "Exercising is considered to be an effective weapon against stress.", pdfTrans: "運動被認為是對抗壓力的有效手段。",
               collocations: [["lethal", "weapon", "致命武器"], ["effective", "weapon", "有效手段"], ["offensive", "weapon", "攻擊性武器"]], etymology: "Old English 'waepen'." },
 
-            // --- Phrases ---
-            { word: "out of control", targetWord: "out of control", pos: "phr.", chinese: "失去控制", english: "no longer manageable", syllables: ["out", "of", "con", "trol"], ipa: "/aʊt əv kən'trol/", 
-              learnEx: "The price of oil is spiralling out of control.", learnTrans: "油價正螺旋式上升且失去控制。", 
-              pdfEx: "Everything in the area seemed to be out of control.", pdfTrans: "該地區的一切似乎都失去了控制。", 
-              collocations: [["spin", "out of control", "旋轉失控"], ["completely", "out of control", "完全失控"], ["quickly", "out of control", "迅速失控"]], etymology: "Phrase" },
-            { word: "take over", targetWord: "took over", pos: "phr.", chinese: "接管", english: "to get control of something from someone else", syllables: ["take", "ov", "er"], ipa: "/tek 'ovə/", 
-              learnEx: "He intends to take over the family business when his father retires.", learnTrans: "他打算在他父親退休後接管家族生意。", 
-              pdfEx: "The Taliban took over the area and made many new laws.", pdfTrans: "塔利班接管了該地區並制定了許多新法律。", 
-              collocations: [["take over", "business", "接管生意"], ["take over", "leadership", "接管領導權"], ["take over", "duties", "接管職責"]], etymology: "Phrase" },
-            { word: "at the age of", targetWord: "at the age of", pos: "phr.", chinese: "在...歲時", english: "when someone was a certain age", syllables: ["at", "the", "age", "of"], ipa: "/æt ðə edʒ əv/", 
-              learnEx: "Mozart was already composing music at the age of five.", learnTrans: "莫札特在五歲時就已經在作曲了。", 
-              pdfEx: "At the age of 17, Malala became the youngest person ever to win the Nobel Peace Prize.", pdfTrans: "在 17 歲時，馬拉拉成為最年輕的諾貝爾和平獎得主。", 
-              collocations: [["start at", "the age of", "從...歲開始"], ["married at", "the age of", "在...歲結婚"], ["retired at", "the age of", "在...歲退休"]], etymology: "Phrase" },
-            { word: "make a difference", targetWord: "make a difference", pos: "phr.", chinese: "有影響/起作用", english: "to have an effect on a situation", syllables: ["make", "a", "dif", "fer", "ence"], ipa: "/mek ə 'difrəns/", 
-              learnEx: "Your donation, no matter how small, can really make a difference to the charity.", learnTrans: "您的捐款無論多少，都能產生實質性的影響。", 
-              pdfEx: "She believed that one person could really make a difference.", pdfTrans: "她相信一個人真的可以改變世界。", 
-              collocations: [["make a", "huge difference", "產生巨大影響"], ["make no", "difference", "毫無差別"], ["make a", "real difference", "產生真正影響"]], etymology: "Phrase" }
+            // --- Phrases from Screenshot (僅保留截圖中指定的5組) ---
+            { word: "take notice (of...)", targetWord: "took notice", pos: "phr.", chinese: "注意；在意", english: "to perceive or pay attention to something or someone", syllables: ["take", "no", "tice"], ipa: "/tek 'notɪs/", 
+              learnEx: "He didn't take any notice of the warning sign.", learnTrans: "他完全沒有注意那個警告標誌。", 
+              pdfEx: "We were too busy working, so no one took notice when Alex left last night.", pdfTrans: "我們忙著工作，所以沒人注意到艾力克斯昨晚離開了。", 
+              collocations: [["hardly", "take notice", "幾乎沒注意到"], ["suddenly", "take notice", "突然注意到"], ["fail to", "take notice", "未能注意到"]], etymology: "Phrase" },
+            { word: "blow up", targetWord: "blew up", pos: "phr.", chinese: "炸毀", english: "to cause something to explode using a bomb", syllables: ["blow", "up"], ipa: "/blo ʌp/", 
+              learnEx: "The rebels tried to blow up the power station.", learnTrans: "反叛份子試圖炸毀發電站。", 
+              pdfEx: "Enemy forces blew up the bridge with a bomb so that our army could not advance.", pdfTrans: "敵軍用炸彈炸毀了橋樑，使我軍無法前進。", 
+              collocations: [["threaten to", "blow up", "威脅炸毀"], ["blow up", "a balloon", "吹氣球"], ["blow up", "a photo", "放大照片"]], etymology: "Phrase" },
+            { word: "take away", targetWord: "took away", pos: "phr.", chinese: "拿走", english: "to remove something", syllables: ["take", "a", "way"], ipa: "/tek ə'we/", 
+              learnEx: "If you don't eat your dinner, I'll take it away.", learnTrans: "如果你不吃晚飯，我就把它端走。", 
+              pdfEx: "Robert's parents were worried that online games would distract him, so they took away his smartphone.", pdfTrans: "羅伯特的父母擔心他分心，所以拿走了他的智慧型手機。", 
+              collocations: [["take away", "the pain", "消除疼痛"], ["take away", "rights", "剝奪權利"], ["take away", "rubbish", "收走垃圾"]], etymology: "Phrase" },
+            { word: "speak out", targetWord: "spoken out", pos: "phr.", chinese: "發聲；公開發表意見", english: "to openly voice or express one's view", syllables: ["speak", "out"], ipa: "/spik aʊt/", 
+              learnEx: "She was the only person with enough courage to speak out against the plan.", learnTrans: "她是唯一一個有勇氣公開反對該計畫的人。", 
+              pdfEx: "Many concerned citizens have spoken out against the building of nuclear power plants.", pdfTrans: "許多擔心的公民公開發表意見反對興建核電廠。", 
+              collocations: [["speak out", "fearlessly", "無畏地發聲"], ["refuse to", "speak out", "拒絕公開表態"], ["speak out", "strongly", "強力發聲"]], etymology: "Phrase" },
+            { word: "call for", targetWord: "called for", pos: "phr.", chinese: "呼籲", english: "to openly request or ask for support or change", syllables: ["call", "for"], ipa: "/kɔl fɔ/", 
+              learnEx: "The opposition party has called for a general election.", learnTrans: "反對黨呼籲進行大選。", 
+              pdfEx: "The workers called for the company to raise their salaries by going on a five-day strike.", pdfTrans: "工人們透過五天罷工呼籲公司加薪。", 
+              collocations: [["call for", "action", "呼籲採取行動"], ["call for", "reform", "呼籲改革"], ["call for", "justice", "呼籲正義"]], etymology: "Phrase" }
         ];
 
         let currentUser = { class: "", no: "", name: "", xp: 0 };
@@ -536,22 +533,26 @@
                 const target = q.targetWord; 
                 const displayHint = `<span class="cloze-blank">${generatePhraseHint(target)}</span>`;
                 const sentence = q.pdfEx;
-                const regex = new RegExp(`\\b${target.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')}\\b`, 'gi');
+                
+                // 更穩定的挖空替換邏輯：建立正規表達式替換目標單字
+                const regex = new RegExp(target.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'), 'gi');
                 let processedEx = sentence.replace(regex, displayHint);
+
                 if (processedEx === sentence) {
                     processedEx = sentence.toLowerCase().replace(target.toLowerCase(), displayHint);
                 }
+
                 body.innerHTML = `<div class="bg-white neo-brutal p-6 w-full max-w-sm mx-auto" style="border-radius:25px;"><span class="bg-purple-100 text-purple-600 text-[10px] font-black px-2 py-1 rounded mb-4 inline-block uppercase tracking-wider">Cloze Test (PDF Example)</span><div class="text-xl font-bold leading-relaxed mb-6 text-left">${processedEx}</div><p id="coach-hint" class="hidden text-gray-400 italic text-sm mb-4 bg-gray-50 p-2 rounded text-left">${q.pdfTrans}</p><button onclick="document.getElementById('coach-hint').classList.toggle('hidden')" class="text-blue-500 text-xs font-bold mb-6 block">Show Translation</button><input id="coach-input" type="text" class="w-full neo-brutal p-4 font-bold text-center text-xl" placeholder="Type word..." autocomplete="off" style="border-radius:15px; border-color: #E2E8F0;" autofocus></div>`;
             }
             const input = document.getElementById('coach-input');
             if(input) { input.focus(); input.onkeyup = (e) => { if(e.key === "Enter") performCheck(); }; }
         }
 
-        // --- PRO SPEAK 核心技術重構 ---
+        // --- PRO SPEAK 核心技術修正：按鍵事件與辨識初始化分離 ---
         function startMic() {
             const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
             if (!SpeechRecognition) {
-                return alert("您的瀏覽器不支援語音辨識。請使用 Chrome 或更新系統。");
+                return alert("您的瀏覽器不支援語音辨識。請使用最新版 Chrome 或更新您的系統。");
             }
 
             if (activeActivity.rec) {
@@ -573,6 +574,7 @@
                 status.innerText = "LISTENING... PLEASE SPEAK NOW";
                 status.classList.add('text-red-500');
                 textDisplay.innerText = "";
+                if (window.navigator.vibrate) window.navigator.vibrate(50);
             };
 
             rec.onerror = (e) => {
@@ -580,7 +582,7 @@
                 status.classList.remove('text-red-500');
                 if (e.error === 'not-allowed') {
                     status.innerText = "ERROR: MIC PERMISSION DENIED";
-                    alert("請點擊網址旁邊的鎖頭圖標，允許麥克風權限。");
+                    alert("麥克風權限被拒絕，請檢查瀏覽器設定。");
                 } else {
                     status.innerText = "ERROR: " + e.error.toUpperCase();
                 }
